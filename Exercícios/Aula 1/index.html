@@ -1,0 +1,45 @@
+<!-- GRUPO 33 -->
+<!-- w3schools.com/html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title> oi </title>
+<link rel="icon" href="error.png">
+<link rel="stylesheet" href="style.css">
+<script>
+var i = 0;
+	console.log("Hello World!");
+	function changeImage() {
+		var image = document.getElementById('malmz');
+		console.log(image.src);
+		if(i==0) {
+			image.src = "./error2.png";
+			i=1;
+		} else {
+			i=0;
+			image.src = "./error.png";
+		}
+	}
+</script>
+
+</head>
+
+<body>
+<div id="header"> olá </div>
+<div id="texto">
+	<table>
+		<tr>
+			<td>Era</td>
+			<td>Uma MARTA SARA JOANA</td>
+			<td>Vez</td>
+		</tr>
+		<tr>
+			<td>Um</td>
+			<td>Gato</td>
+			<td>Chamado Deus Meu.</td>
+		</tr>
+</div>
+<img id="malmz" src="error.png" onclick="changeImage()" width="200px">
+
+</body>
+</html>
