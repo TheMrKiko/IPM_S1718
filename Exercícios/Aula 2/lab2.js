@@ -9,15 +9,19 @@ function loadAllRoomData(roomData) {
 
 
 function getRoomCoords(roomName) {
-  // TODO
-
+  roomData = JSON.parse(localStorage.getItem("AllRoomData"));
+  for(let i = 0; i<roomData.length; i++) {
+    if(roomData[i].roomname == roomName) {
+      return roomData[i].coords;
+    }
+  }
 }
 
 
 function setLocationPin(x1, y1, x2, y2) {
   var positionX = x1 + (x2 - x1) / 2.0 - 45;
   var positionY = y1 + (y2 - y1) / 2.0 - 45;
-  
+
   document.getElementById("target").style.left = positionX;
   document.getElementById("target").style.right = positionY;
   document.getElementById("target").style.visibility = "visible";
@@ -67,7 +71,7 @@ function displayDate() {
 }
 
 
-function getRoomSchedule(roomName) { 
+function getRoomSchedule(roomName) {
  // TODO
 
 }
@@ -78,7 +82,7 @@ function displaySchedule() {
   // Get and display the selected room
   var roomName = localStorage.getItem("roomName");
   // TODO
-  
+
   // Load the schedule for the current room
   currentSchedule = getRoomSchedule(roomName);
 
