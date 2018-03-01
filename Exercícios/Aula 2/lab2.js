@@ -4,7 +4,7 @@ var clone;
 
 
 function loadAllRoomData(roomData) {
-  // TODO
+  localStorage.setItem("AllRoomData", JSON.stringify(roomName));
 }
 
 
