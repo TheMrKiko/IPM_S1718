@@ -72,7 +72,12 @@ function displayDate() {
 
 
 function getRoomSchedule(roomName) {
- // TODO
+  roomData = JSON.parse(localStorage.getItem("AllRoomData"));
+  for(let i = 0; i<roomData.length; i++) {
+    if(roomData[i].roomname == roomName) {
+      return roomData[i].classes;
+    }
+  }
 
 }
 
