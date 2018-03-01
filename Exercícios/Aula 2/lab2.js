@@ -1,4 +1,4 @@
-// Drag and drop aux variables
+// Drag and drop aux variables PILOCA
 var pid;
 var clone;
 
