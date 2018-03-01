@@ -86,7 +86,7 @@ function displaySchedule() {
 
   // Get and display the selected room
   var roomName = localStorage.getItem("roomName");
-  // TODO
+  document.getElementById("currentRoom").innerHTML += roomName;
 
   // Load the schedule for the current room
   currentSchedule = getRoomSchedule(roomName);
@@ -94,7 +94,14 @@ function displaySchedule() {
   hourcol = document.getElementById("hours");
   classcol = document.getElementById("classes");
 
-  // TODO
+  for (let i = 0; i<currentSchedule;i++) {
+    hourcol.innerHTML += '<div class="timeslot">' + currentSchedule[i].time + '</div>';
+    if (currentSchedule[i].classname == "none") {
+      classcol.innerHTML += 'div class="emptyslot">  &nbsp;</div>'
+    } else {
+      classcol.innerHTML += '<div class="classslot">' + currentSchedule[i].classname + "</div>";
+    }
+  }
 
 }
 
