@@ -4,7 +4,7 @@ var clone;
 
 
 function loadAllRoomData(roomData) {
-  localStorage.setItem("AllRoomData", JSON.stringify(roomName));
+  localStorage.setItem("AllRoomData", JSON.stringify(roomData));
 }
 
 
@@ -23,7 +23,7 @@ function setLocationPin(x1, y1, x2, y2) {
   var positionY = y1 + (y2 - y1) / 2.0 - 45;
 
   document.getElementById("target").style.left = positionX;
-  document.getElementById("target").style.right = positionY;
+  document.getElementById("target").style.top = positionY;
   document.getElementById("target").style.visibility = "visible";
 }
 
