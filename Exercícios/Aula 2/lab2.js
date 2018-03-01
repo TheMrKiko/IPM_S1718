@@ -18,8 +18,8 @@ function setLocationPin(x1, y1, x2, y2) {
   var positionX = x1 + (x2 - x1) / 2.0 - 45;
   var positionY = y1 + (y2 - y1) / 2.0 - 45;
   
-  // TODO
-
+  document.getElementById("target").style.left = positionX;
+  document.getElementById("target").style.right = positionY;
   document.getElementById("target").style.visibility = "visible";
 }
 
