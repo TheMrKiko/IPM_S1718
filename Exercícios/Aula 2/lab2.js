@@ -94,12 +94,12 @@ function displaySchedule() {
   hourcol = document.getElementById("hours");
   classcol = document.getElementById("classes");
 
-  for (let i = 0; i<currentSchedule;i++) {
+  for (let i = 0; i<currentSchedule.length ;i++) {
     hourcol.innerHTML += '<div class="timeslot">' + currentSchedule[i].time + '</div>';
     if (currentSchedule[i].classname == "none") {
-      classcol.innerHTML += 'div class="emptyslot">  &nbsp;</div>'
+      classcol.innerHTML += 'div class="emptyslot">  &nbsp;</div>';
     } else {
-      classcol.innerHTML += '<div class="classslot">' + currentSchedule[i].classname + "</div>";
+      classcol.innerHTML += '<div class="classslot">' + currentSchedule[i].classname + '</div>';
     }
   }
 
