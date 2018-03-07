@@ -1,14 +1,17 @@
 
 .tabmenu {
   overflow: hidden;
+  justify-content: center;
+  display: flex;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  padding: 14px 14px 14px 14px;
-  margin: 0 150px 0 0 ;
+  padding: 0px 0;
 }
 
 .tab {
   background-color: inherit;
+  text-align: center;
+  font-size: 16px;
   float: left;
   border: none;
   outline: none;
@@ -18,8 +21,15 @@
 }
 
 .section {
-	display: none;
-  padding: 6px 12px;
+  display: none;
   border: 1px solid #ccc;
   border-top: none;
+  padding: 19px 0 20px 0;
+}
+
+#links {
+  text-align: center;
+  padding: 0 10vw;
+  margin: 0 15vw 0 15vw ;
+
 }
