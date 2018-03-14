@@ -30,3 +30,4 @@ function loadAllLinks(alllinks) {
         document.getElementById(links[link]["id"]).href = links[link]["url"];
     }
 }
+
