@@ -1,15 +1,18 @@
 var links = [
 	{
 		"id": "q1",
-		"url": "questionario1.html"
+		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas.pdf"
+		
 	},
 	{
 		"id": "q2",
-		"url": "questionario2.html"
+		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas (melhorado).pdf"
+		
 	},
 	{
 		"id": "at1",
-		"url": "at1.html"
+		"url": "../Entregas/1 - Analise de Tarefas/Analise de tarefas + Funcionalidades.pdf"
+    
 	},
 	{
 		"id": "at2",
