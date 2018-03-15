@@ -5,22 +5,22 @@ function changeTab(button, section) {
 
     sections = document.getElementsByClassName("section");
 
-    for (i = 0; i < sections.length; i++) {
+    for (i = 0; i < sections.length; i++) { //Esconder todas as seções
         sections[i].style.display = "none";
     }
     
-    if (!buttonEl.classList.contains("active")) {
+    if (!buttonEl.classList.contains("active")) { //Se botao nao está ativo
 
-        document.getElementById(section).style.display = "block";
+        document.getElementById(section).style.display = "block"; //Mostrar seção
 
-        buttons = document.getElementsByClassName("tab");
+        buttons = document.getElementsByClassName("tab"); //Desactivar todos os botoes
         for (i = 0; i < buttons.length; i++) {
-            buttons[i].className = buttons[i].className.replace(" active", "")
+            buttons[i].classList.remove("active");
         }
 
-        buttonEl.className += " active";
+        buttonEl.classList.add("active"); //Ativar este botao
     } else {
-        buttonEl.className = buttonEl.className.replace(" active", "");
+        buttonEl.classList.remove("active"); //Desativar este botão
     }
 }
 
