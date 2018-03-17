@@ -28,6 +28,9 @@ function loadAllLinks(alllinks) {
     var links = alllinks;
     for (link in links) {
         document.getElementById(links[link]["id"]).href = links[link]["url"];
+        if ("false" == links[link]["exists"]) {
+            document.getElementById(links[link]["id"]).classList.add("empty");
+        }
     }
 }
 
