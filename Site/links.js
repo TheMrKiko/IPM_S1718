@@ -1,82 +1,101 @@
 var links = [
 	{
 		"id": "q1",
-		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas.pdf"
+		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas.pdf",
+		"exists": "true"
 		
 	},
 	{
 		"id": "q2",
-		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas (melhorado).pdf"
-		
+		"url": "../Entregas/1 - Analise de Tarefas/Questionario para analise de tarefas (melhorado).pdf",
+		"exists": "true"
+
 	},
 	{
 		"id": "at1",
-		"url": "../Entregas/1 - Analise de Tarefas/Analise de tarefas + Funcionalidades.pdf"
+		"url": "../Entregas/1 - Analise de Tarefas/Analise de tarefas + Funcionalidades.pdf",
+		"exists": "true"
     
 	},
 	{
 		"id": "at2",
-		"url": "at2.html"
+		"url": "at2.html",
+		"exists": "false"
 	},
 	{
 		"id": "modc1",
-		"url": "mod-conceptual1.html"
+		"url": "mod-conceptual1.html",
+		"exists": "false"
 	},
 	{
 		"id": "modc2",
-		"url": "mod-conceptual2.html"
+		"url": "mod-conceptual2.html",
+		"exists": "false"
 	},
 	{
 		"id": "pbf1",
-		"url": "pbf1.html"
+		"url": "pbf1.html",
+		"exists": "false"
 	},
 	{
 		"id": "pbf2",
-		"url": "pbf2.html"
+		"url": "pbf2.html",
+		"exists": "false"
 	},
 	{
 		"id": "pf1b",
-		"url": "protFuncional1-beta.html"
+		"url": "protFuncional1-beta.html",
+		"exists": "false"
 	},
 	{
 		"id": "pf1c",
-		"url": "protFuncional1-completo.html"
+		"url": "protFuncional1-completo.html",
+		"exists": "false"
 	},
 	{
 		"id": "pf2b",
-		"url": "protFuncional2-beta.html"
+		"url": "protFuncional2-beta.html",
+		"exists": "false"
 	},
 	{
 		"id": "pf2c",
-		"url": "protFuncional2-completo.html"
+		"url": "protFuncional2-completo.html",
+		"exists": "false"
 	},
 	{
 		"id": "pfb",
-		"url": "protFinal-beta.html.html"
+		"url": "protFinal-beta.html.html",
+		"exists": "false"
 	},
 	{
 		"id": "pfc",
-		"url": "protFinal-completo.html"
+		"url": "protFinal-completo.html",
+		"exists": "false"
 	},
 	{
 		"id": "tc1",
-		"url": "tarefas-criterios1.html"
+		"url": "tarefas-criterios1.html",
+		"exists": "false"
 	},
 	{
 		"id": "tc2",
-		"url": "tarefas-criterios2.html"
+		"url": "tarefas-criterios2.html",
+		"exists": "false"
 	},
 	{
 		"id": "rt1",
-		"url": "relatorioTestes1.html"
+		"url": "relatorioTestes1.html",
+		"exists": "false"
 	},
 	{
 		"id": "rt2",
-		"url": "relatorioTestes2.html"
+		"url": "relatorioTestes2.html",
+		"exists": "false"
 	},
 	{
 		"id": "man",
-		"url": "manual.html"
+		"url": "manual.html",
+		"exists": "false"
 	}
 ]
 

@@ -55,6 +55,10 @@ a {
   text-decoration: none;
 }
 
+a.empty {
+  color: rgb(65, 20, 42);
+}
+
 a:hover {
   text-decoration: underline;
 }
