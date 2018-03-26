@@ -1,48 +1,60 @@
+body {
+  font-family: calibri;
+  text-align: center;
+  background-image: url("assets/central.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 115%;
+  background-attachment: fixed;
+}
+
+h1 {
+  color: rgb(255, 83, 169);
+}
+
 .tabmenu {
   overflow: hidden;
   justify-content: center;
   display: flex;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  padding: 0px 0;
+  background-color: #e1e1e1;
 }
 
 .tab {
   width: 25%;
   background-color: inherit;
   text-align: center;
-  font-size: 16px;
+  font-size: 12pt;
   float: left;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 14pt 16pt;
   transition: 0.3s;
 }
 
 .tab:hover {
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
 }
 
 .active {
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
 }
 
 .section {
   display: none;
-  border: 1px solid #ccc;
+  border: 1pt solid #ccc;
   border-top: none;
-  padding: 19px 0 20px 0;
+  padding: 19pt 0 20pt 0;
+  background-color: #f0f0f0;
 }
 
 #links {
   text-align: center;
   padding: 0 10vw;
-  margin: 0 15vw 0 15vw;
+  margin: -6pt 15vw 0 15vw;
 }
 
 #names {
-  color: rgb(63, 63, 63);
+  color: rgb(255, 255, 255);
 }
 
 #atm {
@@ -63,19 +75,17 @@ a:hover {
   text-decoration: underline;
 }
 
-body {
-  font-family: calibri;
-  text-align: center;
-}
-
 footer {
-   position: absolute;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   padding: 12pt;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 34pt;
 }
 
-h1 {
-  color: rgb(255, 83, 169);
-}
+/*#atm {
+  background-color: #e1e1e1;
+  outline: none;
+  padding: 3pt 4pt;
+  border: 0pt;
+}*/
