@@ -19,8 +19,9 @@ var links = [
 	},
 	{
 		"id": "at2",
-		"url": "at2.html",
-		"exists": "false"
+		"url": "../Entregas/1 - Analise de Tarefas/Analise de tarefas + Funcionalidades (melhorado).pdf",
+		"exists": "true",
+		"notdelivered": "true"
 	},
 	{
 		"id": "modc1",

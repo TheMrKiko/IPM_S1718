@@ -71,6 +71,10 @@ a.empty {
   color: rgb(65, 20, 42);
 }
 
+a.notdelivered {
+  text-decoration: line-through;
+}
+
 a:hover {
   text-decoration: underline;
 }
