@@ -24,14 +24,14 @@ var links = [
 		"notdelivered": "true"
 	},
 	{
-		"id": "modc1",
-		"url": "mod-conceptual1.html",
-		"exists": "false"
+		"id": "stbd1",
+		"url": "../Entregas/2 - Storyboards/Storyboard.pdf",
+		"exists": "true"
 	},
 	{
-		"id": "modc2",
-		"url": "mod-conceptual2.html",
-		"exists": "false"
+		"id": "stbd2",
+		"url": "../Entregas/2 - Storyboards/Storyboard (melhorado).pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pbf1",
@@ -40,8 +40,8 @@ var links = [
 	},
 	{
 		"id": "pbf2",
-		"url": "pbf2.html",
-		"exists": "false"
+		"url": "../Entregas/3 - Prototipos/PBF (melhorado).pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pf1b",
