@@ -35,8 +35,8 @@ var links = [
 	},
 	{
 		"id": "pbf1",
-		"url": "pbf1.html",
-		"exists": "false"
+		"url": "../Entregas/3 - Prototipos/PBF.pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pbf2",
