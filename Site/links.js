@@ -19,28 +19,29 @@ var links = [
 	},
 	{
 		"id": "at2",
-		"url": "at2.html",
-		"exists": "false"
+		"url": "../Entregas/1 - Analise de Tarefas/Analise de tarefas + Funcionalidades (melhorado).pdf",
+		"exists": "true",
+		"notdelivered": "true"
 	},
 	{
-		"id": "modc1",
-		"url": "mod-conceptual1.html",
-		"exists": "false"
+		"id": "stbd1",
+		"url": "../Entregas/2 - Storyboards/Storyboard.pdf",
+		"exists": "true"
 	},
 	{
-		"id": "modc2",
-		"url": "mod-conceptual2.html",
-		"exists": "false"
+		"id": "stbd2",
+		"url": "../Entregas/2 - Storyboards/Storyboard (melhorado).pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pbf1",
-		"url": "pbf1.html",
-		"exists": "false"
+		"url": "../Entregas/3 - Prototipos/PBF.pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pbf2",
-		"url": "pbf2.html",
-		"exists": "false"
+		"url": "../Entregas/3 - Prototipos/PBF (melhorado).pdf",
+		"exists": "true"
 	},
 	{
 		"id": "pf1b",

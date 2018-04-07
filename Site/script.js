@@ -31,6 +31,9 @@ function loadAllLinks(alllinks) {
         if ("false" == links[link]["exists"]) {
             document.getElementById(links[link]["id"]).classList.add("empty");
         }
+        if ("true" == links[link]["notdelivered"]) {
+            document.getElementById(links[link]["id"]).classList.add("notdelivered");
+        }
     }
 }
 
