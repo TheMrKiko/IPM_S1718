@@ -8,13 +8,15 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload=showClock();>
-	<div id = "clock"></div>
-	<div id="notifaction-bar">
-		oi
+<body onload="showClock('smallClock'); showClock('bigClock');">
+	<div class="ecra" id="bloqueado">
+		<div class="clock" id="smallClock"></div>
 	</div>
+	<div class="ecra" id="principal">
+		<div class="clock" id="bigClock"></div>
+	  <div id="notifaction-bar"></div>
 	<button onclick="appendToList()">Add</button>
-
+	</div>
 </body>
 
 </html>
