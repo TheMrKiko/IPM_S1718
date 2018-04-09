@@ -13,10 +13,10 @@ body {
     font-size: 18pt;
 }
 
-#bloqueado {
+#lockedScreen {
     display: none;
 }
 
-#principal {
+#mainScreen {
     text-align: center;
 }
