@@ -8,14 +8,14 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="showClock('smallClock'); showClock('bigClock');">
+<body onload="updateClock('smallClock'); updateClock('bigClock');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock" id="smallClock"></div>
 	</div>
 	<div class="screen" id="mainScreen">
 		<div class="clock" id="bigClock"></div>
-	  <div id="notification-bar"></div>
-	<button onclick="appendToList()">Add</button>
+		<div id="notification-bar"></div>
+		<button onclick="appendToList()">Add</button>
 	</div>
 </body>
 
