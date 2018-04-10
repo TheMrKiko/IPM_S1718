@@ -8,8 +8,10 @@ body {
 }
 
 #smallClock {
-    margin: -4pt 0 0 81%;
+    /*margin: -4pt 0 0 81%;*/
+    margin: 0pt 0 0 81%;
     font-size: 6pt;
+    flex: 1 0 auto;
 }
 
 #bigClock {
@@ -19,11 +21,9 @@ body {
 }
 
 #lockedScreen {
-    display: none;
 }
 
 #mainScreen {
-    display: flex;
     flex-flow: column;
     text-align: center;
     height: 100%;
