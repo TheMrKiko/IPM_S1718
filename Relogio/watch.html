@@ -8,13 +8,30 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('smallClock'); updateClock('bigClock'); soloScreen('mainScreen');">
+<body onload="updateClock('smallClock'); updateClock('bigClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock" id="smallClock"></div>
 	</div>
 	<div class="screen" id="mainScreen">
 		<div class="clock" id="bigClock"></div>
 		<div id="notification-bar"></div>
+		<!--<button onclick="appendToList()">Add</button>-->
+	</div>
+	<div class="screen" id="appScreen">
+		<!--<div class="clock" id="smallClock"></div>-->
+		<div class="grid" id="appGrid">
+			<table>
+				<tr>
+					<td>o</td>
+					<td>o</td>
+				</tr>
+				<tr>
+					<td>o</td>
+					<td>0</td>
+				</tr>
+			</table>
+		</div>
+
 		<!--<button onclick="appendToList()">Add</button>-->
 	</div>
 </body>
