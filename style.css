@@ -12,4 +12,27 @@ iframe {
 #watch {
     position: relative;
     margin: auto;
-} 
+}
+
+#joystick {
+    width: 100pt;
+    height: 30pt;
+    background-color: black;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+#stick-container {
+    width: 50pt;
+    height: 30pt;
+    background-color: grey;
+    margin: auto;
+}
+
+#dragtarget {
+    width: 25pt;
+    height: 30pt;
+    background-color:red;
+    margin: auto;
+    cursor: move;
+}

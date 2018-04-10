@@ -10,11 +10,17 @@
 
 <body>
 	<div id="watch">
-		<div id="content"> 
+		<div id="content">
 			<iframe src="Relogio/watch.html"></iframe>
 		</div>
 	</div>
+	<div id="joystick">
+		<div id="stick-container">
+			<div id="dragtarget" ondragstart="readStickerPos(event)" ondragend="registerPosition(event)" draggable="true">
+			</div>
+		</div>
+	</div>
+	<p id="status"></p>
 </body>
 
 </html>
-
