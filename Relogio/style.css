@@ -55,7 +55,7 @@ body {
 }
 
 .cell {
-    font-size: 2%;
+    font-size: 6%;
     width: 50%;
     height: 50%;
     float: left;
@@ -65,7 +65,46 @@ body {
     flex-flow: column;
     align-items: center;
     justify-content: center;
+
+
+
 }
+
+#app1:after {
+    content: '';
+    bottom: 0;
+    width: 80%;
+    left: 25%;
+    height: 1px;
+    background-color: rgba(204, 204, 204, 0.651); 
+}
+
+#app2:after {
+    content: '';
+    bottom: 0;
+    width: 80%;
+    left: 25%;
+    height: 1px;
+    background-color: rgba(204, 204, 204, 0.651);  
+}
+
+/*#app1:before { 
+    content: '';
+    right: 0;
+    height: 50%;
+    top: 25%;
+    width: 1px;
+    background-color: #ccc;
+}
+
+#app3:before {
+    content: '';
+    right: 0;
+    height: 50%;
+    top: 25%;
+    width: 1px;
+    background-color: #ccc;
+}*/
 
 .fa {
     flex: 1;
@@ -76,6 +115,10 @@ body {
     flex: 1 0 auto;
     align-items: center;
     justify-content: center;
+}
+
+.text {
+    color: rgb(255, 145, 0);
 }
 
 button {
