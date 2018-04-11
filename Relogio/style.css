@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    font-size: calc(100vh / 0.77);
     font-family: Arial, Helvetica, sans-serif;
     background-color: #000;
     color: white;
@@ -9,9 +10,9 @@ body {
 }
 
 #smallClock {
-    /*margin: -4pt 0 0 81%;*/
-    margin: 0pt 0 0 81%;
-    font-size: 6pt;
+    margin-right: 2%;
+    text-align: right;
+    font-size: 6%;
     flex: 1 0 auto;
 }
 
@@ -21,36 +22,57 @@ body {
     flex: 1 0 auto;
 }
 
-
 #mainScreen {
     flex-flow: column;
-    text-align: center;
-    height: 100%;
-}
-#appScreen {
     text-align: center;
     height: 100%;
     width: 100%;
 }
 
+#appScreen {
+    flex-flow: column;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
 
-#notification-bar {
+#notification-bar,
+#appgrid {
     flex: 1 1 i;
     overflow: auto;
+}
+
+.notification {
+    color: #fff;
+    font-size: 8pt;
+}
+
+.grid {
+    width: 100%;
+    height: 100%;
+}
+
+.in {
+    flex: 1 0 auto;
+}
+.cell {
+    font-size: 2%;
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    
+    display: flex;
+    flex-flow: column;
 }
 
 button {
     flex: 0 0 auto;
 }
 
-table, .grid {
-    margin-left:auto; 
-    margin-right:auto;
-    width: 100%;
-    height: 100%;
-}
-
-.notification {
-    color: #fff;
-    font-size: 8pt;
+table {
+    margin-left: auto;
+    margin-right: auto;
 }
