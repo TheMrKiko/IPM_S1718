@@ -5,35 +5,36 @@
 	<title>iRave</title>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('smallClock'); updateClock('bigClock'); soloScreen('appScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
-		<!--<div class="clock" id="smallClock"></div>-->
+		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
 	<div class="screen" id="mainScreen">
-		<div class="clock" id="bigClock"></div>
+		<div class="clock bigClock" id="mainScreenClock"></div>
 		<div class="grid" id="notification-bar"></div>
 		<button onclick="appendToList()">Add</button>
 	</div>
 	<div class="screen" id="appScreen">
-		<div class="clock" id="smallClock"></div>
+		<div class="clock smallClock" id="appScreenClock"></div>
 		<div class="grid" id="appgrid">
 			<div class="cell" id="app1">
-				<div class="cell-content">logo</div>
+				<div class="cell-content"><i class="fa fa-car fa-5x"></i></div>
 				<div class="cell-content">nome</div>
 			</div>
-			<div class="cell" id="app2">
-				<div class="cell-content">logo</div>
+			<div class="cell" id="app2" onclick="soloScreen('mainScreen');">
+				<div class="cell-content"><i class="fa fa-mars-double fa-5x"></i></div>
 				<div class="cell-content">nome</div>
 			</div>
 			<div class="cell" id="app3">
-				<div class="cell-content">logo</div>
+				<div class="cell-content"><i class="fa fa-venus-double fa-5x"></i></div>
 				<div class="cell-content">nome</div>
 			</div>
 			<div class="cell" id="app4">
-				<div class="cell-content">logo</div>
+				<div class="cell-content"><i class="fa fa-transgender-alt fa-5x"></i></div>
 				<div class="cell-content">nome</div>
 			</div>
 		</div>
