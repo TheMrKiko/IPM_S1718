@@ -3,7 +3,7 @@ var stickerPos; //global variable
 //ondragstart
 function readStickerPos(event) {
     stickerPos = event.clientX;
-    document.getElementById("status").innerHTML = stickerPos;
+   // document.getElementById("status").innerHTML = stickerPos;
 }
 
 
@@ -17,7 +17,12 @@ document.addEventListener("dragover", function(e){
 
 //ondragend
 function registerPosition(event) {
-    var posX;
-    posX = event.clientX;
-    document.getElementById("status").innerHTML = "fim: " + posX;
+    var posX = event.clientX;
+    if (posX < stickerPos) {
+	//left
+	    
+    } else {
+	//right
+    }
+    //document.getElementById("status").innerHTML = "fim: " + posX;
 }
