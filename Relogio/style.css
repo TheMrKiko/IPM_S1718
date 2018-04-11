@@ -117,7 +117,7 @@ body {
     background-color: #ccc;
 }*/
 
-.fa {
+.fa, .fas {
     flex: 1;
 }
 
