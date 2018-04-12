@@ -86,7 +86,7 @@ body {
     width: 80%;
     left: 25%;
     height: 1px;
-    background-color: rgba(204, 204, 204, 0.651); 
+    background-color: rgba(204, 204, 204, 0.651);
 }
 
 #app2:after {
@@ -95,7 +95,7 @@ body {
     width: 80%;
     left: 25%;
     height: 1px;
-    background-color: rgba(204, 204, 204, 0.651);  
+    background-color: rgba(204, 204, 204, 0.651);
 }
 
 /*#app1:before {
@@ -134,4 +134,19 @@ body {
 
 button {
     flex: 0 0 auto;
+}
+
+.footer {
+	height: 30pt;
+	background-color: red;
+	font-size: 6%;
+	text-align: left;
+	padding-left: 6%;
+	color: black;
+}
+
+.footerButton {
+	width: 30%;
+	background-color: green;
+	text-align: center;
 }
