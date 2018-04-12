@@ -9,14 +9,14 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('appScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('mainScreen'); appendToList();">
 	<div class="screen" id="lockedScreen">
 		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
 	<div class="screen" id="mainScreen">
-		<div class="clock bigClock" id="mainScreenClock"></div>
+		<div class="clock bigClock" id="mainScreenClock" onclick="soloScreen('appScreen');"></div>
 		<div class="grid" id="notification-bar"></div>
-		<button onclick="appendToList()">Add</button>
+		<!--<button onclick="appendToList()">Add</button>-->
 	</div>
 	<div class="screen" id="appScreen">
 		<div class="clock smallClock" id="appScreenClock"></div>
@@ -43,7 +43,7 @@
 		<div class="clock smallClock" id="friendsScreenClock"></div>
 		<div class="grid">
 			<div class="cell" id="friend1">
-				<div class="cell-content"><i class="	fa fa-user fa-3x"></i></div>
+				<div class="cell-content"><i class="fa fa-user fa-3x"></i></div>
 				<div class="cell-content text">Daniel</div>
 			</div>
 			<div class="cell" id="friend2">
