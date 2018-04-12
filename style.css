@@ -1,4 +1,4 @@
-#device {
+.device {
     margin: auto;
     width: 150pt;
     display: flex;
@@ -11,13 +11,13 @@ iframe {
     border: none;
 }
 
-#content, #watch {
+.content, .watch {
     width: 77pt;
     height: 77pt;
     background: white;
 }
 
-#watch {
+.watch {
     position: relative;
     margin: auto;
     border: 10pt #484848 solid;
@@ -28,7 +28,7 @@ iframe {
     flex: 0 1 auto;
 }
 
-.button {
+.sideButton {
     margin: auto;
     width: 10pt;
     height: 77pt;
