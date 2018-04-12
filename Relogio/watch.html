@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('appScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
@@ -25,17 +25,38 @@
 				<div class="cell-content"><i class="fa fa-music fa-3x"></i></div>
 				<div class="cell-content text">Cartaz</div>
 			</div>
-			<div class="cell" id="app2" onclick="soloScreen('mainScreen');">
+			<div class="cell" id="app2" onclick="soloScreen('friendScreen');">
 				<div class="cell-content"><i class="fa fa-odnoklassniki fa-3x"></i></div>
 				<div class="cell-content text">Amigos</div>
 			</div>
-			<div class="cell" id="app3">
+			<div class="cell" id="app3" >
 				<div class="cell-content"><i class="fa fa-birthday-cake fa-3x"></i></div>
 				<div class="cell-content text">Encomendar</div>
 			</div>
-			<div class="cell" id="app4">
+			<div class="cell" id="app4" onclick="soloScreen('mainScreen');">
 				<div class="cell-content"><i class="fa fa-file-photo-o fa-3x"></i></div>
 				<div class="cell-content text">weRave</div>
+			</div>
+		</div>
+	</div>
+	<div class="screen" id="friendScreen">
+		<div class="clock smallClock" id="friendsScreenClock"></div>
+		<div class="grid">
+			<div class="cell" id="friend1">
+				<div class="cell-content"><i class="	fa fa-user fa-3x"></i></div>
+				<div class="cell-content text">Daniel</div>
+			</div>
+			<div class="cell" id="friend2">
+				<div class="cell-content"><i class="fa fa-child fa-3x"></i></div>
+				<div class="cell-content text">João</div>
+			</div>
+			<div class="cell" id="friend3">
+				<div class="cell-content"><i class="fa fa-user-secret fa-3x"></i></div>
+				<div class="cell-content text">Francisco</div>
+			</div>
+			<div class="cell" id="friend4">
+				<div class="cell-content"><i class="fa fa-user-circle fa-3x"></i></div>
+				<div class="cell-content text">David</div>
 			</div>
 		</div>
 	</div>
