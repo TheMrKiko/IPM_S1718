@@ -1,4 +1,4 @@
-var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
+var notifications = [new Notification("à sua procura.", "../assets/joao.jpg")];
 
 function updateClock(clock) {
     var time = new Date();
@@ -22,14 +22,14 @@ function appendToList() {
     '<table class="notification">\
         <tr>\
             <td class="notif-icon">\
-                <img src="" width="6pt">\
+                <img src="" width="14pt">\
 			</td>\
-            <td class="notif-text">o</td>\
+            <td class="notif-text"></td>\
 		</tr>\
     </table>';
     table = node.firstElementChild.firstElementChild.getElementsByTagName("TD");
     table[0].firstElementChild.setAttribute("src", notifications[0]["img"]);
-    table[1].innerText = notifications[0]["name"];
+    table[1].innerHTML = notifications[0]["name"];
     document.getElementById("notification-bar").appendChild(node);
 }
 
