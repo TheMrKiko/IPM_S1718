@@ -1,3 +1,10 @@
+#device {
+    margin: auto;
+    width: 150pt;
+    display: flex;
+    flex-flow: row;
+}
+
 iframe {
     width: 100%;
     height: 100%;
@@ -17,4 +24,17 @@ iframe {
     border-top-width: 16pt;
     border-bottom-width: 16pt;
     border-radius: 12pt;
+
+    flex: 0 1 auto;
+}
+
+.button {
+    margin: auto;
+    width: 10pt;
+    height: 77pt;
+    background: black;
+}
+
+#homeButton {
+    left: 20pt; 
 }
