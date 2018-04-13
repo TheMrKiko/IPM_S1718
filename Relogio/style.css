@@ -140,13 +140,21 @@ button {
 	height: 30pt;
 	background-color: red;
 	font-size: 6%;
-	text-align: left;
-	padding-left: 6%;
+	text-align: center;
 	color: black;
+  display: flex;
 }
 
 .footerButton {
-	width: 30%;
 	background-color: green;
 	text-align: center;
+  flex: 1 1 auto;
+}
+
+#b2 {
+  background-color: blue;
+}
+
+#b3 {
+  background-color: white;
 }
