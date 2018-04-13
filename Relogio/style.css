@@ -13,9 +13,11 @@ body {
 }
 
 .bigClock {
-    margin: 30% 0 0 0;
+	flex: 1 0 auto;
+	display: flex;
     font-size: 18pt;
-    flex: 1 0 auto;
+	align-items: center;
+    justify-content: center;
 }
 
 #lockedScreen {
@@ -43,8 +45,11 @@ body {
 }
 
 #notification-bar {
-    flex: 1 1 i;
+    flex: 1 1 auto;
     overflow: auto;
+}
+#notification-bar::-webkit-scrollbar {
+	display: none;
 }
 
 button {
@@ -52,6 +57,6 @@ button {
 }
 
 table {
-    margin-left:auto; 
+    margin-left:auto;
     margin-right:auto;
 }

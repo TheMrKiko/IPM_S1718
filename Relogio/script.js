@@ -2,6 +2,7 @@ var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), 
 var notifN = 0;
 
 function updateClock(clock) {
+	if (clock == "mainScreenClock") {setTimeout(appendToList, 3000);}
     var time = new Date();
     document.getElementById(clock).innerHTML = "";
     if (time.getHours() < 10) {
