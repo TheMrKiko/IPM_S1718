@@ -12,16 +12,16 @@
 <body>
 	<div class="device">
 		<div class="sideButton" id="leftButton">
-			<div class="homeButton"><i class="fa fa-home"></i></div>
+			<button onclick='buttonPress("home");' class="homeButton"><i class="fa fa-home"></i></button>
 		</div>
 		<div class="watch">
 			<div class="content"> 
-				<iframe src="Relogio/watch.html"></iframe>
+				<iframe id ="frame" src="Relogio/watch.html"></iframe>
 			</div>
 		</div>
 		<div class="sideButton" id="rightButtons">
-			<div class="arrowButton" id="upButton"><i class="fa fa-angle-up"></i></div>
-			<div class="arrowButton" id="downButton"><i class="fa fa-angle-down"></i></div>
+			<button onclick='buttonPress("up");' class="arrowButton" id="upButton"><i class="fa fa-angle-up"></i></button>
+			<button onclick='buttonPress("down");'class="arrowButton" id="downButton"><i class="fa fa-angle-down"></i></button>
 		</div>
 	</div>
 </body>

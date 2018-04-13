@@ -1,9 +1,10 @@
 body {
     color: white;
 }
+
 .device {
     margin: auto;
-    width: 150pt;
+    width: 160pt;
     display: flex;
     flex-flow: row;
 }
@@ -31,13 +32,24 @@ iframe {
     flex: 0 1 auto;
 }
 
+button {
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
 .sideButton {
     margin: auto;
     width: 14pt;
     height: 77pt;
-    background: black;
+    background: #484848;
     display: flex;
     flex-flow: column;
+
+    border: 4pt #484848 solid;
+    border-top-width: 14pt;
+    border-bottom-width: 14pt;
+    border-radius: 5pt;
 }
 
 .arrowButton, .homeButton{
