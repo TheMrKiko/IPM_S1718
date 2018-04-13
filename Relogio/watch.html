@@ -15,7 +15,20 @@
 	<div class="screen" id="mainScreen">
 		<div class="clock bigClock" id="mainScreenClock" onclick="soloScreen('appScreen');"></div>
 		<div class="grid" id="notification-bar" onclick="appendToList();"></div>
-		<!--<button onclick="appendToList()">Add</button>-->
+		<button onclick="appendToList()">Add</button>
+	</div>
+
+	<div hidden id="models">
+		<div class="table-model">
+			<table class="notification">
+				<tr>
+					<td class="notif-icon">
+						<img src="" width="14pt">
+					</td>
+					<td class="notif-text"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </body>
 

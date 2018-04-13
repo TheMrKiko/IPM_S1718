@@ -16,21 +16,18 @@ function updateClock(clock) {
     }, 1000);
 }
 
+function cloneElementTo(classModel, idParent) {
+    console.log(args);
+    var model = document.getElementById("models").getElementsByClassName(classModel)[0];
+    var copy = model.cloneNode(true);
+    return document.getElementById(idParent).appendChild(copy);
+}
+
 function appendToList() {
-    var node = document.createElement("DIV");
-    node.innerHTML =
-    '<table class="notification">\
-        <tr>\
-            <td class="notif-icon">\
-                <img src="" width="14pt">\
-			</td>\
-            <td class="notif-text"></td>\
-		</tr>\
-    </table>';
+    var node = cloneElementTo("table-model", "notification-bar");
     table = node.firstElementChild.firstElementChild.getElementsByTagName("TD");
-    table[0].firstElementChild.setAttribute("src", notifications[0]["img"]);
+    table[0].firstElementChild.src = notifications[0]["img"];
     table[1].innerHTML = notifications[0]["name"];
-    document.getElementById("notification-bar").appendChild(node);
 }
 
 function Notification(name, img) {
