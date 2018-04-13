@@ -1,3 +1,6 @@
+body {
+    color: white;
+}
 .device {
     margin: auto;
     width: 150pt;
@@ -30,11 +33,26 @@ iframe {
 
 .sideButton {
     margin: auto;
-    width: 10pt;
+    width: 14pt;
     height: 77pt;
     background: black;
+    display: flex;
+    flex-flow: column;
 }
 
-#homeButton {
-    left: 20pt; 
+.arrowButton, .homeButton{
+    position: relative;
+    margin: auto;
+    flex : 1 1 auto;
+    display: flex;
+    text-align: center;
+    padding: 50% 0;
+}
+
+.arrowButton i {
+    padding: 50% 0;
+}
+
+.homeButton i {
+    padding: 200% 0;
 }
