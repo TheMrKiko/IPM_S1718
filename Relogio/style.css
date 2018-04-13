@@ -39,6 +39,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     font-weight: bold;
+    float:left;
 }
 
 #notification-bar {

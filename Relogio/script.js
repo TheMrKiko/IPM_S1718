@@ -1,4 +1,5 @@
-var notifications = [new Notification("à sua procura.", "../assets/joao.jpg")];
+var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
+var notifN = 0;
 
 function updateClock(clock) {
     var time = new Date();
@@ -16,18 +17,30 @@ function updateClock(clock) {
     }, 1000);
 }
 
-function cloneElementTo(classModel, idParent) {
-    console.log(args);
+function cloneElement(classModel) {
     var model = document.getElementById("models").getElementsByClassName(classModel)[0];
-    var copy = model.cloneNode(true);
+    return model.cloneNode(true);
+}
+
+function cloneElementTo(classModel, idParent, ...args) {
+    var copy = cloneElement(classModel);
+    var atributEls = copy.getElementsByClassName("attr-m");
+
+    for (var i = 0; i < atributEls.length; i++) {
+
+        var atributReq = atributEls[i].getAttribute("attrm");
+        if (atributReq === "innerHTML") {
+            atributEls[i].innerHTML = args[i];
+        } else {
+            atributEls[i].setAttribute(atributReq, args[i]);
+        }
+    }
     return document.getElementById(idParent).appendChild(copy);
 }
 
 function appendToList() {
-    var node = cloneElementTo("table-model", "notification-bar");
-    table = node.firstElementChild.firstElementChild.getElementsByTagName("TD");
-    table[0].firstElementChild.src = notifications[0]["img"];
-    table[1].innerHTML = notifications[0]["name"];
+    cur = (notifN++) % notifications.length;
+    cloneElementTo("table-model", "notification-bar", notifications[cur]["img"], notifications[cur]["name"]);
 }
 
 function Notification(name, img) {
