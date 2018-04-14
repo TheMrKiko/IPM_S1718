@@ -6,12 +6,14 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('mainScreen'); appendToList();">
-	<div class="screen" id="lockedScreen">
-		<div class="clock bigClock" id="lockedScreenClock"></div>
+<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('lockScreen'); appendToList();">
+	<div class="screen" id="lockScreen">
+		<div class="clock bigClock" id="lockScreenClock"></div>
+		<i class="material-icons" onclick="soloScreen('mainScreen');" >fingerprint</i>
 	</div>
 	<div class="screen" id="mainScreen">
 		<div class="clock bigClock" id="mainScreenClock" onclick="soloScreen('appScreen');"></div>
