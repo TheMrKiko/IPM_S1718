@@ -25,7 +25,7 @@
 				<div class="cell-content"><i class="fa fa-music fa-3x"></i></div>
 				<div class="cell-content text">Cartaz</div>
 			</div>
-			<div class="cell" id="app2" onclick="soloScreen('friendScreen');">
+			<div class="cell" id="app2" onclick="soloScreen('friendScreen'); randomDistance();">
 				<div class="cell-content"><i class="fa fa-odnoklassniki fa-3x"></i></div>
 				<div class="cell-content text">Amigos</div>
 			</div>
@@ -41,22 +41,28 @@
 	</div>
 	<div class="screen" id="friendScreen">
 		<div class="clock smallClock" id="friendsScreenClock"></div>
-		<div class="grid">
+		<div class="grid" id="gridFriends">
 			<div class="cell" id="friend1">
 				<div class="cell-content"><i class="	fa fa-user fa-3x"></i></div>
 				<div class="cell-content text">Daniel</div>
+				<div class="distance">100m</div>
+
 			</div>
 			<div class="cell" id="friend2">
 				<div class="cell-content"><i class="fa fa-child fa-3x"></i></div>
 				<div class="cell-content text">João</div>
+				<div class="distance" id="d1">ola</div>
 			</div>
 			<div class="cell" id="friend3">
 				<div class="cell-content"><i class="fa fa-user-secret fa-3x"></i></div>
 				<div class="cell-content text">Francisco</div>
+				<div class="distance">100m</div>
 			</div>
 			<div class="cell" id="friend4">
 				<div class="cell-content"><i class="fa fa-user-circle fa-3x"></i></div>
 				<div class="cell-content text">David</div>
+				<div class="distance">100m</div>
+
 			</div>
 		</div>
 	</div>

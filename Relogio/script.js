@@ -48,3 +48,32 @@ function soloScreen(screenID) {
     }
     document.getElementById(screenID).style.display = "flex";
 }
+
+function randomDistanceGenerator(myMin, myMax) {
+  return Math.floor(Math.random()*(myMax - myMin + 1) + myMin);
+}
+
+function randomDistance() {
+  var distances = document.getElementsByClassName("distance");
+  for (var d=0; d<distances.length; d++) {
+    distances[d].innerHTML = randomDistanceGenerator(10,500);
+  }
+  var toSortDistance = document.getElementById('gridFriends').children; //NodeList de friends
+
+  toSortDistance = Array.prototype.slice.call(toSortDistance, 0); //NodeList to Array
+
+  toSortDistance.sort(function(a, b) { //a, b sao friends
+    var aord = parseInt(a.getElementsByClassName("distance")[0].texContent);
+    var bord = parseInt(b.getElementsByClassName("distance")[0].texContent);
+    return aord- bord;
+  });
+}
+
+function randomDistance2() {
+  var distances = document.getElementsByClassName("distance");
+  var arr = [];
+  for (var i=0; i<distances.length; i++) {
+    arr.push(randomDistanceGenerator(10,500));
+  }
+
+}
