@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); soloScreen('appScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
@@ -43,7 +43,7 @@
 		<div class="clock smallClock" id="friendsScreenClock"></div>
 		<div class="grid" id="gridFriends">
 			<div class="cell" id="friend1">
-				<div class="cell-content"><i class="	fa fa-user fa-3x"></i></div>
+				<div class="cell-content" onclick="soloScreen('mapScreen');"><i class="	fa fa-user fa-3x"></i></div>
 				<div class="cell-content text">Daniel</div>
 				<div class="distance">100m</div>
 
@@ -51,7 +51,7 @@
 			<div class="cell" id="friend2">
 				<div class="cell-content"><i class="fa fa-child fa-3x"></i></div>
 				<div class="cell-content text">João</div>
-				<div class="distance" id="d1">ola</div>
+				<div class="distance" id="d1">100m</div>
 			</div>
 			<div class="cell" id="friend3">
 				<div class="cell-content"><i class="fa fa-user-secret fa-3x"></i></div>
@@ -65,6 +65,18 @@
 
 			</div>
 		</div>
+	</div>
+
+	<div class="screen" id="mapScreen">
+		<div class="clock smallClock" id="mapScreenClock"></div>
+		<img src="map_festival.png" id="mapFestival">
+		<div id="compass"><img src="rsz_1compass.png" onclick="soloScreen('compassScreen')"></div>
+	</div>
+
+	<div class="screen" id="compassScreen">
+		<div class="clock smallClock" id="compassScreenClock"></div>
+		<img src="rsz_arrow.png" id="arrowDirection">
+		<div id="map_icon"><img src="map_icon.png" onclick="soloScreen('mapScreen')"></div>
 	</div>
 </body>
 

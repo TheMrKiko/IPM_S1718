@@ -29,6 +29,7 @@ body {
     text-align: center;
     height: 100%;
     width: 100%;
+    position: fixed;
 }
 
 /*#mainScreen {
@@ -142,4 +143,63 @@ body {
 
 button {
     flex: 0 0 auto;
+}
+
+#mapFestival {
+  width: 100%;
+  height: 91%;
+}
+
+#compass {
+  position: absolute;
+   top: -25%;
+   left: 75%;
+   cursor: pointer;
+   overflow: hidden;
+}
+
+#compass img {
+  width: 80%;
+  height: 80%;
+}
+
+#compass img:active {
+  width: 100%;
+  height: 100%;
+}
+
+#map_icon {
+  position: absolute;
+  top: -25%;
+  left: 75%;
+  cursor: pointer;
+}
+
+#map_icon img {
+  width: 80%;
+  height: 80%;
+}
+
+#map_icon img:active {
+  width: 100%;
+  height: 100%;
+}
+
+#arrowDirection {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  top: -15%;
+  margin: auto;
+
+  /*transition animation */
+  overflow: hidden;
+  transition-duration: 0.8s;
+  transition-property: transform;
+}
+
+/*animated when hovered* */
+#arrowDirection:hover {
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
 }
