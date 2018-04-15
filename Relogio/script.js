@@ -4,15 +4,16 @@ var currentScreen;
 
 function updateClock(clock) {
     var time = new Date();
-    document.getElementById(clock).innerHTML = "";
+    var stringTime = "";
     if (time.getHours() < 10) {
-        document.getElementById(clock).innerHTML += "0";
+        stringTime += "0";
     }
-    document.getElementById(clock).innerHTML += time.getHours() + ":";
+    stringTime += time.getHours() + ":";
     if (time.getMinutes() < 10) {
-        document.getElementById(clock).innerHTML += "0";
+        stringTime += "0";
     }
-    document.getElementById(clock).innerHTML += time.getMinutes();
+    stringTime += time.getMinutes();
+    document.getElementById(clock).innerText = stringTime;
     setTimeout(function () {
         updateClock(clock);
     }, 1000);
@@ -45,7 +46,7 @@ function Notification(name, img) {
 
 function soloScreen(screenID) {
     currentScreen = screenID;
-    screens = document.getElementsByClassName("screen");
+    screens = document.getElementsByClassName("swipe");
     for (var s = 0; s < screens.length; s++) {
         screens[s].style.display = "none";
     }

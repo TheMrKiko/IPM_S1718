@@ -9,33 +9,43 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('mainScreen');">
-	<div class="screen" id="lockedScreen">
-		<div class="clock bigClock" id="lockedScreenClock"></div>
-	</div>
-	<div class="screen" id="mainScreen">
-		<div class="clock bigClock" id="mainScreenClock"></div>
-		<div class="grid scrollable" id="notification-bar"></div>
-		<button onclick="appendToList()">Add</button>
-	</div>
-	<div class="screen" id="appScreen">
-		<div class="clock smallClock" id="appScreenClock"></div>
-		<div class="grid" id="appgrid">
-			<div class="cell" id="app1">
-				<div class="cell-content"><i class="fa fa-music fa-3x"></i></div>
-				<div class="cell-content text">Cartaz</div>
-			</div>
-			<div class="cell" id="app2" onclick="soloScreen('mainScreen');">
-				<div class="cell-content"><i class="fa fa-odnoklassniki fa-3x"></i></div>
-				<div class="cell-content text">Amigos</div>
-			</div>
-			<div class="cell" id="app3">
-				<div class="cell-content"><i class="fa fa-birthday-cake fa-3x"></i></div>
-				<div class="cell-content text">Encomendar</div>
-			</div>
-			<div class="cell" id="app4">
-				<div class="cell-content"><i class="fa fa-file-photo-o fa-3x"></i></div>
-				<div class="cell-content text">weRave</div>
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('mainSwipe');">
+	<div class="swipe" id="mainSwipe">
+		<div class="screen" id="lockedScreen">
+			<div class="clock bigClock" id="lockedScreenClock"></div>
+		</div>
+		<div class="screen" id="mainScreen">
+			<div class="clock bigClock" id="mainScreenClock"></div>
+			<!--<div class="grid scrollable" id="notification-bar"></div>-->
+			<!--<button onclick="appendToList()">Add</button>-->
+		</div>
+		<div class="screen" id="appScreen">
+			<div class="clock smallClock" id="appScreenClock"></div>
+			<div class="grid" id="appgrid">
+				<div class="cell" id="app1">
+					<div class="cell-content">
+						<i class="fa fa-music fa-3x"></i>
+					</div>
+					<div class="cell-content text">Cartaz</div>
+				</div>
+				<div class="cell" id="app2" onclick="soloScreen('mainScreen');">
+					<div class="cell-content">
+						<i class="fa fa-odnoklassniki fa-3x"></i>
+					</div>
+					<div class="cell-content text">Amigos</div>
+				</div>
+				<div class="cell" id="app3">
+					<div class="cell-content">
+						<i class="fa fa-birthday-cake fa-3x"></i>
+					</div>
+					<div class="cell-content text">Encomendar</div>
+				</div>
+				<div class="cell" id="app4">
+					<div class="cell-content">
+						<i class="fa fa-file-photo-o fa-3x"></i>
+					</div>
+					<div class="cell-content text">weRave</div>
+				</div>
 			</div>
 		</div>
 	</div>
