@@ -56,7 +56,7 @@ function randomNumberGenerator(myMin, myMax) {
 function randomDistance() {
   var distances = document.getElementsByClassName("distance");
   for (var d=0; d<distances.length; d++) {
-    distances[d].innerHTML = randomNumberGenerator(d * 100, (d+1) * 150);
+    distances[d].innerHTML = randomNumberGenerator(d * 150, (d+1) * 150);
   }
 
 }
