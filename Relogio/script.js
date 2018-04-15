@@ -1,5 +1,7 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
 
+var currentScreen;
+
 function updateClock(clock) {
     var time = new Date();
     document.getElementById(clock).innerHTML = "";
@@ -42,6 +44,7 @@ function Notification(name, img) {
 }
 
 function soloScreen(screenID) {
+    currentScreen = screenID;
     screens = document.getElementsByClassName("screen");
     for (var s = 0; s < screens.length; s++) {
         screens[s].style.display = "none";
@@ -52,15 +55,15 @@ function soloScreen(screenID) {
 window.addEventListener('message', function (event) {
     switch (event.data) {
         case "up":
-            scrollValue("notification-bar", -10);
+            scrollCurrScreen(-10);
             break;
 
         case "down":
-            scrollValue("notification-bar", 10);
+            scrollCurrScreen(10);
             break;
 
         case "home":
-            //O
+            soloScreen("mainScreen");
             break;
 
         default:
@@ -69,6 +72,11 @@ window.addEventListener('message', function (event) {
     }
 });
 
-function scrollValue(elementIDInFrame, value) {
-    document.getElementById(elementIDInFrame).scrollTop += value;
+function scrollCurrScreen(value) {
+    scrollElement = document.getElementById(currentScreen);
+    scrollValue(scrollElement, value);
+}
+
+function scrollValue(screen, value) {
+    screen.getElementsByClassName("scrollable")[0].scrollTop += value;
 }
