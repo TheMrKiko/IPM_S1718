@@ -1,9 +1,9 @@
 function buttonPress(button) {
-    
-
-} 
-
-function scrollTo(element){
-    var topPos = document.getElementById(element).offsetTop;
-    document.getElementById('container').scrollTop += 10;
+    document.getElementById('frame').contentWindow.postMessage(button, '*');
 }
+
+window.oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+};
