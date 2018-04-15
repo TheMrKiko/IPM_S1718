@@ -2,7 +2,6 @@ var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), 
 var notifN = 0;
 
 function updateClock(clock) {
-	if (clock == "mainScreenClock") {setTimeout(appendToList, 3000);}
     var time = new Date();
     document.getElementById(clock).innerHTML = "";
     if (time.getHours() < 10) {
@@ -50,4 +49,12 @@ function Notification(name, img) {
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
+}
+
+function soloScreen(screenID) {
+    screens = document.getElementsByClassName("screen");
+    for (var s = 0; s < screens.length; s++) {
+        screens[s].style.display = "none";
+    }
+    document.getElementById(screenID).style.display = "flex";
 }

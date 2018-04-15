@@ -5,20 +5,26 @@
 	<title>iRave</title>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('smallClock'); updateClock('mainScreenClock');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
-		<div class="clock" id="smallClock"></div>
+		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
 	<div class="screen" id="mainScreen">
-		<div class="clock bigClock" id="mainScreenClock" onclick="soloScreen('appScreen');"></div>
+		<div class="clock bigClock" id="mainScreenClock"></div>
 		<div class="grid" id="notification-bar"></div>
 		<!-- <button onclick="appendToList()">Add</button> -->
+		<div class="footer">
+			<div class="footerButton">Fim</div>
+			<div class="footerButton" id="b2">Avançar</div>
+			<div class="footerButton" id="b3">Botão</div>
+		</div>
 	</div>
-
-	<div hidden id="models">
+  
+  <div hidden id="models">
 		<div class="table-model">
 			<table class="notification">
 				<tr>
