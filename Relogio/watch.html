@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); updateClock('friendDetailClock'); soloScreen('friendDetailScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); updateClock('friendDetailClock'); soloScreen('appScreen');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
@@ -19,11 +19,15 @@
 		<button onclick="appendToList()">Add</button>
 	</div>
 	<div class="screen" id="appScreen">
-		<div class="clock smallClock" id="appScreenClock"></div>
-		<div class="grid" id="appgrid">
-			<div class="cell" id="app1">
-				<div class="cell-content"><i class="fa fa-music fa-3x"></i></div>
-				<div class="cell-content text">Cartaz</div>
+		<div class="header">
+				<div class="clock smallClock" id="appScreenClock"></div>
+			</div>
+			<div class="grid" id="appgrid">
+				<div class="cell" id="app1">
+					<div class="cell-content">
+						<i class="fa fa-music fa-3x"></i>
+					</div>
+					<div class="cell-content text">Cartaz</div>
 			</div>
 			<div class="cell" id="app2" onclick="soloScreen('friendScreen'); showPeople(); ">
 				<div class="cell-content"><i class="fa fa-odnoklassniki fa-3x"></i></div>
