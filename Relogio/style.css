@@ -18,22 +18,38 @@ body {
 }
 
 .clock, .header {
-    flex: 1 0 auto;
+    flex: 0 0 auto;
 }
 
 .header {
-    background-color: rgba(255, 105, 180, 0.5);
+    background-color: rgba(255, 105, 180, 0.7);
     width: 100%;
+    height: 10%;
     display: flex;
     flex-flow: row;
+    align-items: center;
     position: sticky;
     top: 0;
+    font-size: 8%;
+}
+
+.return-button {
+    height: 100%;
+    width: 10%;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.screen-title {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .smallClock {
     margin-right: 2%;
     text-align: right;
-    font-size: 6%;
 }
 
 .bigClock {
@@ -115,25 +131,6 @@ body {
     height: 1px;
     background-color: rgba(204, 204, 204, 0.651);
 }
-
-/*#app1:before {
-    content: '';
-    right: 0;
-    height: 80%;
-    top: 25%;
-    width: 1px;
-    margin: auto;
-    background-color: #ccc;
-}
-
-#app3:before {
-    content: '';
-    right: 0;
-    height: 50%;
-    top: 25%;
-    width: 1px;
-    background-color: #ccc;
-}*/
 
 .fa, .fas {
     flex: 1;
