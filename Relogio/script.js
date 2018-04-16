@@ -1,6 +1,6 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
 var notifN = 0;
-var people = [new Person("Daniel", ""), new Person("João", ""), new Person("Francisco", ""), new Person("David", "")];
+var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
 
 function updateClock(clock) {
     var time = new Date();
@@ -19,7 +19,7 @@ function updateClock(clock) {
 }
 
 function cloneElement(classModel) {
-    var model = document.getElementById("models").getElementsByClassName(classModel)[0];
+    var model = document.getElementById("models").getElementsByClassName(classModel)[0].firstElementChild;
     return model.cloneNode(true);
 }
 
@@ -44,6 +44,12 @@ function appendToList() {
     cloneElementTo("table-model", "notification-bar", notifications[cur]["img"], notifications[cur]["name"]);
 }
 
+function showPeople() {
+	for (var i = 0; i < people.length; i++) {
+        cloneElementTo("person-model", "gridFriends", people[i]["img"], people[i]["name"], people[i]["distance"]);
+    }
+}
+
 function Notification(name, img) {
     this.name = name;
     this.img = img;
@@ -55,7 +61,7 @@ function Notification(name, img) {
 function Person(name, img) {
     this.name = name;
     this.img = img;
-	this.distance;
+	this.distance = "100m";
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
