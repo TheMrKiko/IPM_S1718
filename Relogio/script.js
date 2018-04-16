@@ -1,4 +1,5 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
+var people = [new Person("Daniel", ""), new Person("João", ""), new Person("Francisco", ""), new Person("David", "")];
 
 function updateClock(clock) {
     var time = new Date();
@@ -36,6 +37,15 @@ function appendToList() {
 function Notification(name, img) {
     this.name = name;
     this.img = img;
+    /*this.changeName = function (name) {
+        this.lastName = name;
+    };*/
+}
+
+function Person(name, img) {
+    this.name = name;
+    this.img = img;
+	this.distance;
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
