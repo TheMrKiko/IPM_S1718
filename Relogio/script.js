@@ -46,7 +46,7 @@ function Notification(name, img) {
 
 function soloScreen(screenID) {
     currentScreen = screenID;
-    screens = document.getElementsByClassName("screen");
+    screens = document.getElementsByClassName("solo");
     for (var s = 0; s < screens.length; s++) {
         screens[s].style.display = "none";
     }
@@ -96,18 +96,19 @@ function allowDrop(ev) {
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    var string = "translateX(" + diff + "px)";
-    document.getElementById("mainScreen").style.transform = string;
+    if (diff < 0) {
+        var string = "translateX(" + diff + "px)";
+        document.getElementById("mainS").style.transform = string;
+    }
 }
 
 function drop(ev) {
-    console.log("oi drop()");
     ev.preventDefault();
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
     if (then - now >= 30) {
-        soloScreen("appScreen");
+        document.getElementById("mainS").style.transform = "translateX(-77pt)";
     } else {
-        document.getElementById("mainScreen").style.transform = "translateX(0)";
+        document.getElementById("mainS").style.transform = "translateX(0)";
     }
 }
