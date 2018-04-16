@@ -1,5 +1,6 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
 var notifN = 0;
+var i = 0;
 var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
 
 function updateClock(clock) {
@@ -61,7 +62,7 @@ function Notification(name, img) {
 function Person(name, img) {
     this.name = name;
     this.img = img;
-	this.distance = "100m";
+	this.distance = rD();
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
@@ -85,4 +86,11 @@ function randomDistance() {
     distances[d].innerHTML = randomNumberGenerator(d * 150, (d+1) * 150);
   }
 
+}
+
+function rD() {
+	console.log("oi " + i);
+	var distance = randomNumberGenerator(i * 150, (i+1) * 150);
+	i = i + 1;
+	return distance;
 }

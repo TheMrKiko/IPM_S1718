@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); soloScreen('appScreen');">
+<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); updateClock('friendDetailClock'); soloScreen('friendDetailScreen');">
 	<div class="screen" id="lockedScreen">
 		<div class="clock bigClock" id="lockedScreenClock"></div>
 	</div>
@@ -71,12 +71,22 @@
 		<div class="person-model">
 			<div class="cell">
 				<div class="cell-content">
-					<img class="avatar attr-m" src="" attrm="src">
+					<img class="avatar attr-m" attrm="src">
 				</div>
 				<div class="cell-content text attr-m" attrm="innerHTML"></div>
 				<div class="distance attr-m" attrm="innerHTML"></div>
 			</div>
 		</div>
+	</div>
+
+	<div class="screen" id="friendDetailScreen">
+		<div class="clock smallClock" id="friendDetailClock"></div>
+		<img class="avatar" src= "assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+		<div class="detailF-row">
+			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
+			<div class="text friendDetailText" id="friendToFindDistance">100m</div>
+		</div>
+		<div id="mapPreview"></div>
 	</div>
 </body>
 

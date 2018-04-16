@@ -146,6 +146,10 @@ body {
     color: rgb(255, 145, 0);
 }
 
+.friendDetailText {
+	flex: 1 0 auto;
+}
+
 button {
     flex: 0 0 auto;
 }
@@ -207,4 +211,26 @@ button {
 #arrowDirection:hover {
   transform: rotate(360deg);
   -webkit-transform: rotate(360deg);
+}
+
+#friendToFindPic {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	border-radius: 100%;
+}
+
+#friendToFindName {
+	font-size: 10%;
+}
+
+#friendToFindDistance {
+	font-size: 10%;
+}
+
+.detailF-row {
+	display: flex;
+	flex-flow: row;
+	flex: 1 0 auto;
+	justify-content: center;
 }
