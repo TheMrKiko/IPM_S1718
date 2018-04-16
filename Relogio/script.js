@@ -82,11 +82,23 @@ function scrollValue(screen, value) {
     screen.getElementsByClassName("scrollable")[0].scrollTop += value;
 }
 
+function drag(ev) {
+    var ghost = document.createElement("img");
+    ghost.style.display = "none";
+    ev.dataTransfer.setDragImage(ghost, 0, 0);
+    ev.dataTransfer.setData("Text", ev.clientX);
+}
+
 function allowDrop(ev) {
+    ev.stopPropagation();
     ev.preventDefault();
 }
 
 function drop(ev) {
     ev.preventDefault();
-    soloScreen("mainScreen");
+    var now = ev.clientX;
+    var then = ev.dataTransfer.getData("Text");
+    if (then - now >= 30) {
+        soloScreen("appScreen");
+    }
 }

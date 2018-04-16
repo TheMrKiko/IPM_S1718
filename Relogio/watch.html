@@ -9,11 +9,11 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('lockedScreen');">
-	<div class="screen" id="lockedScreen" draggable="true" ondragover="allowDrop(event)"ondrop="drop(event)">
-		<div class="clock bigClock" id="lockedScreenClock"></div>
+<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('mainScreen');">
+	<div class="screen" id="lockScreen">
+		<div class="clock bigClock" id="lockScreenClock"></div>
 	</div>
-	<div class="screen" id="mainScreen">
+	<div class="screen" id="mainScreen" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)"ondrop="drop(event)">
 		<div class="clock bigClock" id="mainScreenClock"></div>
 		<div class="grid scrollable" id="notification-bar"></div>
 		<button onclick="appendToList()">Add</button>
