@@ -137,6 +137,11 @@ body {
   left: 20%;
 }
 
+.avatar {
+	width: 50%;
+	border-radius: 100%;
+}
+
 .text {
     color: rgb(255, 145, 0);
 }
