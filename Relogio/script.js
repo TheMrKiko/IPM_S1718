@@ -87,18 +87,27 @@ function drag(ev) {
     ghost.style.display = "none";
     ev.dataTransfer.setDragImage(ghost, 0, 0);
     ev.dataTransfer.setData("Text", ev.clientX);
+    then = ev.clientX;
 }
 
 function allowDrop(ev) {
     ev.stopPropagation();
     ev.preventDefault();
+    /*var then = ev.dataTransfer.getData("Text");*/
+    var now = ev.clientX;
+    var diff = now - then;
+    var string = "translateX(" + diff + "px)";
+    document.getElementById("mainScreen").style.transform = string;
 }
 
 function drop(ev) {
+    console.log("oi drop()");
     ev.preventDefault();
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
     if (then - now >= 30) {
         soloScreen("appScreen");
+    } else {
+        document.getElementById("mainScreen").style.transform = "translateX(0)";
     }
 }
