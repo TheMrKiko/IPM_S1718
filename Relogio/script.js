@@ -1,4 +1,5 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
+var notifN = 0;
 var people = [new Person("Daniel", ""), new Person("João", ""), new Person("Francisco", ""), new Person("David", "")];
 
 function updateClock(clock) {
@@ -17,21 +18,30 @@ function updateClock(clock) {
     }, 1000);
 }
 
+function cloneElement(classModel) {
+    var model = document.getElementById("models").getElementsByClassName(classModel)[0];
+    return model.cloneNode(true);
+}
+
+function cloneElementTo(classModel, idParent, ...args) {
+    var copy = cloneElement(classModel);
+    var atributEls = copy.getElementsByClassName("attr-m");
+
+    for (var i = 0; i < atributEls.length; i++) {
+
+        var atributReq = atributEls[i].getAttribute("attrm");
+        if (atributReq === "innerHTML") {
+            atributEls[i].innerHTML = args[i];
+        } else {
+            atributEls[i].setAttribute(atributReq, args[i]);
+        }
+    }
+    return document.getElementById(idParent).appendChild(copy);
+}
+
 function appendToList() {
-    var node = document.createElement("DIV");
-    node.innerHTML =
-    '<table class="notification">\
-        <tr>\
-            <td class="notif-icon">\
-                <img src="" width="6pt">\
-			</td>\
-            <td class="notif-text">o</td>\
-		</tr>\
-    </table>';
-    table = node.firstElementChild.firstElementChild.getElementsByTagName("TD");
-    table[0].firstElementChild.setAttribute("src", notifications[0]["img"]);
-    table[1].innerText = notifications[0]["name"];
-    document.getElementById("notification-bar").appendChild(node);
+    cur = (notifN++) % notifications.length;
+    cloneElementTo("table-model", "notification-bar", notifications[cur]["img"], notifications[cur]["name"]);
 }
 
 function Notification(name, img) {
