@@ -117,9 +117,21 @@ function drop(ev) {
     ev.preventDefault();
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (then - now >= 30) {
-        document.getElementById("mainS").style.transform = "translateX(-77pt)";
+    if (then - now >= 50) {
+        swipe(document.getElementById("mainS"), now - then, -77, -1);
+        /*document.getElementById("mainS").style.transform = "translateX(-77pt)";*/
     } else {
-        document.getElementById("mainS").style.transform = "translateX(0)";
+        swipe(document.getElementById("mainS"), now - then, 0, 1);
     }
+}
+
+function swipe(elem, pos, target, dir) {
+    var id = setInterval(function() {
+        if (pos == target) {
+            clearInterval(id);
+        } else {
+            pos += dir;
+            elem.style.transform = "translateX(" + pos + "pt)"; 
+        }
+    }, 10);
 }
