@@ -46,7 +46,7 @@ function Notification(name, img) {
 
 function soloScreen(screenID) {
     currentScreen = screenID;
-    screens = document.getElementsByClassName("swipe");
+    screens = document.getElementsByClassName("screen");
     for (var s = 0; s < screens.length; s++) {
         screens[s].style.display = "none";
     }
@@ -80,4 +80,13 @@ function scrollCurrScreen(value) {
 
 function scrollValue(screen, value) {
     screen.getElementsByClassName("scrollable")[0].scrollTop += value;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    soloScreen("mainScreen");
 }
