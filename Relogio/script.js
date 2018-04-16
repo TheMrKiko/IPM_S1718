@@ -1,5 +1,5 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
-
+//var screens = [new Screen("Main", "main-screen", )]
 var currentScreen;
 
 function updateClock(clock) {
@@ -42,6 +42,17 @@ function Notification(name, img) {
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
+}
+
+function Screen(name, id, initf, header, footer) {
+    this.name = name;
+    this.id = id;
+    this.inift = initf;
+    this.header = header;
+    this.footer = footer;
+    this.loadScreen = function (name) {
+        eval(initf);
+    };
 }
 
 function soloScreen(screenID) {
