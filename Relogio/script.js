@@ -1,7 +1,7 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
 var notifN = 0;
 var i = 0;
-var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
+var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg"), new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
 
 function updateClock(clock) {
     var time = new Date();

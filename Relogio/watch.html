@@ -20,45 +20,59 @@
 	</div>
 	<div class="screen" id="appScreen">
 		<div class="header">
-				<div class="clock smallClock" id="appScreenClock"></div>
-			</div>
-			<div class="grid" id="appgrid">
-				<div class="cell" id="app1">
-					<div class="cell-content">
-						<i class="fa fa-music fa-3x"></i>
-					</div>
-					<div class="cell-content text">Cartaz</div>
+			<div class="clock smallClock" id="appScreenClock"></div>
+		</div>
+		<div class="grid" id="appgrid">
+			<div class="cell" id="app1">
+				<div class="cell-content">
+					<i class="fa fa-music fa-3x"></i>
+				</div>
+				<div class="cell-content text">Cartaz</div>
 			</div>
 			<div class="cell" id="app2" onclick="soloScreen('friendScreen'); showPeople(); ">
-				<div class="cell-content"><i class="fa fa-odnoklassniki fa-3x"></i></div>
+				<div class="cell-content">
+					<i class="fa fa-odnoklassniki fa-3x"></i>
+				</div>
 				<div class="cell-content text">Amigos</div>
 			</div>
-			<div class="cell" id="app3" >
-				<div class="cell-content"><i class="fa fa-birthday-cake fa-3x"></i></div>
+			<div class="cell" id="app3">
+				<div class="cell-content">
+					<i class="fa fa-birthday-cake fa-3x"></i>
+				</div>
 				<div class="cell-content text">Encomendar</div>
 			</div>
 			<div class="cell" id="app4" onclick="soloScreen('mainScreen');">
-				<div class="cell-content"><i class="fa fa-file-photo-o fa-3x"></i></div>
+				<div class="cell-content">
+					<i class="fa fa-file-photo-o fa-3x"></i>
+				</div>
 				<div class="cell-content text">weRave</div>
 			</div>
 		</div>
 	</div>
 	<div class="screen" id="friendScreen">
-		<div class="clock smallClock" id="friendsScreenClock"></div>
 		<div class="grid" id="gridFriends">
+
+			<div class="header">
+				<div class="clock smallClock" id="friendsScreenClock"></div>
+			</div>
 		</div>
+	</div>
 	</div>
 
 	<div class="screen" id="mapScreen">
 		<div class="clock smallClock" id="mapScreenClock"></div>
 		<img src="assets\map_festival.png" id="mapFestival">
-		<div id="compass"><img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')"></div>
+		<div id="compass">
+			<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
+		</div>
 	</div>
 
 	<div class="screen" id="compassScreen">
 		<div class="clock smallClock" id="compassScreenClock"></div>
 		<img src="assets\rsz_arrow.png" id="arrowDirection">
-		<div id="map_icon"><img src="assets\map_icon.png" onclick="soloScreen('mapScreen')"></div>
+		<div id="map_icon">
+			<img src="assets\map_icon.png" onclick="soloScreen('mapScreen')">
+		</div>
 	</div>
 
 	<div hidden id="models">
@@ -85,7 +99,7 @@
 
 	<div class="screen" id="friendDetailScreen">
 		<div class="clock smallClock" id="friendDetailClock"></div>
-		<img class="avatar" src= "assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+		<img class="avatar" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
 		<div class="detailF-row">
 			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
 			<div class="text friendDetailText" id="friendToFindDistance">100m</div>

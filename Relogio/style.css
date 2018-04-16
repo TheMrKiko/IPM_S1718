@@ -26,6 +26,8 @@ body {
     width: 100%;
     display: flex;
     flex-flow: row;
+    position: sticky;
+    top: 0;
 }
 
 .smallClock {
