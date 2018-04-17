@@ -1,12 +1,12 @@
 var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
-var screens = [new Screen("Lock", "lockScreen", "", "lockScreen"),
-               new Screen("Main", "mainScreen", "console.log('main');", "mainSolo"), 
-               new Screen("App", "appScreen", "console.log('app')", "mainSolo"),
-               new Screen("Friends", "friendsScreen", "", "friendsScreen")
+var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", ""),
+               new Screen("Main", "mainScreen", "console.log('main');", "mainSolo", ""), 
+               new Screen("App", "appScreen", "console.log('app')", "mainSolo", "mainScreen"),
+               new Screen("Friends", "friendScreen", "", "friendScreen", "appScreen")
             ];
 var currentSolo;
-var currentScreenInSwipe = "mainScreen";
-var currentSwipe;
+var currentScreen = "mainScreen";
+/*var currentSwipe;*/
 var notifN = 0;
 
 function updateClock(clock) {
@@ -60,11 +60,12 @@ function Notification(name, img) {
     };*/
 }
 
-function Screen(name, id, initf, solo/*, header, footer*/) {
+function Screen(name, id, initf, solo, homeButton /*, header, footer*/) {
     this.name = name;
     this.id = id;
     this.inift = initf;
     this.solo = solo;
+    this.homeButton = homeButton;
     /*this.header = header;*/
     /*this.footer = footer;*/
     this.loadScreen = function () {
@@ -76,6 +77,9 @@ function Screen(name, id, initf, solo/*, header, footer*/) {
 //loadsolo recebe argumento do screen se houver swipe e faz move
 
 function loadScreen(screenID) {
+    if (screenID == "") {
+        return;
+    }
     function findScreenWithID(screen) {
         return screen["id"] == screenID;
     }
@@ -88,12 +92,12 @@ function loadSolo(screenID, soloID) {
     //se swipe igual, anima; se diferente, move logo
     if (currentSolo != soloID) {
         currentSolo = soloID;
-        currentSwipe = soloID;
+        /*currentSwipe = soloID;*/
         showSolo(soloID);
-    } else if (currentSolo == soloID && currentScreenInSwipe != screenID) {
+    } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
         swipe(document.getElementById(soloID), 0, width, 1, -width);
-        currentScreenInSwipe = screenID;
+        currentScreen = screenID;
     }
 }
 
@@ -116,7 +120,9 @@ window.addEventListener('message', function (event) {
             break;
 
         case "home":
-            loadScreen("mainScreen");
+            loadScreen(screens.find(function(screen) {
+                return screen["id"] == currentScreen;
+            }).homeButton);
             break;
 
         default:
@@ -148,13 +154,13 @@ function dragging(ev) {
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    if (currentScreenInSwipe == "mainScreen") {
+    if (currentScreen == "mainScreen") {
         if (diff < 0) {
             var string = "translateX(" + diff + "px)";
             document.getElementById("mainSolo").style.transform = string;
         }
     }
-    if (currentScreenInSwipe == "appScreen") {
+    if (currentScreen == "appScreen") {
         if (diff > 0) {
             diff -= document.getElementById("appScreen").clientWidth;
             var string = "translateX(" + diff + "px)";
@@ -169,17 +175,17 @@ function drop(ev) {
     var width = document.getElementById("appScreen").clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (currentScreenInSwipe == "mainScreen") {
+    if (currentScreen == "mainScreen") {
         if (then - now >= 50) {
             swipe(document.getElementById("mainSolo"), now - then, -width, -1, 0);
-            currentScreenInSwipe = "appScreen";
+            currentScreen = "appScreen";
         } else if (then - now > 0){
             swipe(document.getElementById("mainSolo"), now - then, 0, 1, 0);
         }
-    } else if (currentScreenInSwipe == "appScreen") {
+    } else if (currentScreen == "appScreen") {
         if (now - then >= 50) {
             swipe(document.getElementById("mainSolo"), now - then, width, 1, -width);
-            currentScreenInSwipe = "mainScreen";
+            currentScreen = "mainScreen";
         } else if (now - then > 0){
             swipe(document.getElementById("mainSolo"), now - then, 0, -1, -width);
         }
