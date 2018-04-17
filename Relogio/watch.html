@@ -53,6 +53,8 @@
 	</div>
 	<div class="screen" id="friendScreen">
 		<div class="header">
+			<div class="return-button"><i class="fa fa-angle-left"></i></div>
+			<div class="screen-title">Menu</div>
 			<div class="clock smallClock" id="friendsScreenClock"></div>
 		</div>
 		<div class="grid" id="gridFriends"></div>
@@ -60,15 +62,25 @@
 	</div>
 
 	<div class="screen" id="mapScreen">
-		<div class="clock smallClock" id="mapScreenClock"></div>
-		<img src="assets\map_festival.png" id="mapFestival">
-		<div id="compass">
+			<div class="header">
+					<div class="return-button"><i class="fa fa-angle-left"></i></div>
+					<div class="screen-title">Menu</div>
+				<div class="clock smallClock" id="mapScreenClock"></div>
+			</div>
+			<div class="map-festival">
+					<img src="assets\map_festival.png">
+			</div>
+		<!--<div id="compass">
 			<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
-		</div>
+		</div>-->
 	</div>
 
 	<div class="screen" id="compassScreen">
-		<div class="clock smallClock" id="compassScreenClock"></div>
+			<div class="header">
+					<div class="return-button"><i class="fa fa-angle-left"></i></div>
+					<div class="screen-title">Menu</div>
+				<div class="clock smallClock" id="compassScreenClock"></div>
+			</div>
 		<img src="assets\rsz_arrow.png" id="arrowDirection">
 		<div id="map_icon">
 			<img src="assets\map_icon.png" onclick="soloScreen('mapScreen')">
@@ -87,7 +99,7 @@
 			</table>
 		</div>
 		<div class="person-model">
-			<div class="cell">
+			<div class="cell" onclick="soloScreen('friendDetailScreen');";>
 				<div class="cell-content">
 					<img class="avatar attr-m" attrm="src">
 				</div>
@@ -98,13 +110,17 @@
 	</div>
 
 	<div class="screen" id="friendDetailScreen">
+			<div class="header">
 		<div class="clock smallClock" id="friendDetailClock"></div>
+		</div>
 		<img class="avatar" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
 		<div class="detailF-row">
 			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
 			<div class="text friendDetailText" id="friendToFindDistance">100m</div>
 		</div>
-		<div id="mapPreview"></div>
+		<div class="map-festival" onclick="soloScreen('mapScreen')">
+				<img src="assets\map_festival.png">
+		</div>
 	</div>
 </body>
 

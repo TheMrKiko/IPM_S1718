@@ -168,17 +168,25 @@ button {
     flex: 0 0 auto;
 }
 
-#mapFestival {
-  width: 100%;
-  height: 91%;
+.map-festival {
+    flex: 1 0 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-festival img {
+    height: 100%;
 }
 
 #compass {
-  position: absolute;
-   top: -25%;
-   left: 75%;
-   cursor: pointer;
-   overflow: hidden;
+    position: absolute;
+    top: -25%;
+    left: 75%;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 #compass img {
