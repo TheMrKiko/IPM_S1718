@@ -1,6 +1,7 @@
 var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
 //var screens = [new Screen("Main", "main-screen", )]
 var currentScreen;
+var currentSwipeScreen = "mainScreen";
 
 function updateClock(clock) {
     var time = new Date();
@@ -99,6 +100,7 @@ function drag(ev) {
     ev.dataTransfer.setDragImage(ghost, 0, 0);
     ev.dataTransfer.setData("Text", ev.clientX);
     then = ev.clientX;
+    console.log(ev.clientX);
 }
 
 function allowDrop(ev) {
@@ -107,9 +109,18 @@ function allowDrop(ev) {
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    if (diff < 0) {
-        var string = "translateX(" + diff + "px)";
-        document.getElementById("mainS").style.transform = string;
+    if (currentSwipeScreen == "mainScreen") {
+        if (diff < 0) {
+            var string = "translateX(" + diff + "px)";
+            document.getElementById("mainS").style.transform = string;
+        }
+    }
+    if (currentSwipeScreen == "appScreen") {
+        if (diff > 0) {
+            diff -= 77;
+            var string = "translateX(" + diff + "px)";
+            document.getElementById("mainS").style.transform = string;
+        }
     }
 }
 
@@ -117,21 +128,31 @@ function drop(ev) {
     ev.preventDefault();
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (then - now >= 50) {
-        swipe(document.getElementById("mainS"), now - then, -77, -1);
-        /*document.getElementById("mainS").style.transform = "translateX(-77pt)";*/
-    } else {
-        swipe(document.getElementById("mainS"), now - then, 0, 1);
+    if (currentSwipeScreen == "mainScreen") {
+        if (then - now >= 50) {
+            swipe(document.getElementById("mainS"), now - then, -77, -1, 0);
+            currentSwipeScreen = "appScreen";
+        } else if (then - now > 0){
+            swipe(document.getElementById("mainS"), now - then, 0, 1, 0);
+        }
+    } else if (currentSwipeScreen == "appScreen") {
+        if (now - then >= 50) {
+            swipe(document.getElementById("mainS"), now - then, 77, 1, -77);
+            currentSwipeScreen = "mainScreen";
+        } else if (now - then > 0){
+            swipe(document.getElementById("mainS"), now - then, 0, -1, -77);
+        }
     }
 }
 
-function swipe(elem, pos, target, dir) {
+function swipe(elem, pos, target, dir, offset) {
     var id = setInterval(function() {
         if (pos == target) {
             clearInterval(id);
         } else {
             pos += dir;
-            elem.style.transform = "translateX(" + pos + "pt)"; 
+            rpos = pos + offset;
+            elem.style.transform = "translateX(" + rpos + "pt)"; 
         }
     }, 10);
 }
