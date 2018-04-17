@@ -100,7 +100,6 @@ function drag(ev) {
     ev.dataTransfer.setDragImage(ghost, 0, 0);
     ev.dataTransfer.setData("Text", ev.clientX);
     then = ev.clientX;
-    console.log(ev.clientX);
 }
 
 function allowDrop(ev) {
@@ -117,7 +116,7 @@ function allowDrop(ev) {
     }
     if (currentSwipeScreen == "appScreen") {
         if (diff > 0) {
-            diff -= 77;
+            diff -= document.getElementById("appScreen").clientWidth;
             var string = "translateX(" + diff + "px)";
             document.getElementById("mainS").style.transform = string;
         }
@@ -126,21 +125,22 @@ function allowDrop(ev) {
 
 function drop(ev) {
     ev.preventDefault();
+    var width = document.getElementById("appScreen").clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
     if (currentSwipeScreen == "mainScreen") {
         if (then - now >= 50) {
-            swipe(document.getElementById("mainS"), now - then, -77, -1, 0);
+            swipe(document.getElementById("mainS"), now - then, -width, -1, 0);
             currentSwipeScreen = "appScreen";
         } else if (then - now > 0){
             swipe(document.getElementById("mainS"), now - then, 0, 1, 0);
         }
     } else if (currentSwipeScreen == "appScreen") {
         if (now - then >= 50) {
-            swipe(document.getElementById("mainS"), now - then, 77, 1, -77);
+            swipe(document.getElementById("mainS"), now - then, width, 1, -width);
             currentSwipeScreen = "mainScreen";
         } else if (now - then > 0){
-            swipe(document.getElementById("mainS"), now - then, 0, -1, -77);
+            swipe(document.getElementById("mainS"), now - then, 0, -1, -width);
         }
     }
 }
@@ -152,7 +152,7 @@ function swipe(elem, pos, target, dir, offset) {
         } else {
             pos += dir;
             rpos = pos + offset;
-            elem.style.transform = "translateX(" + rpos + "pt)"; 
+            elem.style.transform = "translateX(" + rpos + "px)"; 
         }
     }, 10);
 }
