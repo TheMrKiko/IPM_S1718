@@ -1,4 +1,4 @@
-var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
+var notifications = [new Notification("João está à sua procura.", "../Site/assets/student3.png")];
 
 function updateClock(clock) {
     var time = new Date();
