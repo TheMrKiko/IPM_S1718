@@ -1,22 +1,24 @@
-var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
+var notifications = [new Notification("à sua procura.", "assets/people/bill-jones-jr.jpg"), new Notification("gosta de si.", "assets/people/parker-whitson.jpg"), new Notification("tem saudades", "assets/people/sam-burriss.jpg")];
 var notifN = 0;
-var i = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
+
 var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", ""),
-               new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen"), 
-               new Screen("App", "appScreen", "", "mainSolo", "mainScreen"),
-               new Screen("Amigos", "friendScreen", "showPeople();", "friendScreen", "appScreen"),
-               new Screen("Mapa", "friendDetailScreen", "", "friendDetailScreen", "appScreen"),
-               new Screen("Bússola", "compassScreen", "", "compassScreen", "appScreen"),
-               new Screen("Mapa", "mapScreen", "", "mapScreen", "appScreen")
-            ];
+new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen"),
+new Screen("App", "appScreen", "", "mainSolo", "mainScreen"),
+new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen"),
+new Screen("Mapa", "friendDetailScreen", "", "", "appScreen"),
+new Screen("Bússola", "compassScreen", "", "", "appScreen"),
+new Screen("Mapa", "mapScreen", "", "", "appScreen")
+];
+
 var currentSolo;
 var currentScreen = "mainScreen";
 /*var currentSwipe;*/
 
+/************************************ CLOCK ************************************/
 function loadClocks() {
     var clocks = document.getElementsByClassName("clock");
-    for (var i = 0; i<clocks.length; i++) {
+    for (var i = 0; i < clocks.length; i++) {
         updateClock(clocks[i]);
     }
 }
@@ -38,6 +40,7 @@ function updateClock(clock) {
     }, 1000);
 }
 
+/************************************ CLONE ************************************/
 function cloneElement(classModel) {
     var model = document.getElementById("models").getElementsByClassName(classModel)[0].firstElementChild;
     return model.cloneNode(true);
@@ -45,10 +48,13 @@ function cloneElement(classModel) {
 
 function cloneElementTo(classModel, idParent, ...args) {
     var copy = cloneElement(classModel);
-    var atributEls = copy.getElementsByClassName("attr-m");
+    setAttributes(copy, [args]);
+    return document.getElementById(idParent).appendChild(copy);
+}
 
+function setAttributes(element, [args]) {
+    var atributEls = element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
-
         var atributReq = atributEls[i].getAttribute("attrm");
         if (atributReq === "innerHTML") {
             atributEls[i].innerHTML = args[i];
@@ -56,38 +62,38 @@ function cloneElementTo(classModel, idParent, ...args) {
             atributEls[i].setAttribute(atributReq, args[i]);
         }
     }
-    return document.getElementById(idParent).appendChild(copy);
 }
 
+/************************************ ECRAS ESPECIFICOS ************************************/
 function appendToList() {
-    cur = (notifN++) % notifications.length;
+    var cur = (notifN++) % notifications.length;
     cloneElementTo("table-model", "notification-bar", notifications[cur]["img"], notifications[cur]["name"]);
 }
 
+function distancePeople() {
+    for (var i = 0; i < people.length; i++) {
+        people[i].calcDistance(i);
+    }
+}
+
 function showPeople() {
-	for (var i = 0; i < people.length; i++) {
+    for (var i = 0; i < people.length; i++) {
         cloneElementTo("person-model", "gridFriends", people[i]["img"], people[i]["name"], people[i]["distance"]);
     }
 }
 
 function randomNumberGenerator(myMin, myMax) {
-  return Math.floor(Math.random()*(myMax - myMin + 1) + myMin);
+    return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
 }
 
 function randomDistance() {
-  var distances = document.getElementsByClassName("distance");
-  for (var d=0; d<distances.length; d++) {
-    distances[d].innerHTML = randomNumberGenerator(d * 150, (d+1) * 150);
-  }
-
+    var distances = document.getElementsByClassName("distance");
+    for (var d = 0; d < distances.length; d++) {
+        distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
+    }
 }
 
-function rD() {
-	var distance = randomNumberGenerator(i * 50, (i+1) * 50);
-	i = i + 1;
-	return distance;
-}
-
+/************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
     function findScreen(screen) {
         return screen["id"] == screenID;
@@ -95,18 +101,14 @@ function findScreenWithID(screenID) {
     return screens.find(findScreen);
 }
 
-//loadscreen loada solos
-//loadsolo recebe argumento do screen se houver swipe e faz move
-
 function loadScreen(screenID) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
-    screenObj.loadScreen();
+    screenObj.initScreen();
     loadSolo(screenID, screenObj["solo"]);
 }
 
 function loadSolo(screenID, soloID) {
-    //se swipe igual, anima; se diferente, move logo
     if (currentSolo != soloID) {
         currentSolo = soloID;
         currentScreen = screenID;
@@ -119,21 +121,22 @@ function loadSolo(screenID, soloID) {
 }
 
 function showSolo(soloID) {
-    solos = document.getElementsByClassName("solo");
+    var solos = document.getElementsByClassName("solo");
     for (var s = 0; s < solos.length; s++) {
         solos[s].style.display = "none";
     }
     document.getElementById(soloID).style.display = "flex";
 }
 
+/************************************ SCROLL ************************************/
 window.addEventListener('message', function (event) {
     switch (event.data) {
         case "up":
-            scrollCurrScreen(-10);
+            scrollCurrScreen(-5);
             break;
 
         case "down":
-            scrollCurrScreen(10);
+            scrollCurrScreen(5);
             break;
 
         case "home":
@@ -147,14 +150,18 @@ window.addEventListener('message', function (event) {
 });
 
 function scrollCurrScreen(value) {
-    scrollElement = document.getElementById(currentSolo);
+    var scrollElement = document.getElementById(currentSolo);
     scrollValue(scrollElement, value);
 }
 
 function scrollValue(screen, value) {
-    screen.getElementsByClassName("scrollable")[0].scrollTop += value;
+    var scrollables = screen.getElementsByClassName("scrollable");
+    if (scrollables.length != 0) {
+        scrollables[0].scrollTop += value;
+    }
 }
 
+/************************************ SWIPE ************************************/
 function startDrag(ev) {
     var ghost = document.createElement("img");
     ghost.style.display = "none";
@@ -184,7 +191,6 @@ function dragging(ev) {
     }
 }
 
-
 function drop(ev) {
     ev.preventDefault();
     var width = document.getElementById("appScreen").clientWidth;
@@ -194,31 +200,32 @@ function drop(ev) {
         if (then - now >= 50) {
             swipe(document.getElementById("mainSolo"), now - then, -width, -1, 0);
             currentScreen = "appScreen";
-        } else if (then - now > 0){
+        } else if (then - now > 0) {
             swipe(document.getElementById("mainSolo"), now - then, 0, 1, 0);
         }
     } else if (currentScreen == "appScreen") {
         if (now - then >= 50) {
             swipe(document.getElementById("mainSolo"), now - then, width, 1, -width);
             currentScreen = "mainScreen";
-        } else if (now - then > 0){
+        } else if (now - then > 0) {
             swipe(document.getElementById("mainSolo"), now - then, 0, -1, -width);
         }
     }
 }
 
 function swipe(elem, pos, target, dir, offset) {
-    var id = setInterval(function() {
+    var id = setInterval(function () {
         if (pos == target) {
             clearInterval(id);
         } else {
             pos += dir;
             rpos = pos + offset;
-            elem.style.transform = "translateX(" + rpos + "px)"; 
+            elem.style.transform = "translateX(" + rpos + "px)";
         }
     }, 5);
 }
 
+/************************************ OBJETOS ************************************/
 function Notification(name, img) {
     this.name = name;
     this.img = img;
@@ -230,21 +237,25 @@ function Notification(name, img) {
 function Person(name, img) {
     this.name = name;
     this.img = img;
-	this.distance = rD();
-    /*this.changeName = function (name) {
-        this.lastName = name;
-    };*/
+    this.distance;
+    this.calcDistance = function (i) {
+        this.distance = randomNumberGenerator(i * 50, (i + 1) * 50) + "m";
+    };
 }
 
-function Screen(name, id, initf, solo, homeButton /*, header, footer*/) {
+function Screen(name, id, initFunc, solo, homeButton, /*header, footer*/) {
     this.name = name;
     this.id = id;
-    this.inift = initf;
-    this.solo = solo;
+    this.initFunc = initFunc;
+    this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton;
-    /*this.header = header;*/
-    /*this.footer = footer;*/
-    this.loadScreen = function () {
-        eval(initf);
+    /*this.header = header;
+    this.footer = footer;*/
+    this.init = false;
+    this.initScreen = function () {
+        if (!this.init) {
+            eval(initFunc);
+            this.init = true;
+        }
     };
 }

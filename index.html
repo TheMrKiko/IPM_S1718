@@ -20,8 +20,12 @@
 			</div>
 		</div>
 		<div class="sideButton" id="rightButtons">
-			<button onclick='buttonPress("up");' onmouseover='buttonPress("up");' class="arrowButton" id="upButton"><i class="fa fa-angle-up"></i></button>
-			<button onclick='buttonPress("down");' onmouseover='buttonPress("down");' class="arrowButton" id="downButton"><i class="fa fa-angle-down"></i></button>
+			<button class="arrowButton" id="upButton" onclick='buttonPress("up");' onmouseover='startMTEvents("up");' ontouchstart='startMTEvents("up");' onmouseout="endMTEvents();" ontouchend="endMTEvents();">
+				<i class="fa fa-angle-up"></i>
+			</button>
+			<button class="arrowButton" id="downButton" onclick='buttonPress("down");' onmouseover='startMTEvents("down");' ontouchstart='startMTEvents("down");' onmouseout="endMTEvents();" ontouchend="endMTEvents();">
+				<i class="fa fa-angle-down"></i>
+			</button>
 		</div>
 	</div>
 </body>
