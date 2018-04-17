@@ -76,12 +76,20 @@
 			<div class="screen-title">Menu</div>
 			<div class="clock smallClock" id="mapScreenClock"></div>
 		</div>
+
 		<div class="map-festival">
-			<img src="assets\map_festival.png">
+			<div id="map1">
+				<div id="pinFriend"></div>
+			</div>
+
+				<div id="pinUser">
+					<i class="fa fa-circle"></i>
+				</div>
+				<div id="compass">
+				<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
+			</div>
 		</div>
-		<!--<div id="compass">
-			<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
-		</div>-->
+
 	</div>
 
 	<div class="screen" id="compassScreen">
@@ -108,7 +116,7 @@
 			<div class="text friendDetailText" id="friendToFindDistance">100m</div>
 		</div>
 		<div class="map-festival" onclick="soloScreen('mapScreen')">
-			<img src="assets\map_festival.png">
+			<!--<img src="assets\map_festival.png">-->
 		</div>
 	</div>
 

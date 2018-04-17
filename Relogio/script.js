@@ -1,7 +1,7 @@
 var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
 var notifN = 0;
 var i = 0;
-var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg"), new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
+var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 
 function updateClock(clock) {
     var time = new Date();
@@ -90,7 +90,7 @@ function randomDistance() {
 
 function rD() {
 	console.log("oi " + i);
-	var distance = randomNumberGenerator(i * 150, (i+1) * 150);
+	var distance = randomNumberGenerator(i * 50, (i+1) * 50);
 	i = i + 1;
 	return distance;
 }
