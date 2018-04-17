@@ -8,6 +8,8 @@ body {
     color: white;
     height: 100vh;
     width: 100vw;
+    overflow-y: hidden;
+    overflow: hidden;
 }
 
 
@@ -48,6 +50,13 @@ body {
     align-items: center;
 }
 
+.header {
+    background-color: rgba(255, 105, 180, 0.5);
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+}
+
 .smallClock {
     margin-right: 2%;
     text-align: right;
@@ -59,10 +68,12 @@ body {
 }
 
 .screen{
+    display: flex;
+    flex: 0 0 100vw;
     flex-flow: column;
     text-align: center;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 
 /*#mainScreen {
@@ -70,14 +81,17 @@ body {
 }*/
 
 .notification {
-    color: #fff;
+    color: rgb(255, 145, 0);
     font-size: 8pt;
     margin-left: auto;
     margin-right: auto;
+    font-weight: bold;
+    float:left;
 }
 
 #notification-bar {
-    flex-flow: column;
+    flex: 1 1 auto;
+    overflow: hidden;
 }
 
 #app-grid {
@@ -93,7 +107,7 @@ body {
     width: 100%;
     height: 100%;
     flex: 1 1 auto;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-wrap: wrap;
 }
@@ -132,7 +146,7 @@ body {
     background-color: rgba(204, 204, 204, 0.651);
 }
 
-.fa, .fas {
+.fa {
     flex: 1;
 }
 
@@ -169,22 +183,22 @@ button {
 }
 
 .footer {
-    width: 100%;
+  width: 100%;
 	font-size: 6%;
 	text-align: center;
-    color: black;
-    display: flex;
-    flex-flow: row;
-    flex: 0 0 10vh;
+  color: black;
+  display: flex;
+  flex-flow: row;
+  flex: 0 0 10vh;
 }
 
 .footerButton {
-    text-align: center;
-    flex: 1 1 auto;
+  text-align: center;
+  flex: 1 1 auto;
 }
 
 #but1 {
-    background-color: green;
+  background-color: green;
 }
 
 #but2 {
@@ -289,4 +303,14 @@ button {
 
 #map1 {
 	width: 100%;
+}
+
+#lockScreen i {
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, 0.356);
+    font-size: 24pt;
+}
+
+#lockScreenClock {
+    color: rgba(255, 255, 255, 0.651)
 }

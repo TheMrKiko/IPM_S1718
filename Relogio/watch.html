@@ -6,58 +6,61 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockedScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); updateClock('friendsScreenClock'); updateClock('mapScreenClock'); updateClock('compassScreenClock'); updateClock('friendDetailClock'); soloScreen('appScreen');">
-	<div class="screen" id="lockedScreen">
-		<div class="clock bigClock" id="lockedScreenClock"></div>
-	</div>
-	<div class="screen" id="mainScreen">
-		<div class="clock bigClock" id="mainScreenClock"></div>
-		<div class="grid" id="notification-bar"></div>
-		<!-- <button onclick="appendToList()">Add</button> -->
-		<div class="footer">
-		</div>
-	</div>
+<body onload="loadClocks(); loadScreen('lockScreen');">
 
-	<div class="screen" id="appScreen">
-		<div class="header">
+	<div class="solo screen" id="lockScreen">
+		<div class="clock bigClock" id="lockScreenClock"></div>
+		<i class="material-icons" onclick="loadScreen('mainScreen')">fingerprint</i>
+	</div>
+  
+	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)"> 
+		<div class="screen" id="mainScreen">
+			<div class="clock bigClock" id="mainScreenClock"></div>
+			<div class="grid scrollable" id="notification-bar"></div>
+		</div>
+    
+		<div class="screen" id="appScreen">
+			<div class="header">
 			<div class="return-button">
 				<i class="fa fa-angle-left"></i>
 			</div>
 			<div class="screen-title">Menu</div>
 			<div class="clock smallClock" id="appScreenClock"></div>
 		</div>
-		<div class="grid" id="appgrid">
-			<div class="cell" id="app1">
-				<div class="cell-content">
-					<i class="fa fa-music fa-3x"></i>
+			<div class="grid" id="appgrid">
+				<div class="cell" id="app1">
+					<div class="cell-content">
+						<i class="fa fa-music fa-3x"></i>
+					</div>
+					<div class="cell-content text">Cartaz</div>
 				</div>
-				<div class="cell-content text">Cartaz</div>
-			</div>
-			<div class="cell" id="app2" onclick="soloScreen('friendScreen'); showPeople(); ">
-				<div class="cell-content">
-					<i class="fa fa-odnoklassniki fa-3x"></i>
+				<div class="cell" id="app2" onclick="loadScreen('friendScreen');">
+					<div class="cell-content">
+						<i class="material-icons">group</i>
+					</div>
+					<div class="cell-content text">Amigos</div>
 				</div>
-				<div class="cell-content text">Amigos</div>
-			</div>
-			<div class="cell" id="app3">
-				<div class="cell-content">
-					<i class="fa fa-birthday-cake fa-3x"></i>
+				<div class="cell" id="app3">
+					<div class="cell-content">
+						<i class="material-icons">restaurant</i>
+					</div>
+					<div class="cell-content text">Encomendar</div>
 				</div>
-				<div class="cell-content text">Encomendar</div>
-			</div>
-			<div class="cell" id="app4" onclick="soloScreen('mainScreen');">
-				<div class="cell-content">
-					<i class="fa fa-file-photo-o fa-3x"></i>
+				<div class="cell" id="app4">
+					<div class="cell-content">
+						<i class="material-icons">settings</i>
+					</div>
+					<div class="cell-content text">weRave</div>
 				</div>
-				<div class="cell-content text">weRave</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="screen" id="friendScreen">
+  
+  	<div class="screen" id="friendScreen">
 		<div class="header">
 			<div class="return-button">
 				<i class="fa fa-angle-left"></i>
@@ -65,7 +68,7 @@
 			<div class="screen-title">Menu</div>
 			<div class="clock smallClock" id="friendsScreenClock"></div>
 		</div>
-		<div class="grid" id="gridFriends"></div>
+		<div class="grid scrollable" id="gridFriends"></div>
 	</div>
 
 	<div class="screen" id="mapScreen">
@@ -76,12 +79,10 @@
 			<div class="screen-title">Menu</div>
 			<div class="clock smallClock" id="mapScreenClock"></div>
 		</div>
-
 		<div class="map-festival">
 			<div id="map1">
 				<div id="pinFriend"></div>
 			</div>
-
 				<div id="pinUser">
 					<i class="fa fa-circle"></i>
 				</div>
@@ -89,7 +90,6 @@
 				<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
 			</div>
 		</div>
-
 	</div>
 
 	<div class="screen" id="compassScreen">
@@ -119,8 +119,8 @@
 			<!--<img src="assets\map_festival.png">-->
 		</div>
 	</div>
-
-	<div hidden id="models">
+  
+  <div hidden id="models">
 		<div class="table-model">
 			<table class="notification">
 				<tr>
