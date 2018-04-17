@@ -16,15 +16,21 @@
 		<div class="clock bigClock" id="lockScreenClock"></div>
 		<i class="material-icons" onclick="loadScreen('mainScreen')">fingerprint</i>
 	</div>
+  
 	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)"> 
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
 		</div>
+    
 		<div class="screen" id="appScreen">
 			<div class="header">
-				<div class="clock smallClock" id="appScreenClock"></div>
+			<div class="return-button">
+				<i class="fa fa-angle-left"></i>
 			</div>
+			<div class="screen-title">Menu</div>
+			<div class="clock smallClock" id="appScreenClock"></div>
+		</div>
 			<div class="grid" id="appgrid">
 				<div class="cell" id="app1">
 					<div class="cell-content">
@@ -53,26 +59,64 @@
 			</div>
 		</div>
 	</div>
-    
-	<div class="screen" id="friendScreen">
-		<div class="clock smallClock" id="friendScreenClock"></div>
-		<div class="grid">
-			<div class="cell" id="friend1">
-				<div class="cell-content"><i class="fa fa-user fa-3x"></i></div>
-				<div class="cell-content text">Daniel</div>
+  
+  	<div class="screen" id="friendScreen">
+		<div class="header">
+			<div class="return-button">
+				<i class="fa fa-angle-left"></i>
 			</div>
-			<div class="cell" id="friend2">
-				<div class="cell-content"><i class="fa fa-child fa-3x"></i></div>
-				<div class="cell-content text">João</div>
+			<div class="screen-title">Menu</div>
+			<div class="clock smallClock" id="friendsScreenClock"></div>
+		</div>
+		<div class="grid scrollable" id="gridFriends"></div>
+	</div>
+
+	<div class="screen" id="mapScreen">
+		<div class="header">
+			<div class="return-button">
+				<i class="fa fa-angle-left"></i>
 			</div>
-			<div class="cell" id="friend3">
-				<div class="cell-content"><i class="fa fa-user-secret fa-3x"></i></div>
-				<div class="cell-content text">Francisco</div>
+			<div class="screen-title">Menu</div>
+			<div class="clock smallClock" id="mapScreenClock"></div>
+		</div>
+		<div class="map-festival">
+			<div id="map1">
+				<div id="pinFriend"></div>
 			</div>
-			<div class="cell" id="friend4">
-				<div class="cell-content"><i class="fa fa-user-circle fa-3x"></i></div>
-				<div class="cell-content text">David</div>
+				<div id="pinUser">
+					<i class="fa fa-circle"></i>
+				</div>
+				<div id="compass">
+				<img src="assets\rsz_1compass.png" onclick="soloScreen('compassScreen')">
 			</div>
+		</div>
+	</div>
+
+	<div class="screen" id="compassScreen">
+		<div class="header">
+			<div class="return-button">
+				<i class="fa fa-angle-left"></i>
+			</div>
+			<div class="screen-title">Menu</div>
+			<div class="clock smallClock" id="compassScreenClock"></div>
+		</div>
+		<img src="assets\rsz_arrow.png" id="arrowDirection">
+		<div id="map_icon">
+			<img src="assets\map_icon.png" onclick="soloScreen('mapScreen')">
+		</div>
+	</div>
+
+	<div class="screen" id="friendDetailScreen">
+		<div class="header">
+			<div class="clock smallClock" id="friendDetailClock"></div>
+		</div>
+		<img class="avatar" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+		<div class="detailF-row">
+			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
+			<div class="text friendDetailText" id="friendToFindDistance">100m</div>
+		</div>
+		<div class="map-festival" onclick="soloScreen('mapScreen')">
+			<!--<img src="assets\map_festival.png">-->
 		</div>
 	</div>
   
@@ -86,6 +130,28 @@
 					<td class="notif-text attr-m" attrm="innerHTML"></td>
 				</tr>
 			</table>
+		</div>
+		<div class="person-model">
+			<div class="cell" onclick="soloScreen('friendDetailScreen');" ;>
+				<div class="cell-content">
+					<img class="avatar attr-m" attrm="src">
+				</div>
+				<div class="cell-content text attr-m" attrm="innerHTML"></div>
+				<div class="distance attr-m" attrm="innerHTML"></div>
+			</div>
+		</div>
+		<div class="header-model">
+			<div class="return-button">
+				<i class="fa fa-angle-left"></i>
+			</div>
+			<div class="screen-title attr-m" attrm="innerHTML"></div>
+			<div class="clock smallClock"></div>
+		</div>
+		<div class="footer-model">
+			<div class="footerButton attr-m" id="but1" attrm="innerHTML"></div>
+			<div class="footerButton attr-m" id="but2" attrm="innerHTML"></div>
+			<div class="footerButton attr-m" id="but3" attrm="innerHTML"></div>
+		</div>
 	</div>
 </body>
 
