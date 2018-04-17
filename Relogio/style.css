@@ -10,14 +10,47 @@ body {
     width: 100vw;
 }
 
-.clock {
+
+.swipe {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    flex-flow: row;
+}
+
+.clock, .header {
+    flex: 0 0 auto;
+}
+
+.header {
+    background-color: rgba(255, 105, 180, 0.7);
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    font-size: 8%;
+}
+
+.return-button {
+    height: 100%;
+    width: 10%;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.screen-title {
     flex: 1 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .smallClock {
     margin-right: 2%;
     text-align: right;
-    font-size: 6%;
 }
 
 .bigClock {
@@ -30,6 +63,7 @@ body {
     text-align: center;
     height: 100%;
     width: 100%;
+    position: fixed;
 }
 
 /*#mainScreen {
@@ -99,25 +133,6 @@ body {
     background-color: rgba(204, 204, 204, 0.651);
 }
 
-/*#app1:before {
-    content: '';
-    right: 0;
-    height: 80%;
-    top: 25%;
-    width: 1px;
-    margin: auto;
-    background-color: #ccc;
-}
-
-#app3:before {
-    content: '';
-    right: 0;
-    height: 50%;
-    top: 25%;
-    width: 1px;
-    background-color: #ccc;
-}*/
-
 .fa, .fas {
     flex: 1;
 }
@@ -129,8 +144,25 @@ body {
     justify-content: center;
 }
 
+.distance {
+  color: rgb(255, 145, 0);
+  font-size: 85%;
+  position: relative;
+  top: -85%;
+  left: 20%;
+}
+
+.avatar {
+	width: 50%;
+	border-radius: 100%;
+}
+
 .text {
     color: rgb(255, 145, 0);
+}
+
+.friendDetailText {
+	flex: 1 0 auto;
 }
 
 button {
@@ -162,4 +194,93 @@ button {
 
 #but3 {
   background-color: white;
+}
+
+.map-festival {
+    flex: 1 0 auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-festival img {
+    height: 100%;
+}
+
+#compass {
+    position: absolute;
+    top: -25%;
+    left: 75%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#compass img {
+  width: 80%;
+  height: 80%;
+}
+
+#compass img:active {
+  width: 100%;
+  height: 100%;
+}
+
+#map_icon {
+  position: absolute;
+  top: -25%;
+  left: 75%;
+  cursor: pointer;
+}
+
+#map_icon img {
+  width: 80%;
+  height: 80%;
+}
+
+#map_icon img:active {
+  width: 100%;
+  height: 100%;
+}
+
+#arrowDirection {
+  position: relative;
+  width: 70%;
+  height: 70%;
+  top: -15%;
+  margin: auto;
+
+  /*transition animation */
+  overflow: hidden;
+  transition-duration: 0.8s;
+  transition-property: transform;
+}
+
+/*animated when hovered* */
+#arrowDirection:hover {
+  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+}
+
+#friendToFindPic {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	border-radius: 100%;
+}
+
+#friendToFindName {
+	font-size: 10%;
+}
+
+#friendToFindDistance {
+	font-size: 10%;
+}
+
+.detailF-row {
+	display: flex;
+	flex-flow: row;
+	flex: 1 0 auto;
+	justify-content: center;
 }
