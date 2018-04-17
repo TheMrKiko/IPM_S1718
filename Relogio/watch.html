@@ -9,13 +9,12 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); soloScreen('mainS');">
+<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); loadScreen('mainScreen');">
 
-	<div class="screen solo" id="lockScreen">
+	<div class="solo screen" id="lockScreen">
 		<div class="clock bigClock" id="lockScreenClock"></div>
 	</div>
-	<div class="swipe solo" id="mainS" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
-
+	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)"> 
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
@@ -32,7 +31,7 @@
 					</div>
 					<div class="cell-content text">Cartaz</div>
 				</div>
-				<div class="cell" id="app2" onclick="soloScreen('mainScreen');">
+				<div class="cell" id="app2" onclick="loadSolo('mainSolo');">
 					<div class="cell-content">
 						<i class="fa fa-odnoklassniki fa-3x"></i>
 					</div>
