@@ -5,13 +5,23 @@
 	<title>iRave</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
-	<div id="watch">
-		<div id="content"> 
-			<iframe src="Relogio/watch.html"></iframe>
+	<div class="device">
+		<div class="sideButton" id="leftButton">
+			<button onclick='buttonPress("home");' class="homeButton"><i class="fa fa-home"></i></button>
+		</div>
+		<div class="watch">
+			<div class="content"> 
+				<iframe id ="frame" src="Relogio/watch.html"></iframe>
+			</div>
+		</div>
+		<div class="sideButton" id="rightButtons">
+			<button onclick='buttonPress("up");' class="arrowButton" id="upButton"><i class="fa fa-angle-up"></i></button>
+			<button onclick='buttonPress("down");'class="arrowButton" id="downButton"><i class="fa fa-angle-down"></i></button>
 		</div>
 	</div>
 </body>

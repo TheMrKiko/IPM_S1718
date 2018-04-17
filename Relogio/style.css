@@ -20,7 +20,7 @@ body {
 }
 
 .bigClock {
-    margin: 30% 0 0 0;
+    margin: 26% 0 0 0;
     font-size: 20%;
 }
 
@@ -117,7 +117,7 @@ body {
     background-color: #ccc;
 }*/
 
-.fa, .fas {
+.fa {
     flex: 1;
 }
 
@@ -134,4 +134,14 @@ body {
 
 button {
     flex: 0 0 auto;
+}
+
+#lockScreen i {
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, 0.356);
+    font-size: 24pt;
+}
+
+#lockScreenClock {
+    color: rgba(255, 255, 255, 0.651)
 }

@@ -58,3 +58,27 @@ function soloScreen(screenID) {
     }
     document.getElementById(screenID).style.display = "flex";
 }
+
+window.addEventListener('message', function (event) {
+    switch (event.data) {
+        case "up":
+            scrollValue("notification-bar", -10);
+            break;
+
+        case "down":
+            scrollValue("notification-bar", 10);
+            break;
+
+        case "home":
+            //O
+            break;
+
+        default:
+            console.log(event.data);
+            break;
+    }
+});
+
+function scrollValue(elementIDInFrame, value) {
+    document.getElementById(elementIDInFrame).scrollTop += value;
+}
