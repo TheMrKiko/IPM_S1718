@@ -1,4 +1,4 @@
-var notifications = [new Notification("Ola", "../Site/assets/student3.png")];
+var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
 var notifN = 0;
 var i = 0;
 var people = [new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg"), new Person("Daniel", "assets/people/bill-jones-jr.jpg"), new Person("João", "assets/people/bill-jones-jr.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/bill-jones-jr.jpg")];
