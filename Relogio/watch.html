@@ -10,11 +10,11 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); loadScreen('mainScreen');">
+<body onload="updateClock('lockScreenClock'); updateClock('mainScreenClock'); updateClock('appScreenClock'); loadScreen('lockScreen');">
 
 	<div class="solo screen" id="lockScreen">
 		<div class="clock bigClock" id="lockScreenClock"></div>
-		<i class="material-icons" onclick=loadScreen('mainScreen');" >fingerprint</i>
+		<i class="material-icons" onclick="loadScreen('mainScreen')">fingerprint</i>
 	</div>
 	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)"> 
 		<div class="screen" id="mainScreen">
@@ -33,7 +33,7 @@
 					</div>
 					<div class="cell-content text">Cartaz</div>
 				</div>
-				<div class="cell" id="app2" onclick="loadSolo('mainSolo');">
+				<div class="cell" id="app2" onclick="loadScreen('friendsScreen');">
 					<div class="cell-content">
 						<i class="fa fa-odnoklassniki fa-3x"></i>
 					</div>

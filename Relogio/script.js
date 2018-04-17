@@ -1,5 +1,9 @@
 var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
-var screens = [new Screen("Main", "mainScreen", "console.log('main');", "mainSolo"), new Screen("App", "appScreen", "console.log('app')", "mainSolo")];
+var screens = [new Screen("Lock", "lockScreen", "", "lockScreen"),
+               new Screen("Main", "mainScreen", "console.log('main');", "mainSolo"), 
+               new Screen("App", "appScreen", "console.log('app')", "mainSolo"),
+               new Screen("Friends", "friendsScreen", "", "friendsScreen")
+            ];
 var currentSolo;
 var currentScreenInSwipe = "mainScreen";
 var currentSwipe;
