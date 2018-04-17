@@ -19,7 +19,7 @@ function updateClock(clock) {
 function appendToList() {
     var node = document.createElement("DIV");
     node.innerHTML =
-    '<table class="notification">\
+        '<table class="notification">\
         <tr>\
             <td class="notif-icon">\
                 <img src="" width="6pt">\
@@ -47,4 +47,28 @@ function soloScreen(screenID) {
         screens[s].style.display = "none";
     }
     document.getElementById(screenID).style.display = "flex";
+}
+
+window.addEventListener('message', function (event) {
+    switch (event.data) {
+        case "up":
+            scrollValue("notification-bar", -10);
+            break;
+
+        case "down":
+            scrollValue("notification-bar", 10);
+            break;
+
+        case "home":
+            //O
+            break;
+
+        default:
+            console.log(event.data);
+            break;
+    }
+});
+
+function scrollValue(elementIDInFrame, value) {
+    document.getElementById(elementIDInFrame).scrollTop += value;
 }
