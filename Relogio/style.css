@@ -105,7 +105,7 @@ body {
     width: 80%;
     left: 25%;
     height: 1px;
-    background-color: rgba(204, 204, 204, 0.651); 
+    background-color: rgba(204, 204, 204, 0.651);
 }
 
 #app2:after {
@@ -114,7 +114,7 @@ body {
     width: 80%;
     left: 25%;
     height: 1px;
-    background-color: rgba(204, 204, 204, 0.651);  
+    background-color: rgba(204, 204, 204, 0.651);
 }
 
 /*#app1:before {
@@ -136,7 +136,7 @@ body {
     background-color: #ccc;
 }*/
 
-.fa, .fas {
+.fa {
     flex: 1;
 }
 
@@ -153,4 +153,14 @@ body {
 
 button {
     flex: 0 0 auto;
+}
+
+#lockScreen i {
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, 0.356);
+    font-size: 24pt;
+}
+
+#lockScreenClock {
+    color: rgba(255, 255, 255, 0.651)
 }
