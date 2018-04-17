@@ -94,7 +94,7 @@ function scrollValue(screen, value) {
     screen.getElementsByClassName("scrollable")[0].scrollTop += value;
 }
 
-function drag(ev) {
+function startDrag(ev) {
     var ghost = document.createElement("img");
     ghost.style.display = "none";
     ev.dataTransfer.setDragImage(ghost, 0, 0);
@@ -102,7 +102,7 @@ function drag(ev) {
     then = ev.clientX;
 }
 
-function allowDrop(ev) {
+function dragging(ev) {
     ev.stopPropagation();
     ev.preventDefault();
     /*var then = ev.dataTransfer.getData("Text");*/

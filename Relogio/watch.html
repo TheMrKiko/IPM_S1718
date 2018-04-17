@@ -14,7 +14,7 @@
 	<div class="screen solo" id="lockScreen">
 		<div class="clock bigClock" id="lockScreenClock"></div>
 	</div>
-	<div class="swipe solo" id="mainS" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)">
+	<div class="swipe solo" id="mainS" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
 
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>
