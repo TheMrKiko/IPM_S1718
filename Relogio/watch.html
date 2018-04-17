@@ -24,13 +24,6 @@
 		</div>
 
 		<div class="screen" id="appScreen">
-			<div class="header">
-				<div class="return-button">
-					<i class="fa fa-angle-left"></i>
-				</div>
-				<div class="screen-title">Menu</div>
-				<div class="clock smallClock" id="appScreenClock"></div>
-			</div>
 			<div class="grid" id="appgrid">
 				<div class="cell" id="app1">
 					<div class="cell-content">
@@ -61,24 +54,10 @@
 	</div>
 
 	<div class="solo screen" id="friendScreen">
-		<div class="header">
-			<div class="return-button">
-				<i class="fa fa-angle-left"></i>
-			</div>
-			<div class="screen-title">Menu</div>
-			<div class="clock smallClock" id="friendsScreenClock"></div>
-		</div>
 		<div class="grid scrollable" id="gridFriends"></div>
 	</div>
 
 	<div class="solo screen" id="mapScreen">
-		<div class="header">
-			<div class="return-button">
-				<i class="fa fa-angle-left"></i>
-			</div>
-			<div class="screen-title">Menu</div>
-			<div class="clock smallClock" id="mapScreenClock"></div>
-		</div>
 		<div class="map-festival">
 			<div id="map1">
 				<div id="pinFriend"></div>
@@ -93,13 +72,6 @@
 	</div>
 
 	<div class="solo screen" id="compassScreen">
-		<div class="header">
-			<div class="return-button">
-				<i class="fa fa-angle-left"></i>
-			</div>
-			<div class="screen-title">Menu</div>
-			<div class="clock smallClock" id="compassScreenClock"></div>
-		</div>
 		<img src="assets\rsz_arrow.png" id="arrowDirection">
 		<div id="map_icon">
 			<img src="assets\map_icon.png" onclick="loadScreen('mapScreen')">
@@ -107,9 +79,6 @@
 	</div>
 
 	<div class="solo screen" id="friendDetailScreen">
-		<div class="header">
-			<div class="clock smallClock" id="friendDetailClock"></div>
-		</div>
 		<img class="avatar" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
 		<div class="detailF-row">
 			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
@@ -141,11 +110,13 @@
 			</div>
 		</div>
 		<div class="header-model">
-			<div class="return-button">
-				<i class="fa fa-angle-left"></i>
+			<div class="header" onclick="goBack();">
+				<div class="return-button">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<div class="screen-title attr-m" attrm="innerHTML"></div>
+				<div class="clock smallClock"></div>
 			</div>
-			<div class="screen-title attr-m" attrm="innerHTML"></div>
-			<div class="clock smallClock"></div>
 		</div>
 		<div class="footer-model">
 			<div class="footerButton attr-m" id="but1" attrm="innerHTML"></div>

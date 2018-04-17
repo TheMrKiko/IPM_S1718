@@ -2,17 +2,17 @@ var notifications = [new Notification("à sua procura.", "assets/people/bill-jon
 var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 
-var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", ""),
-new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen"),
-new Screen("App", "appScreen", "", "mainSolo", "mainScreen"),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen"),
-new Screen("Mapa", "friendDetailScreen", "", "", "appScreen"),
-new Screen("Bússola", "compassScreen", "", "", "appScreen"),
-new Screen("Mapa", "mapScreen", "", "", "appScreen")
+var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", false),
+new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen", false),
+new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false),
+new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true),
+new Screen("Mapa", "friendDetailScreen", "", "", "appScreen", true),
+new Screen("Bússola", "compassScreen", "", "", "appScreen", true),
+new Screen("Mapa", "mapScreen", "", "", "appScreen", true)
 ];
 
 var currentSolo;
-var currentScreen = "mainScreen";
+var currentScreen;
 /*var currentSwipe;*/
 
 /************************************ CLOCK ************************************/
@@ -46,13 +46,25 @@ function cloneElement(classModel) {
     return model.cloneNode(true);
 }
 
+function cloneElementToByClass(classModel, idGram, classParent, [args]) {
+    var copy = cloneElement(classModel);
+    setAttributes(copy, [args]);
+    return document.getElementById(idGram).getElementsByClassName(classParent)[0].appendChild(copy);
+}
+
+function cloneElementToBegin(classModel, idParent, ...args) {
+    var copy = cloneElement(classModel);
+    setAttributes(copy, [args]);
+    return document.getElementById(idParent).insertBefore(copy, document.getElementById(idParent).firstChild);
+}
+
 function cloneElementTo(classModel, idParent, ...args) {
     var copy = cloneElement(classModel);
     setAttributes(copy, [args]);
     return document.getElementById(idParent).appendChild(copy);
 }
 
-function setAttributes(element, [args]) {
+function setAttributes(element, [args]) {    
     var atributEls = element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm");
@@ -103,9 +115,8 @@ function findScreenWithID(screenID) {
 
 function loadScreen(screenID) {
     var screenObj = findScreenWithID(screenID);
-    if (screenObj == undefined) return;
-    screenObj.initScreen();
-    loadSolo(screenID, screenObj["solo"]);
+    screenObj["prevScreen"] = currentScreen;
+    moveScreen(screenID);
 }
 
 function loadSolo(screenID, soloID) {
@@ -126,6 +137,21 @@ function showSolo(soloID) {
         solos[s].style.display = "none";
     }
     document.getElementById(soloID).style.display = "flex";
+}
+
+function moveScreen(screenID) {
+    var screenObj = findScreenWithID(screenID);
+    if (screenObj == undefined) return;
+    screenObj.initScreen();
+    loadSolo(screenID, screenObj["solo"]);
+}
+
+function goBack() {
+    moveScreen(findScreenWithID(currentScreen)["prevScreen"]);
+}
+
+function addHeader(screenID, ...args) {
+    cloneElementToBegin("header-model", screenID, [args]);
 }
 
 /************************************ SCROLL ************************************/
@@ -243,19 +269,25 @@ function Person(name, img) {
     };
 }
 
-function Screen(name, id, initFunc, solo, homeButton, /*header, footer*/) {
+function Screen(name, id, initFunc, solo, homeButton, header /*footer*/) {
     this.name = name;
     this.id = id;
     this.initFunc = initFunc;
     this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton;
+    this.header = header;
     /*this.header = header;
-    this.footer = footer;*/
+    /*this.footer = footer;*/
     this.init = false;
+    this.prevScreen;
     this.initScreen = function () {
         if (!this.init) {
+            if (this.header) this.addHeader();
             eval(initFunc);
             this.init = true;
         }
     };
+    this.addHeader = function () {
+        addHeader(id, name);
+    }
 }
