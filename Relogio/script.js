@@ -1,6 +1,6 @@
 var notifications = [new Notification("à sua procura.", "../assets/joao.jpg"), new Notification("gosta de si.", "../assets/joao.jpg"), new Notification("tem saudades", "../assets/joao.jpg")];
 var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", ""),
-               new Screen("Main", "mainScreen", "console.log('main');", "mainSolo", ""), 
+               new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen"), 
                new Screen("App", "appScreen", "console.log('app')", "mainSolo", "mainScreen"),
                new Screen("Friends", "friendScreen", "", "friendScreen", "appScreen")
             ];
@@ -8,6 +8,13 @@ var currentSolo;
 var currentScreen = "mainScreen";
 /*var currentSwipe;*/
 var notifN = 0;
+
+function loadClocks() {
+    var clocks = document.getElementsByClassName("clock");
+    for (var i = 0; i<clocks.length; i++) {
+        updateClock(clocks[i]);
+    }
+}
 
 function updateClock(clock) {
     var time = new Date();
@@ -20,7 +27,7 @@ function updateClock(clock) {
         stringTime += "0";
     }
     stringTime += time.getMinutes();
-    document.getElementById(clock).innerText = stringTime;
+    clock.innerText = stringTime;
     setTimeout(function () {
         updateClock(clock);
     }, 1000);
@@ -73,17 +80,19 @@ function Screen(name, id, initf, solo, homeButton /*, header, footer*/) {
     };
 }
 
+function findScreenWithID(screenID) {
+    function findScreen(screen) {
+        return screen["id"] == screenID;
+    }
+    return screens.find(findScreen);
+}
+
 //loadscreen loada solos
 //loadsolo recebe argumento do screen se houver swipe e faz move
 
 function loadScreen(screenID) {
-    if (screenID == "") {
-        return;
-    }
-    function findScreenWithID(screen) {
-        return screen["id"] == screenID;
-    }
-    var screenObj = screens.find(findScreenWithID);
+    var screenObj = findScreenWithID(screenID);
+    if (screenObj == undefined) return;
     screenObj.loadScreen();
     loadSolo(screenID, screenObj["solo"]);
 }
@@ -92,7 +101,7 @@ function loadSolo(screenID, soloID) {
     //se swipe igual, anima; se diferente, move logo
     if (currentSolo != soloID) {
         currentSolo = soloID;
-        /*currentSwipe = soloID;*/
+        currentScreen = screenID;
         showSolo(soloID);
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
@@ -120,9 +129,7 @@ window.addEventListener('message', function (event) {
             break;
 
         case "home":
-            loadScreen(screens.find(function(screen) {
-                return screen["id"] == currentScreen;
-            }).homeButton);
+            loadScreen(findScreenWithID(currentScreen).homeButton);
             break;
 
         default:
@@ -202,4 +209,5 @@ function swipe(elem, pos, target, dir, offset) {
             elem.style.transform = "translateX(" + rpos + "px)"; 
         }
     }, 5);
+    
 }
