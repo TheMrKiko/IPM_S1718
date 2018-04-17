@@ -15,11 +15,13 @@
 		<div class="clock bigClock" id="lockScreenClock"></div>
 		<i class="material-icons" onclick="soloScreen('mainScreen');" >fingerprint</i>
 	</div>
+  
 	<div class="screen" id="mainScreen">
 		<div class="clock bigClock" id="mainScreenClock" onclick="soloScreen('appScreen');"></div>
 		<div class="grid" id="notification-bar"></div>
-		<!--<button onclick="appendToList()">Add</button>-->
+		<!-- <button onclick="appendToList()">Add</button> -->
 	</div>
+  
 	<div class="screen" id="appScreen">
 		<div class="clock smallClock" id="appScreenClock"></div>
 		<div class="grid" id="appgrid">
@@ -41,6 +43,7 @@
 			</div>
 		</div>
 	</div>
+    
 	<div class="screen" id="friendScreen">
 		<div class="clock smallClock" id="friendsScreenClock"></div>
 		<div class="grid">
@@ -61,6 +64,18 @@
 				<div class="cell-content text">David</div>
 			</div>
 		</div>
+	</div>
+  
+  <div hidden id="models">
+		<div class="table-model">
+			<table class="notification">
+				<tr>
+					<td class="notif-icon">
+						<img src="" width="14pt" class="attr-m" attrm="src">
+					</td>
+					<td class="notif-text attr-m" attrm="innerHTML"></td>
+				</tr>
+			</table>
 	</div>
 </body>
 
