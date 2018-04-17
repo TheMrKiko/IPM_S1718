@@ -81,14 +81,20 @@ function loadScreen(screenID) {
     }
     var screenObj = screens.find(findScreenWithID);
     screenObj.loadScreen();
-    loadSolo(screenObj["solo"]);    
+    loadSolo(screenID, screenObj["solo"]);
 }
 
-function loadSolo(soloID) {
+function loadSolo(screenID, soloID) {
     //se swipe igual, anima; se diferente, move logo
-    currentSolo = soloID;
-    currentSwipe = soloID;
-    showSolo(soloID);
+    if (currentSolo != soloID) {
+        currentSolo = soloID;
+        currentSwipe = soloID;
+        showSolo(soloID);
+    } else if (currentSolo == soloID && currentScreenInSwipe != screenID) {
+        var width = document.getElementById(screenID).clientWidth;
+        swipe(document.getElementById(soloID), 0, width, 1, -width);
+        currentScreenInSwipe = screenID;
+    }
 }
 
 function showSolo(soloID) {
@@ -150,7 +156,7 @@ function dragging(ev) {
     }
     if (currentScreenInSwipe == "appScreen") {
         if (diff > 0) {
-            diff -= document.getElementById(currentSwipe).clientWidth;
+            diff -= document.getElementById("appScreen").clientWidth;
             var string = "translateX(" + diff + "px)";
             document.getElementById("mainSolo").style.transform = string;
         }
@@ -189,5 +195,5 @@ function swipe(elem, pos, target, dir, offset) {
             rpos = pos + offset;
             elem.style.transform = "translateX(" + rpos + "px)"; 
         }
-    }, 10);
+    }, 5);
 }
