@@ -4,8 +4,11 @@ var i = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", ""),
                new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen"), 
-               new Screen("App", "appScreen", "console.log('app')", "mainSolo", "mainScreen"),
-               new Screen("Friends", "friendScreen", "showPeople();", "friendScreen", "appScreen")
+               new Screen("App", "appScreen", "", "mainSolo", "mainScreen"),
+               new Screen("Amigos", "friendScreen", "showPeople();", "friendScreen", "appScreen"),
+               new Screen("Mapa", "friendDetailScreen", "", "friendDetailScreen", "appScreen"),
+               new Screen("Bússola", "compassScreen", "", "compassScreen", "appScreen"),
+               new Screen("Mapa", "mapScreen", "", "mapScreen", "appScreen")
             ];
 var currentSolo;
 var currentScreen = "mainScreen";
@@ -67,23 +70,6 @@ function showPeople() {
     }
 }
 
-function Notification(name, img) {
-    this.name = name;
-    this.img = img;
-    /*this.changeName = function (name) {
-        this.lastName = name;
-    };*/
-}
-
-function Person(name, img) {
-    this.name = name;
-    this.img = img;
-	this.distance = rD();
-    /*this.changeName = function (name) {
-        this.lastName = name;
-    };*/
-}
-
 function randomNumberGenerator(myMin, myMax) {
   return Math.floor(Math.random()*(myMax - myMin + 1) + myMin);
 }
@@ -97,23 +83,9 @@ function randomDistance() {
 }
 
 function rD() {
-	console.log("oi " + i);
 	var distance = randomNumberGenerator(i * 50, (i+1) * 50);
 	i = i + 1;
 	return distance;
-}
-
-function Screen(name, id, initf, solo, homeButton /*, header, footer*/) {
-    this.name = name;
-    this.id = id;
-    this.inift = initf;
-    this.solo = solo;
-    this.homeButton = homeButton;
-    /*this.header = header;*/
-    /*this.footer = footer;*/
-    this.loadScreen = function () {
-        eval(initf);
-    };
 }
 
 function findScreenWithID(screenID) {
@@ -245,4 +217,34 @@ function swipe(elem, pos, target, dir, offset) {
             elem.style.transform = "translateX(" + rpos + "px)"; 
         }
     }, 5);
+}
+
+function Notification(name, img) {
+    this.name = name;
+    this.img = img;
+    /*this.changeName = function (name) {
+        this.lastName = name;
+    };*/
+}
+
+function Person(name, img) {
+    this.name = name;
+    this.img = img;
+	this.distance = rD();
+    /*this.changeName = function (name) {
+        this.lastName = name;
+    };*/
+}
+
+function Screen(name, id, initf, solo, homeButton /*, header, footer*/) {
+    this.name = name;
+    this.id = id;
+    this.inift = initf;
+    this.solo = solo;
+    this.homeButton = homeButton;
+    /*this.header = header;*/
+    /*this.footer = footer;*/
+    this.loadScreen = function () {
+        eval(initf);
+    };
 }
