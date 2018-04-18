@@ -24,10 +24,7 @@
 		</div>
 
 		<div class="screen" id="appScreen">
-			<div class="header">
-				<div class="screen-title"></div>
-				<div class="clock smallClock"></div>
-			</div>
+			
 			<div class="grid" id="appgrid">
 				<div class="cell inactive" id="app1">
 					<div class="cell-content">
@@ -72,7 +69,7 @@
 				<i class="material-icons">person_pin_circle</i>
 			</div>
 			<div id="compass">
-				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen'); arrowAnimation();">
+				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen');">
 			</div>
 		</div>
 	</div>
@@ -80,7 +77,7 @@
 	<div class="solo screen" id="compassScreen">
 		<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
 		<div id="map_icon">
-			<img src="assets\map_icon.png" onclick="loadScreen('mapScreen'); arrowEnd();">
+			<img src="assets\map_icon.png" onclick="loadScreen('mapScreen');">
 		</div>
 	</div>
 
@@ -119,7 +116,7 @@
 		</div>
 		<div class="header-model">
 			<div class="header" onclick="goBack();">
-				<div class="return-button">
+				<div class="return-button attr-m" attrm="style">
 					<i class="fa fa-angle-left"></i>
 				</div>
 				<div class="screen-title attr-m" attrm="innerHTML"></div>

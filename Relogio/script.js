@@ -1,15 +1,18 @@
 var notifications = [new Notification("à sua procura.", "assets/people/bill-jones-jr.jpg"), new Notification("gosta de si.", "assets/people/parker-whitson.jpg"), new Notification("tem saudades", "assets/people/sam-burriss.jpg")];
 var notifN = 0;
+
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 
-var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", false, false),
-new Screen("Main", "mainScreen", "addNotification()", "mainSolo", "lockScreen", false, false),
-new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
-new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", ""),
-new Screen("Mapa", "mapScreen", 'pinMotion();', "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m")
+var swipes = [];
+var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
+new Screen("Main", "mainScreen", "", "addNotification()", "mainSolo", "lockScreen", false, false),
+new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
+new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "", "appScreen", true, false),
+new Screen("Contacto", "friendDetailScreen", "", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
+new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd();", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m"),
+new Screen("Bússola", "compassScreen", "", "arrowAnimation();", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", "")
 ];
+console.log(swipes);
 var currentSolo;
 var currentScreen;
 var intervalVar;
@@ -100,7 +103,6 @@ function showPeople() {
 function infoPerson(personName) {
     var person = findPersonWithName(personName);
     var screen = document.getElementById("friendDetail");
-    console.log(person);
     setAttributes(screen, [person["img"], person["name"], person["distance"]]);
 }
 
@@ -124,7 +126,6 @@ function arrowAnimation() {
         limit--;
         var degree = randomNumberGenerator(0, 360);
         var arg = "rotate(" + degree + "deg)";
-        console.log(arg);
         document.getElementById("arrowDirection").style.transform = arg;
     }
 
@@ -133,7 +134,6 @@ function arrowAnimation() {
 }
 
 function arrowEnd() {
-    console.log(12345678);
     clearInterval(intervalVar);
 }
 /************************************ GERIR ECRAS ************************************/
@@ -149,6 +149,13 @@ function findPersonWithName(name) {
         return person["name"] == name;
     }
     return people.find(findPerson);
+}
+
+function findSoloWithID(soloID) {
+    function findSolo(solo) {
+        return solo["id"] == soloID;
+    }
+    return swipes.find(findSolo);
 }
 
 function loadScreen(screenID, f = {}) {
@@ -170,6 +177,11 @@ function loadSolo(screenID, soloID) {
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
+        SsInS = findSoloWithID(soloID)["screens"];
+        for (var s = 0; s < SsInS.length; s++) {
+            console.log(SsInS);
+            findScreenWithID(SsInS[s]).initScreen();
+        }
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
         swipe(document.getElementById(soloID), 0, width, 1, -width);
@@ -188,7 +200,7 @@ function showSolo(soloID) {
 function moveScreen(screenID) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
-    screenObj.initScreen();
+    //screenObj.initScreen();
     loadSolo(screenID, screenObj["solo"]);
 }
 
@@ -277,6 +289,7 @@ function drop(ev) {
         if (then - now >= 40) {
             swipe(document.getElementById("mainSolo"), now - then, -width, -1, 0);
             currentScreen = "appScreen";
+            loadScreen("appScreen");
         } else if (then - now > 0) {
             swipe(document.getElementById("mainSolo"), now - then, 0, 1, 0);
         }
@@ -284,6 +297,7 @@ function drop(ev) {
         if (now - then >= 40) {
             swipe(document.getElementById("mainSolo"), now - then, width, 1, -width);
             currentScreen = "mainScreen";
+            loadScreen("mainScreen");
         } else if (now - then > 0) {
             swipe(document.getElementById("mainSolo"), now - then, 0, -1, -width);
         }
@@ -332,6 +346,14 @@ function Notification(name, img) {
     };*/
 }
 
+function Solo(id, el) {
+    this.id = id;
+    this.screens = [el];
+    this.addScreen = function (screenID) {
+        this.screens.push(screenID);
+    };
+}
+
 function Person(name, img) {
     this.name = name;
     this.img = img;
@@ -341,10 +363,11 @@ function Person(name, img) {
     };
 }
 
-function Screen(name, id, initFunc, solo, homeButton, header, footer, ...footarg) {
+function Screen(name, id, initFunc, constFunc, solo, homeButton, header, footer, ...footarg) {
     this.name = name;
     this.id = id;
     this.initFunc = initFunc;
+    this.constFunc = constFunc;
     this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton;
     this.header = header;
@@ -356,14 +379,25 @@ function Screen(name, id, initFunc, solo, homeButton, header, footer, ...footarg
         if (!this.init) {
             if (this.header) this.addHeader();
             if (this.footer) this.addFooter();
-            eval(initFunc);
+            eval(this.initFunc);
             this.init = true;
         }
+        eval(this.constFunc);
     };
     this.addHeader = function () {
-        addHeader(id, [name]);
+        if (this.header == "clock") {
+            addHeader(this.id, ["display: none;", ""]);
+        } else {
+            addHeader(this.id, ["", this.name]);
+        }
     }
     this.addFooter = function () {
-        addFooter(id, footarg);
+        addFooter(this.id, this.footarg);
+    }
+    var soloO = findSoloWithID(this.solo);
+    if (soloO == undefined) {
+        swipes.push(new Solo(this.solo, this.id));
+    } else {
+        soloO.addScreen(this.id);
     }
 }
