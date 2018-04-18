@@ -261,13 +261,16 @@ button {
 
   transition-duration: 0.8s;
   transition-property: transform;
-  animation: aproximar 20s;
+  animation: aproximar;
+  animation-duration: 25s;
+  animation-timing-function: ease-in;
   animation-fill-mode: forwards;
 }
 
 @keyframes aproximar {
-    from {color: tomato;}
-    to {color: lawngreen;}
+    0% {color: tomato;}
+    60% {color: yellow;}
+    100% {color: lawngreen;}
 }
 
 /*#arrowDirection:hover {

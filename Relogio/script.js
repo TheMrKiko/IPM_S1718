@@ -8,7 +8,7 @@ new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
 new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
 new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", ""),
-new Screen("Mapa", "mapScreen", 'pinMotion()', "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m")
+new Screen("Mapa", "mapScreen", 'pinMotion();', "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m")
 ];
 var currentSolo;
 var currentScreen;
@@ -129,6 +129,7 @@ function arrowAnimation() {
     }
 
     intervalVar = setInterval(rotateArrow, 2000);
+    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
 }
 
 function arrowEnd() {
@@ -273,14 +274,14 @@ function drop(ev) {
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
     if (currentScreen == "mainScreen") {
-        if (then - now >= 50) {
+        if (then - now >= 40) {
             swipe(document.getElementById("mainSolo"), now - then, -width, -1, 0);
             currentScreen = "appScreen";
         } else if (then - now > 0) {
             swipe(document.getElementById("mainSolo"), now - then, 0, 1, 0);
         }
     } else if (currentScreen == "appScreen") {
-        if (now - then >= 50) {
+        if (now - then >= 40) {
             swipe(document.getElementById("mainSolo"), now - then, width, 1, -width);
             currentScreen = "mainScreen";
         } else if (now - then > 0) {
@@ -303,6 +304,7 @@ function swipe(elem, pos, target, dir, offset) {
 
 function pinSwipe(elemId, pos, target, dir, offset, atrb) {
     elem = document.getElementById(elemId);
+    count = 0;
     var id = setInterval(function () {
         if (pos == target) {
             clearInterval(id);
@@ -311,12 +313,13 @@ function pinSwipe(elemId, pos, target, dir, offset, atrb) {
             rpos = pos + offset;
             elem.style[atrb] = rpos + "%";
         }
+        count += 0.1;
     }, 100);
 }
 
 function pinMotion() {
-    pinSwipe("pinUser", 77, 20+7, -1, 0, "left");
-    pinSwipe("pinUser", 60, 20+17, -1, 0, "top");
+    pinSwipe("pinUser", 77, 20+7, -0.25, 0, "left");
+    pinSwipe("pinUser", 60, 20+17, -0.25, 0, "top");
 }
 
 
