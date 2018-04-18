@@ -12,6 +12,7 @@ new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScr
 ];
 var currentSolo;
 var currentScreen;
+var intervalVar;
 /*var currentSwipe;*/
 
 /************************************ CLOCK ************************************/
@@ -115,12 +116,23 @@ function randomDistance() {
 }
 
 function rotateArrow() {
-  var degree = randomNumberGenerator(0, 360);
-  var arg = "rotate(" + degree + "deg)";
-  console.log(arg);
-  document.getElementById("arrowDirection").style.transform = arg;
+	/*if (currentScreen != "compassScreen") {
+		clearInterval(id);
+	}*/
+	var degree = randomNumberGenerator(0, 360);
+	var arg = "rotate(" + degree + "deg)";
+	console.log(arg);
+	document.getElementById("arrowDirection").style.transform = arg;
 }
 
+function arrowAnimation() {
+	intervalVar = setInterval(rotateArrow, 2000);
+}
+
+function arrowEnd() {
+	console.log(12345678);
+	clearInterval(intervalVar);
+}
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
     function findScreen(screen) {
