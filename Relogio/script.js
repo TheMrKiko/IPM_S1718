@@ -1,13 +1,14 @@
 var notifications = [new Notification("à sua procura.", "assets/people/bill-jones-jr.jpg"), new Notification("gosta de si.", "assets/people/parker-whitson.jpg"), new Notification("tem saudades", "assets/people/sam-burriss.jpg")];
 var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", false),
-new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen", false),
-new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true),
-new Screen("Mapa", "friendDetailScreen", "", "", "appScreen", true),
-new Screen("Bússola", "compassScreen", "", "", "appScreen", true),
-new Screen("Mapa", "mapScreen", "", "", "appScreen", true)
+
+var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", false, false),
+new Screen("Main", "mainScreen", "addNotification()", "mainSolo", "lockScreen", false, false),
+new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
+new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
+new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, false),
+new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("mapScreen")'),
+new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("compassScreen")')
 ];
 var currentSolo;
 var currentScreen;
@@ -44,40 +45,42 @@ function cloneElement(classModel) {
     return model.cloneNode(true);
 }
 
-function cloneElementToByClass(classModel, idGram, classParent, [args]) {
+/*function cloneElementToByClass(classModel, idGram, classParent, [args]) {
     var copy = cloneElement(classModel);
     setAttributes(copy, [args]);
     return document.getElementById(idGram).getElementsByClassName(classParent)[0].appendChild(copy);
-}
+}*/
 
-function cloneElementToBegin(classModel, idParent, ...args) {
+function cloneElementToBegin(classModel, idParent, args) {
     var copy = cloneElement(classModel);
-    setAttributes(copy, [args]);
+    setAttributes(copy, args);
     return document.getElementById(idParent).insertBefore(copy, document.getElementById(idParent).firstChild);
 }
 
-function cloneElementTo(classModel, idParent, ...args) {
+function cloneElementTo(classModel, idParent, args) {
     var copy = cloneElement(classModel);
-    setAttributes(copy, [args]);
+    setAttributes(copy, args);
     return document.getElementById(idParent).appendChild(copy);
 }
 
-function setAttributes(element, [args]) {
+function setAttributes(element, args) {
     var atributEls = element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
-        var atributReq = atributEls[i].getAttribute("attrm");
-        if (atributReq === "innerHTML") {
-            atributEls[i].innerHTML = args[i];
-        } else {
-            atributEls[i].setAttribute(atributReq, args[i]);
+        var atributReq = atributEls[i].getAttribute("attrm").split(" ");
+        for (var a = 0; a < atributReq.length; a++) {
+            if (atributReq[a] === "innerHTML") {
+                atributEls[i].innerHTML = args[i*atributReq.length+a];
+            } else {
+                atributEls[i].setAttribute(atributReq[a], args[i*atributReq.length+a]);//VAI MARAR
+            }
         }
     }
 }
 
 /************************************ ECRAS ESPECIFICOS ************************************/
-function appendToList() {
+function addNotification() {
     var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", notifications[cur]["img"], notifications[cur]["name"]);
+    cloneElementTo("table-model", "notification-bar", [notifications[cur]["img"], notifications[cur]["name"]]);
 }
 
 function distancePeople() {
@@ -88,8 +91,16 @@ function distancePeople() {
 
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
-        cloneElementTo("person-model", "gridFriends", people[i]["img"], people[i]["name"], people[i]["distance"]);
+        var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]]);
+        el.setAttribute("onclick", "infoPerson('"+people[i]["name"]+"');loadScreen('friendDetailScreen');");
     }
+}
+
+function infoPerson(personName) {
+    var person = findPersonWithName(personName);
+    var screen = document.getElementById("friendDetail");
+    console.log(person);
+    setAttributes(screen, [person["img"], person["name"], person["distance"]]);
 }
 
 function randomNumberGenerator(myMin, myMax) {
@@ -118,13 +129,21 @@ function findScreenWithID(screenID) {
     return screens.find(findScreen);
 }
 
-function loadScreen(screenID) {
+function findPersonWithName(name) {
+    function findPerson(person) {
+        return person["name"] == name;
+    }
+    return people.find(findPerson);
+}
+
+function loadScreen(screenID, f = {}) {
     var screenObj = findScreenWithID(screenID);
     screenObj["prevScreen"] = currentScreen;
-    moveScreen(screenID);
+    moveScreen(screenID, f);
 }
 
 function loadSolo(screenID, soloID) {
+    //clear and build
     if (currentSolo != soloID) {
         currentSolo = soloID;
         currentScreen = screenID;
@@ -155,8 +174,12 @@ function goBack() {
     moveScreen(findScreenWithID(currentScreen)["prevScreen"]);
 }
 
-function addHeader(screenID, ...args) {
-    cloneElementToBegin("header-model", screenID, [args]);
+function addHeader(screenID, args) {
+    cloneElementToBegin("header-model", screenID, args);
+}
+
+function addFooter(screenID, args) {
+    cloneElementTo("footer-model", screenID, args);
 }
 
 /************************************ SCROLL ************************************/
@@ -274,25 +297,29 @@ function Person(name, img) {
     };
 }
 
-function Screen(name, id, initFunc, solo, homeButton, header /*footer*/) {
+function Screen(name, id, initFunc, solo, homeButton, header, footer, ...footarg) {
     this.name = name;
     this.id = id;
     this.initFunc = initFunc;
     this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton;
     this.header = header;
-    /*this.header = header;
-    /*this.footer = footer;*/
+    this.footer = footer;
+    this.footarg = footarg;
     this.init = false;
     this.prevScreen;
     this.initScreen = function () {
         if (!this.init) {
             if (this.header) this.addHeader();
+            if (this.footer) this.addFooter();
             eval(initFunc);
             this.init = true;
         }
     };
     this.addHeader = function () {
-        addHeader(id, name);
+        addHeader(id, [name]);
+    }
+    this.addFooter = function () {
+        addFooter(id, footarg);
     }
 }

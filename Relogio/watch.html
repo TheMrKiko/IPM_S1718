@@ -79,13 +79,15 @@
 	</div>
 
 	<div class="solo screen" id="friendDetailScreen">
-		<img class="avatar" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
-		<div class="detailF-row">
-			<div class="text friendDetailText" id="friendToFindName">Daniel</div>
-			<div class="text friendDetailText" id="friendToFindDistance">100m</div>
-		</div>
-		<div class="map-festival" onclick="loadScreen('mapScreen')">
-			<!--<img src="assets\map_festival.png">-->
+		<div id="friendDetail">
+			<img class="avatar attr-m" attrm="src" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+			<div class="detailF-row">
+				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindName">Daniel</div>
+				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindDistance">100m</div>
+			</div>
+			<div class="map-festival" onclick="loadScreen('mapScreen')">
+				<!--<img src="assets\map_festival.png">-->
+			</div>
 		</div>
 	</div>
 
@@ -101,7 +103,7 @@
 			</table>
 		</div>
 		<div class="person-model">
-			<div class="cell" onclick="loadScreen('friendDetailScreen');" ;>
+			<div class="cell" onclick="loadScreen('friendDetailScreen');">
 				<div class="cell-content">
 					<img class="avatar attr-m" attrm="src">
 				</div>
@@ -119,9 +121,11 @@
 			</div>
 		</div>
 		<div class="footer-model">
-			<div class="footerButton attr-m" id="but1" attrm="innerHTML"></div>
-			<div class="footerButton attr-m" id="but2" attrm="innerHTML"></div>
-			<div class="footerButton attr-m" id="but3" attrm="innerHTML"></div>
+			<div class="footer">
+				<div class="footer-button attr-m" id="but1" attrm="innerHTML onclick"></div>
+				<div class="footer-button attr-m" id="but2" attrm="innerHTML onclick"></div>
+				<div class="footer-button attr-m" id="but3" attrm="innerHTML onclick"></div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -178,6 +178,12 @@ body {
 	flex: 1 0 auto;
 }
 
+#friendDetail {
+    display: flex;
+    flex-flow: column;
+    flex: 1 0 auto;
+}
+
 button {
     flex: 0 0 auto;
 }
@@ -192,7 +198,7 @@ button {
   flex: 0 0 10vh;
 }
 
-.footerButton {
+.footer-button {
   text-align: center;
   flex: 1 1 auto;
 }
@@ -260,14 +266,13 @@ button {
 }
 
 #arrowDirection {
-  position: absolute;
   max-width: 70%;
   max-height: 70%;
   margin: auto;
-  top: 20%;
+  /*top: 20%;
   left: 15%;
+  overflow: hidden;*/
 
-  overflow: hidden;
   transition-duration: 0.8s;
   transition-property: transform;
 }
