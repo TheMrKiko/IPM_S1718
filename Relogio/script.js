@@ -6,7 +6,7 @@ var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", 
 new Screen("Main", "mainScreen", "addNotification()", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, false),
+new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")'),
 new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("mapScreen")'),
 new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("compassScreen")')
 ];
@@ -149,8 +149,15 @@ function findPersonWithName(name) {
 }
 
 function loadScreen(screenID, f = {}) {
-    var screenObj = findScreenWithID(screenID);
-    screenObj["prevScreen"] = currentScreen;
+    var loadingScreenObj = findScreenWithID(screenID);
+    var currentScreenObj = findScreenWithID(currentScreen);
+    if (currentScreenObj != undefined)
+        var prevScreenObj = findScreenWithID(currentScreenObj["prevScreen"])
+    if (currentScreenObj != undefined && prevScreenObj != undefined) {
+        loadingScreenObj["prevScreen"] = (prevScreenObj["id"] == loadingScreenObj["id"] ? prevScreenObj["prevScreen"] : currentScreen);
+    } else {
+        loadingScreenObj["prevScreen"] = currentScreen;
+    }
     moveScreen(screenID, f);
 }
 
@@ -187,7 +194,8 @@ function goBack() {
 }
 
 function addHeader(screenID, args) {
-    cloneElementToBegin("header-model", screenID, args);
+    var el = cloneElementToBegin("header-model", screenID, args);
+    updateClock(el.getElementsByClassName("clock")[0]);
 }
 
 function addFooter(screenID, args) {

@@ -25,7 +25,7 @@ body {
 }
 
 .header {
-    background-color: rgba(255, 105, 180, 0.7);
+    background-color: black;
     width: 100%;
     height: 10%;
     display: flex;
@@ -35,6 +35,8 @@ body {
     top: 0;
     font-size: 8%;
 }
+
+
 
 .return-button {
     height: 100%;
@@ -48,13 +50,6 @@ body {
     flex: 1 0 auto;
     display: flex;
     align-items: center;
-}
-
-.header {
-    background-color: rgba(255, 105, 180, 0.5);
-    width: 100%;
-    display: flex;
-    flex-flow: row;
 }
 
 .smallClock {
@@ -172,6 +167,7 @@ body {
 
 .text {
     color: rgb(255, 145, 0);
+    font-weight: bold;
 }
 
 .friendDetailText {
@@ -189,13 +185,13 @@ button {
 }
 
 .footer {
-  width: 100%;
-	font-size: 6%;
+    width: 100%;
+	font-size: 8%;
 	text-align: center;
-  color: black;
-  display: flex;
-  flex-flow: row;
-  flex: 0 0 10vh;
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 12vh;
+    font-weight: bold;
 }
 
 .footer-button {
