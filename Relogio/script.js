@@ -161,11 +161,17 @@ function findSoloWithID(soloID) {
 function loadScreen(screenID, f = {}) {
     var loadingScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
-    if (currentScreenObj != undefined)
+    if (currentScreenObj != undefined) {
         var prevScreenObj = findScreenWithID(currentScreenObj["prevScreen"])
-    if (currentScreenObj != undefined && prevScreenObj != undefined) {
-        loadingScreenObj["prevScreen"] = (prevScreenObj["id"] == loadingScreenObj["id"] ? prevScreenObj["prevScreen"] : currentScreen);
-    } else {
+    }
+    /*if (savePrev) {
+        if (currentScreenObj != undefined && prevScreenObj != undefined) {
+            loadingScreenObj["prevScreen"] = (prevScreenObj["id"] == loadingScreenObj["id"] ? prevScreenObj["prevScreen"] : currentScreen);
+        } else {
+            loadingScreenObj["prevScreen"] = currentScreen;
+        }
+    } else*/
+    if (loadingScreenObj["prevScreen"] == undefined) { //isto funciona desde que não se passe ecrans à frente!
         loadingScreenObj["prevScreen"] = currentScreen;
     }
     moveScreen(screenID, f);
