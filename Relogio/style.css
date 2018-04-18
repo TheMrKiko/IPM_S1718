@@ -262,8 +262,7 @@ button {
 }
 
 #arrowDirection {
-  max-width: 70%;
-  max-height: 70%;
+    font-size: 60%;
   margin: auto;
   /*top: 20%;
   left: 15%;
@@ -271,6 +270,13 @@ button {
 
   transition-duration: 0.8s;
   transition-property: transform;
+  animation: aproximar 20s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes aproximar {
+    from {color: tomato;}
+    to {color: lawngreen;}
 }
 
 /*#arrowDirection:hover {

@@ -70,9 +70,9 @@ function setAttributes(element, args) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
             if (atributReq[a] === "innerHTML") {
-                atributEls[i].innerHTML = args[i*atributReq.length+a];
+                atributEls[i].innerHTML = args[i * atributReq.length + a];
             } else {
-                atributEls[i].setAttribute(atributReq[a], args[i*atributReq.length+a]);//VAI MARAR
+                atributEls[i].setAttribute(atributReq[a], args[i * atributReq.length + a]);//VAI MARAR
             }
         }
     }
@@ -93,7 +93,7 @@ function distancePeople() {
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
         var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]]);
-        el.setAttribute("onclick", "infoPerson('"+people[i]["name"]+"');loadScreen('friendDetailScreen');");
+        el.setAttribute("onclick", "infoPerson('" + people[i]["name"] + "');loadScreen('friendDetailScreen');");
     }
 }
 
@@ -115,23 +115,25 @@ function randomDistance() {
     }
 }
 
-function rotateArrow() {
-	/*if (currentScreen != "compassScreen") {
-		clearInterval(id);
-	}*/
-	var degree = randomNumberGenerator(0, 360);
-	var arg = "rotate(" + degree + "deg)";
-	console.log(arg);
-	document.getElementById("arrowDirection").style.transform = arg;
-}
-
 function arrowAnimation() {
-	intervalVar = setInterval(rotateArrow, 2000);
+    var limit = 8;
+    function rotateArrow() {
+        if (!limit) {
+            clearInterval(intervalVar);
+        }
+        limit--;
+        var degree = randomNumberGenerator(0, 360);
+        var arg = "rotate(" + degree + "deg)";
+        console.log(arg);
+        document.getElementById("arrowDirection").style.transform = arg;
+    }
+
+    intervalVar = setInterval(rotateArrow, 2000);
 }
 
 function arrowEnd() {
-	console.log(12345678);
-	clearInterval(intervalVar);
+    console.log(12345678);
+    clearInterval(intervalVar);
 }
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
