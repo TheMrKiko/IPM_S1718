@@ -1,7 +1,6 @@
 var notifications = [new Notification("à sua procura.", "assets/people/bill-jones-jr.jpg"), new Notification("gosta de si.", "assets/people/parker-whitson.jpg"), new Notification("tem saudades", "assets/people/sam-burriss.jpg")];
 var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-
 var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", false),
 new Screen("Main", "mainScreen", "appendToList()", "mainSolo", "lockScreen", false),
 new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false),
@@ -10,7 +9,6 @@ new Screen("Mapa", "friendDetailScreen", "", "", "appScreen", true),
 new Screen("Bússola", "compassScreen", "", "", "appScreen", true),
 new Screen("Mapa", "mapScreen", "", "", "appScreen", true)
 ];
-
 var currentSolo;
 var currentScreen;
 /*var currentSwipe;*/
@@ -64,7 +62,7 @@ function cloneElementTo(classModel, idParent, ...args) {
     return document.getElementById(idParent).appendChild(copy);
 }
 
-function setAttributes(element, [args]) {    
+function setAttributes(element, [args]) {
     var atributEls = element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm");
@@ -103,6 +101,13 @@ function randomDistance() {
     for (var d = 0; d < distances.length; d++) {
         distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
     }
+}
+
+function rotateArrow() {
+  var degree = randomNumberGenerator(0, 360);
+  var arg = "rotate(" + degree + "deg)";
+  console.log(arg);
+  document.getElementById("arrowDirection").style.transform = arg;
 }
 
 /************************************ GERIR ECRAS ************************************/

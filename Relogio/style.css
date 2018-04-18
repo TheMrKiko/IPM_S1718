@@ -223,9 +223,11 @@ button {
 
 #compass {
     position: absolute;
-    top: -52%;
+    top: -35%;
     left: 75%;
     cursor: pointer;
+    max-height: 20%;
+    max-width: 20%;
 }
 
 #compass img {
@@ -240,9 +242,11 @@ button {
 
 #map_icon {
   position: absolute;
-  top: -52%;
+  top: -35%;
   left: 75%;
   cursor: pointer;
+  max-height: 20%;
+  max-width: 20%;
 }
 
 #map_icon img {
@@ -256,20 +260,21 @@ button {
 }
 
 #arrowDirection {
-  position: relative;
-  width: 70%;
-  height: 70%;
-  top: -15%;
+  position: absolute;
+  max-width: 70%;
+  max-height: 70%;
   margin: auto;
+  top: 20%;
+  left: 15%;
 
   overflow: hidden;
   transition-duration: 0.8s;
   transition-property: transform;
 }
 
-#arrowDirection:hover {
+/*#arrowDirection:hover {
   transform: rotate(360deg);
-}
+}*/
 
 #friendToFindPic {
 	width: 50%;
