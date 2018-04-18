@@ -189,7 +189,7 @@ function loadSolo(screenID, soloID, args) {
         }
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
-        swipe(document.getElementById(soloID), 0, width, 1, -width);
+        nice(soloID, 0, width, 1, -width, "transform","translateX(", "px)", 5);
         currentScreen = screenID;
     }
 }
@@ -297,53 +297,44 @@ function drop(ev) {
     var then = ev.dataTransfer.getData("Text");
     if (currentScreen == "mainScreen") {
         if (then - now >= 40) {
-            swipe(document.getElementById("mainSolo"), now - then, -width, -1, 0);
+            nice("mainSolo", now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
             currentScreen = "appScreen";
             loadScreen("appScreen");
         } else if (then - now > 0) {
-            swipe(document.getElementById("mainSolo"), now - then, 0, 1, 0);
+            nice("mainSolo", now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
         }
     } else if (currentScreen == "appScreen") {
         if (now - then >= 40) {
-            swipe(document.getElementById("mainSolo"), now - then, width, 1, -width);
+            nice("mainSolo", now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
             currentScreen = "mainScreen";
             loadScreen("mainScreen");
         } else if (now - then > 0) {
-            swipe(document.getElementById("mainSolo"), now - then, 0, -1, -width);
+            nice("mainSolo", now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
         }
     }
 }
 
-function swipe(elem, pos, target, dir, offset) {
-    var id = setInterval(function () {
-        if (pos == target) {
-            clearInterval(id);
-        } else {
-            pos += dir;
-            rpos = pos + offset;
-            elem.style.transform = "translateX(" + rpos + "px)";
-        }
-    }, 5);
-}
-
-function pinSwipe(elemId, pos, target, dir, offset, atrb) {
+/*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
+function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, interval) {
     elem = document.getElementById(elemId);
     count = 0;
     var id = setInterval(function () {
         if (pos == target) {
             clearInterval(id);
         } else {
-            pos += dir;
+            pos += step;
             rpos = pos + offset;
-            elem.style[atrb] = rpos + "%";
+            elem.style[atrb] = strBefore + rpos + strAfter;
         }
         count += 0.1;
-    }, 100);
+    }, interval);
 }
 
+
+
 function pinMotion() {
-    pinSwipe("pinUser", 77, 20+7, -0.25, 0, "left");
-    pinSwipe("pinUser", 60, 20+17, -0.25, 0, "top");
+    nice("pinUser", 77, 20+7, -0.25, 0, "left", "", "%", 100);
+    nice("pinUser", 60, 20+17, -0.25, 0, "top", "", "%", 100);
 }
 
 
