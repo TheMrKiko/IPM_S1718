@@ -5,14 +5,13 @@ var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person(
 
 var swipes = [];
 var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
-new Screen("Main", "mainScreen", "", "addNotification()", "mainSolo", "lockScreen", false, false),
+new Screen("Main", "mainScreen", "", "addNotification", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
-new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd();", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m"),
-new Screen("Bússola", "compassScreen", "", "arrowAnimation();", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", "")
+new Screen("Contacto", "friendDetailScreen", "", "infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
+new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m"),
+new Screen("Bússola", "compassScreen", "", "arrowAnimation", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", "")
 ];
-console.log(swipes);
 var currentSolo;
 var currentScreen;
 var intervalVar;
@@ -96,12 +95,13 @@ function distancePeople() {
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
         var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]]);
-        el.setAttribute("onclick", "infoPerson('" + people[i]["name"] + "');loadScreen('friendDetailScreen');");
+        el.setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
     }
 }
 
 function infoPerson(personName) {
     var person = findPersonWithName(personName);
+    console.log(personName, person);
     var screen = document.getElementById("friendDetail");
     setAttributes(screen, [person["img"], person["name"], person["distance"]]);
 }
@@ -158,7 +158,7 @@ function findSoloWithID(soloID) {
     return swipes.find(findSolo);
 }
 
-function loadScreen(screenID, f = {}) {
+function loadScreen(screenID, ...args) {
     var loadingScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
@@ -174,10 +174,10 @@ function loadScreen(screenID, f = {}) {
     if (loadingScreenObj["prevScreen"] == undefined) { //isto funciona desde que não se passe ecrans à frente!
         loadingScreenObj["prevScreen"] = currentScreen;
     }
-    moveScreen(screenID, f);
+    moveScreen(screenID, args);
 }
 
-function loadSolo(screenID, soloID) {
+function loadSolo(screenID, soloID, args) {
     //clear and build
     if (currentSolo != soloID) {
         currentSolo = soloID;
@@ -185,8 +185,7 @@ function loadSolo(screenID, soloID) {
         showSolo(soloID);
         SsInS = findSoloWithID(soloID)["screens"];
         for (var s = 0; s < SsInS.length; s++) {
-            console.log(SsInS);
-            findScreenWithID(SsInS[s]).initScreen();
+            findScreenWithID(SsInS[s]).initScreen(args);
         }
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
@@ -203,11 +202,11 @@ function showSolo(soloID) {
     document.getElementById(soloID).style.display = "flex";
 }
 
-function moveScreen(screenID) {
+function moveScreen(screenID, args) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
     //screenObj.initScreen();
-    loadSolo(screenID, screenObj["solo"]);
+    loadSolo(screenID, screenObj["solo"], args);
 }
 
 function goBack() {
@@ -217,6 +216,11 @@ function goBack() {
 function addHeader(screenID, args) {
     var el = cloneElementToBegin("header-model", screenID, args);
     updateClock(el.getElementsByClassName("clock")[0]);
+}
+
+function editFooter(screenID, b1, b2, b3) {
+    var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
+    setAttributes(footer, [b1, "", b2, "", b3, ""]);
 }
 
 function addFooter(screenID, args) {
@@ -369,11 +373,11 @@ function Person(name, img) {
     };
 }
 
-function Screen(name, id, initFunc, constFunc, solo, homeButton, header, footer, ...footarg) {
+function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg) {
     this.name = name;
     this.id = id;
     this.initFunc = initFunc;
-    this.constFunc = constFunc;
+    this.constFuncN = constFuncN;
     this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton;
     this.header = header;
@@ -381,14 +385,17 @@ function Screen(name, id, initFunc, constFunc, solo, homeButton, header, footer,
     this.footarg = footarg;
     this.init = false;
     this.prevScreen;
-    this.initScreen = function () {
+    this.prevArgs;
+    this.initScreen = function (args) {
+        if (args != undefined) this.prevArgs = args;
+        console.log(this.constFuncN + "(" + this.prevArgs + ");");
         if (!this.init) {
             if (this.header) this.addHeader();
             if (this.footer) this.addFooter();
             eval(this.initFunc);
             this.init = true;
         }
-        eval(this.constFunc);
+        if (this.constFuncN != "") eval(this.constFuncN + "('" + this.prevArgs + "');");
     };
     this.addHeader = function () {
         if (this.header == "clock") {
