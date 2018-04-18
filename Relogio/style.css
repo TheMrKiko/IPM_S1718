@@ -10,8 +10,8 @@ body {
     width: 100vw;
     overflow-y: hidden;
     overflow: hidden;
+    user-select: none;
 }
-
 
 .swipe {
     height: 100%;
@@ -35,8 +35,6 @@ body {
     top: 0;
     font-size: 8%;
 }
-
-
 
 .return-button {
     height: 100%;
@@ -71,10 +69,6 @@ body {
     width: 100vw;
 }
 
-/*#mainScreen {
-
-}*/
-
 .notification {
     color: rgb(255, 145, 0);
     font-size: 8pt;
@@ -92,11 +86,6 @@ body {
 #app-grid {
     flex-flow: row;
 }
-
-/*#appScreen {
-
-}*/
-
 
 .grid {
     width: 100%;
@@ -118,9 +107,6 @@ body {
     flex-flow: column;
     align-items: center;
     justify-content: center;
-
-
-
 }
 
 #app1:after {
@@ -192,6 +178,7 @@ button {
     flex-flow: row;
     flex: 0 0 12vh;
     font-weight: bold;
+    background-color: tomato;
 }
 
 .footer-button {
@@ -199,7 +186,11 @@ button {
   flex: 1 1 auto;
 }
 
-#but1 {
+.inactive {
+    opacity: 0.5;
+}
+
+/*#but1 {
   background-color: green;
 }
 
@@ -209,7 +200,7 @@ button {
 
 #but3 {
   background-color: white;
-}
+}*/
 
 .map-festival {
     flex: 1 1 auto;

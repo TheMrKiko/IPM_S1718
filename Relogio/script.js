@@ -7,8 +7,8 @@ new Screen("Main", "mainScreen", "addNotification()", "mainSolo", "lockScreen", 
 new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
 new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")'),
-new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("mapScreen")'),
-new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("compassScreen")')
+new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("mapScreen")', "Acenar"),
+new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'João', 'loadScreen("compassScreen")', "100m")
 ];
 var currentSolo;
 var currentScreen;
