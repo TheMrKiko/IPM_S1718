@@ -296,13 +296,25 @@ button {
 	justify-content: center;
 }
 
-#pinUser {
+.pin {
 	position: absolute;
-	top: 0;
-	left: 0;
-	color: #55a8fd;
 	font-size: 8%;
 }
+
+#pinUser {
+    top: 60%;
+	left: 77%;
+	color: #55a8fd;
+}
+
+#pinFriend {
+    width: 10pt;
+    top: 20%;
+	left: 20%;
+	color: tomato;
+}
+
+
 
 #map1 {
 	width: 100%;

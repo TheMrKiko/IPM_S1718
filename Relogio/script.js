@@ -6,9 +6,9 @@ var screens = [new Screen("Lock", "lockScreen", "", "lockScreen", "lockScreen", 
 new Screen("Main", "mainScreen", "addNotification()", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "mainSolo", "mainScreen", false, false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")'),
-new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'Nav', 'loadScreen("mapScreen")', "Acenar"),
-new Screen("Mapa", "mapScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', 'João', 'loadScreen("compassScreen")', "100m")
+new Screen("Contacto", "friendDetailScreen", "", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
+new Screen("Bússola", "compassScreen", "", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", ""),
+new Screen("Mapa", "mapScreen", 'pinMotion()', "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m")
 ];
 var currentSolo;
 var currentScreen;
@@ -300,6 +300,25 @@ function swipe(elem, pos, target, dir, offset) {
         }
     }, 5);
 }
+
+function pinSwipe(elemId, pos, target, dir, offset, atrb) {
+    elem = document.getElementById(elemId);
+    var id = setInterval(function () {
+        if (pos == target) {
+            clearInterval(id);
+        } else {
+            pos += dir;
+            rpos = pos + offset;
+            elem.style[atrb] = rpos + "%";
+        }
+    }, 100);
+}
+
+function pinMotion() {
+    pinSwipe("pinUser", 77, 20+7, -1, 0, "left");
+    pinSwipe("pinUser", 60, 20+17, -1, 0, "top");
+}
+
 
 /************************************ OBJETOS ************************************/
 function Notification(name, img) {

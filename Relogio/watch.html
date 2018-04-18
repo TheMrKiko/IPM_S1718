@@ -64,10 +64,12 @@
 	<div class="solo screen" id="mapScreen">
 		<div class="map-festival">
 			<div id="map1">
-				<div id="pinFriend"></div>
 			</div>
-			<div id="pinUser">
+			<div class="pin" id="pinUser">
 				<i class="fa fa-circle"></i>
+			</div>
+			<div class="pin" id="pinFriend">
+				<i class="material-icons">person_pin_circle</i>
 			</div>
 			<div id="compass">
 				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen'); arrowAnimation();">
@@ -76,7 +78,6 @@
 	</div>
 
 	<div class="solo screen" id="compassScreen">
-		<!--<img src="assets\rsz_arrow.png" id="arrowDirection">-->
 		<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
 		<div id="map_icon">
 			<img src="assets\map_icon.png" onclick="loadScreen('mapScreen'); arrowEnd();">
@@ -129,7 +130,7 @@
 			<div class="footer">
 				<div class="footer-button attr-m" id="but1" attrm="innerHTML onclick"></div>
 				<div class="footer-button attr-m" id="but2" attrm="innerHTML onclick"></div>
-				<div class="footer-button attr-m" id="but3" attrm="innerHTML onclick"></div>
+				<!-- <div class="footer-button attr-m" id="but3" attrm="innerHTML onclick"></div> -->
 			</div>
 		</div>
 	</div>
