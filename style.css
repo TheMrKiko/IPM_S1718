@@ -83,19 +83,38 @@ button {
     border-bottom-width: 14pt;
     border-radius: 5pt;
 }
-.arrowButton, .homeButton{
+.arrowButton, .homeButton {
     position: relative;
     margin: auto;
     flex : 1 1 auto;
     display: flex;
     text-align: center;
+}
+
+/* .homeButton {
     padding: 50% 0;
 }
 
-.arrowButton i {
+.arrowButton {
     padding: 50% 0;
+}
+*/
+
+.homeButton {
+    padding: 45% 0;
+}
+
+.arrowButton {
+    padding: 18% 0;
+}
+
+
+
+.arrowButton i {
+    padding: 0% 0;
 }
 
 .homeButton i {
-    padding: 200% 0;
+    padding: 0% 0;
 }
+
