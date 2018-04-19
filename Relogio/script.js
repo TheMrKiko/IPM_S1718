@@ -1,4 +1,4 @@
-var notifications = [new Notification("à sua procura.", "assets/people/bill-jones-jr.jpg"), new Notification("gosta de si.", "assets/people/parker-whitson.jpg"), new Notification("tem saudades", "assets/people/sam-burriss.jpg")];
+var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te", "assets/people/parker-whitson.jpg"), new Notification("à tua procura", "assets/people/bill-jones-jr.jpg")]; 
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
