@@ -8,13 +8,14 @@ var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScree
 new Screen("Main", "mainScreen", "", "addNotification", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen")', "Acenar", ""),
-new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m"),
-new Screen("Bússola", "compassScreen", "", "arrowAnimation", "", "appScreen", true, true, "Fim", 'loadScreen("friendDetailScreen")', "João 100m", "")
+new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", ""),
+new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
+new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinuaOutra", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", "")
 ];
 var currentSolo;
 var currentScreen;
 var intervalVar;
+var prevScreenArgs;
 /*var currentSwipe;*/
 
 /************************************ CLOCK ************************************/
@@ -101,8 +102,8 @@ function showPeople() {
 
 function infoPerson(personName) {
     var person = findPersonWithName(personName);
-    console.log(personName, person);
     var screen = document.getElementById("friendDetail");
+    prevScreenArgs = personName;
     setAttributes(screen, [person["img"], person["name"], person["distance"]]);
 }
 
@@ -135,6 +136,16 @@ function arrowAnimation() {
 
 function arrowEnd() {
     clearInterval(intervalVar);
+}
+
+function nadaContinua(personName) {
+    var person = findPersonWithName(personName);
+    editFooter("mapScreen", "Fim", person["name"], person["distance"])
+}
+
+function nadaContinuaOutra(personName) {
+    var person = findPersonWithName(personName);
+    editFooter("compassScreen", "Fim", person["name"], person["distance"])
 }
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
@@ -210,7 +221,7 @@ function moveScreen(screenID, args) {
 }
 
 function goBack() {
-    moveScreen(findScreenWithID(currentScreen)["prevScreen"]);
+    moveScreen(findScreenWithID(currentScreen)["prevScreen"], "");
 }
 
 function addHeader(screenID, args) {
@@ -220,11 +231,12 @@ function addHeader(screenID, args) {
 
 function editFooter(screenID, b1, b2, b3) {
     var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
-    setAttributes(footer, [b1, "", b2, "", b3, ""]);
+    screenFootArgs = findScreenWithID(screenID)["footarg"];
+    setAttributes(footer, [b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
 }
 
-function addFooter(screenID, args) {
-    cloneElementTo("footer-model", screenID, args);
+function addFooter(screenID, num, args) {
+    cloneElementTo("footer-model" + num, screenID, args);
 }
 
 /************************************ SCROLL ************************************/
@@ -376,17 +388,17 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
     this.footarg = footarg;
     this.init = false;
     this.prevScreen;
-    this.prevArgs;
+    this.keepArgs;
     this.initScreen = function (args) {
-        if (args != undefined) this.prevArgs = args;
-        console.log(this.constFuncN + "(" + this.prevArgs + ");");
+        if (args == "prevArg")  args = prevScreenArgs;
+        if (args != "") this.keepArgs = args;
         if (!this.init) {
             if (this.header) this.addHeader();
             if (this.footer) this.addFooter();
             eval(this.initFunc);
             this.init = true;
         }
-        if (this.constFuncN != "") eval(this.constFuncN + "('" + this.prevArgs + "');");
+        if (this.constFuncN != "") eval(this.constFuncN + "('" + this.keepArgs + "');");
     };
     this.addHeader = function () {
         if (this.header == "clock") {
@@ -396,7 +408,11 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
         }
     }
     this.addFooter = function () {
-        addFooter(this.id, this.footarg);
+        if (this.footer == "true3") {
+            addFooter(this.id, 3, this.footarg);
+        } else {
+            addFooter(this.id, 2, this.footarg);
+        }
     }
     var soloO = findSoloWithID(this.solo);
     if (soloO == undefined) {
