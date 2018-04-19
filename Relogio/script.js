@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te", "assets/people/parker-whitson.jpg"), new Notification("à tua procura", "assets/people/bill-jones-jr.jpg")];
+var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")]; 
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -74,6 +74,8 @@ function setAttributes(element, args) {
         for (var a = 0; a < atributReq.length; a++) {
             if (atributReq[a] === "innerHTML") {
                 atributEls[i].innerHTML = args[i * atributReq.length + a];
+            } else if (atributReq[a] === "class") {
+                atributEls[i].classList.add(args[i * atributReq.length + a]);
             } else {
                 atributEls[i].setAttribute(atributReq[a], args[i * atributReq.length + a]);//VAI MARAR
             }
@@ -172,14 +174,12 @@ function nadaContinua(personName) {
         }
         editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
     }, 1000);
-
 }
 
 function reSort() {
 	people.sort(function(a, b) {
 		return a["distance"] - b["distance"];
 	});
-	console.log(people);
 }
 
 /************************************ GERIR ECRAS ************************************/
@@ -267,11 +267,24 @@ function addHeader(screenID, args) {
 function editFooter(screenID, b1, b2, b3) {
     var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
     screenFootArgs = findScreenWithID(screenID)["footarg"];
-    setAttributes(footer, [b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
+    args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
+    setAttributes(footer, args);
 }
 
 function addFooter(screenID, num, args) {
-    cloneElementTo("footer-model" + num, screenID, args);
+    args = convertFooterArgs(args);
+    cloneElementTo("footer-model-" + num, screenID, args);
+}
+
+function convertFooterArgs(args) {
+    function isempty(clickstr) {
+        if (clickstr != "") return "attr-m";
+        return "info";
+    }
+    if (args.length > 4) {
+        return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
+    }
+    return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3])];
 }
 
 /************************************ SCROLL ************************************/
@@ -304,6 +317,31 @@ function scrollValue(screen, value) {
     var scrollables = screen.getElementsByClassName("scrollable");
     if (scrollables.length != 0) {
         scrollables[0].scrollTop += value;
+        testscrollTop(scrollables[0]);
+    }
+}
+
+function testscrollTop(element) {
+    var currP = element.scrollTop++;
+    if (element.scrollTop != currP) {
+        element.classList.toggle("scroll-down", true);
+        element.scrollTop--;
+    } else {
+        element.classList.toggle("scroll-down", false);
+    }
+    currP = element.scrollTop--;
+    if (element.scrollTop != currP) {
+        element.classList.toggle("scroll-up", true);
+        element.scrollTop++;
+    } else {
+        element.classList.toggle("scroll-up", false);
+    }
+}
+
+function testscrollTopScreen() {
+    var scrollables = document.getElementById(currentSolo).getElementsByClassName("scrollable");
+    if (scrollables.length != 0) {
+        testscrollTop(scrollables[0]);
     }
 }
 
@@ -434,6 +472,7 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
             this.init = true;
         }
         if (this.constFuncN != "") eval(this.constFuncN + "('" + this.keepArgs + "');");
+        testscrollTopScreen();
     };
     this.addHeader = function () {
         if (this.header == "clock") {
