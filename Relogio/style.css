@@ -192,15 +192,11 @@ button {
 
 /*#but1 {
   background-color: green;
-}
-
-#but2 {
-  background-color: blue;
-}
-
-#but3 {
-  background-color: white;
 }*/
+
+#but2, #but3 {
+  background-color: rgb(223, 86, 66);
+}
 
 .map-festival {
     flex: 1 1 auto;
