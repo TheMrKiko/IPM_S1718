@@ -190,11 +190,7 @@ button {
     opacity: 0.5;
 }
 
-/*#but1 {
-  background-color: green;
-}*/
-
-#but2, #but3 {
+.info {
   background-color: rgb(223, 86, 66);
 }
 
@@ -325,8 +321,6 @@ button {
 	left: 20%;
 	color:rgb(255, 145, 0);
 }
-
-
 
 #map1 {
 	width: 100%;
