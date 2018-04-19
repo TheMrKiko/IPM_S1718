@@ -95,7 +95,7 @@ function distancePeople() {
 
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
-        var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]]);
+        var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
         el.setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
     }
 }
@@ -104,7 +104,7 @@ function infoPerson(personName) {
     var person = findPersonWithName(personName);
     var screen = document.getElementById("friendDetail");
     prevScreenArgs = personName;
-    setAttributes(screen, [person["img"], person["name"], person["distance"]]);
+    setAttributes(screen, [person["img"], person["name"], person["distance"]+"m"]);
 }
 
 function randomNumberGenerator(myMin, myMax) {
@@ -140,12 +140,31 @@ function arrowEnd() {
 
 function nadaContinua(personName) {
     var person = findPersonWithName(personName);
-    editFooter("mapScreen", "Fim", person["name"], person["distance"])
+    var iniDist = person["distance"] / 20;
+    editFooter("mapScreen", "Fim", person["name"], person["distance"]+"m");
+    var inte = setInterval(function () {
+        person["distance"] = parseInt(eval(person["distance"] - iniDist).toFixed(0));
+        if (person["distance"] < 0) {
+            person["distance"] = 0;
+            clearInterval(inte);
+        }
+        editFooter("mapScreen", "Fim", person["name"], person["distance"]+"m");
+    }, 1000);
+    
 }
 
 function nadaContinuaOutra(personName) {
     var person = findPersonWithName(personName);
-    editFooter("compassScreen", "Fim", person["name"], person["distance"])
+    var iniDist = person["distance"] / 20;
+    editFooter("compassScreen", "Fim", person["name"], person["distance"]+"m");
+    var inte = setInterval(function () {
+        person["distance"] = parseInt(eval(person["distance"] - iniDist).toFixed(0));
+        if (person["distance"] < 0) {
+            person["distance"] = 0;
+            clearInterval(inte);
+        }
+        editFooter("compassScreen", "Fim", person["name"], person["distance"]+"m");
+    }, 1000);
 }
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
@@ -372,7 +391,7 @@ function Person(name, img) {
     this.img = img;
     this.distance;
     this.calcDistance = function (i) {
-        this.distance = randomNumberGenerator(i * 50, (i + 1) * 50) + "m";
+        this.distance = randomNumberGenerator(i * 50, (i + 1) * 50);
     };
 }
 
