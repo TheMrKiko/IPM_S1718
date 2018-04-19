@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te", "assets/people/parker-whitson.jpg"), new Notification("à tua procura", "assets/people/bill-jones-jr.jpg")]; 
+var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te", "assets/people/parker-whitson.jpg"), new Notification("à tua procura", "assets/people/bill-jones-jr.jpg")];
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -7,8 +7,8 @@ var swipes = [];
 var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
 new Screen("Main", "mainScreen", "", "addNotification", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", ""),
+new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "reSetDistance", "", "appScreen", true, false),
+new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", 'shakePic()'),
 new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
 new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", "")
 ];
@@ -100,11 +100,29 @@ function showPeople() {
     }
 }
 
+function reSetDistance() {
+	reSort();
+	var peopleHTML = document.getElementById("gridFriends").children;
+	for (var i =0; i < people.length; i++) {
+		setAttributes(peopleHTML[i], [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
+		peopleHTML[i].setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
+	}
+}
+
 function infoPerson(personName) {
     var person = findPersonWithName(personName);
     var screen = document.getElementById("friendDetail");
     prevScreenArgs = personName;
     setAttributes(screen, [person["img"], person["name"], person["distance"]+"m"]);
+}
+
+function shakePic() {
+	var screen = document.getElementById("friendDetail");
+	screen.style.animation = "shake 0.5s";
+	screen.style.animationIterationCount = "3";
+	setTimeout(function() {
+		screen.style.animation = "";
+	}, 1500);
 }
 
 function randomNumberGenerator(myMin, myMax) {
@@ -154,7 +172,14 @@ function nadaContinua(personName) {
         }
         editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
     }, 1000);
-    
+
+}
+
+function reSort() {
+	people.sort(function(a, b) {
+		return a["distance"] - b["distance"];
+	});
+	console.log(people);
 }
 
 /************************************ GERIR ECRAS ************************************/
