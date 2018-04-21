@@ -1,16 +1,35 @@
+/***************************** GERAL *****************************/
+
+:root {
+    --bs-color: rgb(236, 115, 84);/*tomato; rgb(255, 145, 0)*/
+    --bs-bcolor: rgb(102, 173, 157);
+    --footer-light-bg-color: var(--bs-color);
+    --footer-dark-bg-color: rgb(223, 86, 66);
+    --watch-bg-color: black;
+    --header-bg-color: black;
+}
+
 body {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: calc(100vh / 0.77);
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #000;
+    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    background-color: var(--watch-bg-color);
     color: white;
     height: 100vh;
     width: 100vw;
-    overflow-y: hidden;
     overflow: hidden;
     user-select: none;
+}
+
+.screen {
+    display: flex;
+    flex: 0 0 100vw;
+    flex-flow: column;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .swipe {
@@ -20,12 +39,32 @@ body {
     flex-flow: row;
 }
 
+.scrollable.scroll-down {
+    box-shadow: 0 -10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
+}
+
+.scrollable.scroll-up {
+    box-shadow: 0 10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
+}
+
+.scrollable.scroll-down.scroll-up {
+    box-shadow: 0 -10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset, 0 10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
+}
+
+.text {
+    color: var(--bs-color);
+    font-weight: bold;
+}
+
+/***************************** HEADER *****************************/
+
 .clock, .header {
     flex: 0 0 auto;
 }
 
 .header {
-    background-color: black;
+    background-color: var(--header-bg-color);
+    color: var(--bs-bcolor);
     width: 100%;
     height: 10%;
     display: flex;
@@ -55,27 +94,58 @@ body {
     text-align: right;
 }
 
+/***************************** FOOTER *****************************/
+
+.footer {
+    width: 100%;
+    font-size: 8%;
+    text-align: center;
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 12vh;
+    font-weight: bold;
+    background-color: var(--footer-light-bg-color);
+}
+
+.footer-button {
+    text-align: center;
+    flex: 1 1 auto;
+}
+
+.inactive {
+    opacity: 0.5;
+}
+
+.info {
+    background-color: var(--footer-dark-bg-color);
+}
+
+/***************************** LOCK SCREEN *****************************/
+
 .bigClock {
     margin: 30vh 0 0 0;
     font-size: 20%;
 }
 
-.screen{
-    display: flex;
-    flex: 0 0 100vw;
-    flex-flow: column;
-    text-align: center;
-    height: 100vh;
-    width: 100vw;
+#lockScreen i {
+    flex: 1 1 auto;
+    color: var(--bs-bcolor);/*rgba(255, 255, 255, 0.356);*/
+    opacity: 0.35;
+    font-size: 24%;
 }
 
+#lockScreenClock {
+    color: var(--bs-bcolor);/*rgba(255, 255, 255, 0.651);*/
+    opacity: 0.65;
+}
+
+/***************************** MAIN MENU *****************************/
+
 .notification {
-    color: tomato/*rgb(255, 145, 0)*/;
-    font-size: 8pt;
+    font-size: 8%;
     margin-left: auto;
     margin-right: auto;
-    font-weight: bold;
-    float:left;
+    float: left;
 }
 
 #notification-bar {
@@ -83,9 +153,11 @@ body {
     overflow: hidden;
 }
 
-#app-grid {
-    flex-flow: row;
+.notif-avatar {
+    width: 14pt;
 }
+
+/***************************** APP MENU *****************************/
 
 .grid {
     width: 100%;
@@ -109,16 +181,18 @@ body {
     justify-content: center;
 }
 
-#app1:after {
-    content: '';
-    bottom: 0;
-    width: 80%;
-    left: 25%;
-    height: 1px;
-    background-color: rgba(204, 204, 204, 0.651);
+.cell-content {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
 }
 
-#app2:after {
+#app-grid {
+    flex-flow: row;
+}
+
+#app1:after, #app2:after {
     content: '';
     bottom: 0;
     width: 80%;
@@ -131,78 +205,58 @@ body {
     flex: 1;
 }
 
-.cell-content {
-    display: flex;
-    flex: 1 0 auto;
-    align-items: center;
-    justify-content: center;
-}
+/***************************** FRIENDS LIST *****************************/
 
 .distance {
-  color: rgb(255, 145, 0);
-  font-size: 85%;
-  position: relative;
-  top: -85%;
-  left: 20%;
+    color: var(--bs-color);
+    font-size: 85%;
+    position: relative;
+    top: -85%;
+    left: 20%;
 }
 
 .avatar {
-	width: 50%;
-	border-radius: 100%;
+    width: 50%;
+    /*height: 50%;*/
+    margin: auto;
+    border-radius: 100%;
 }
 
-.text {
-    color: tomato/*rgb(255, 145, 0)*/;
-    font-weight: bold;
-}
+/***************************** CONTACT *****************************/
 
 .friendDetailText {
-	flex: 1 0 auto;
+    flex: 1 0 auto;
+    font-size: 10%;
 }
 
-#friendDetail {
+.friendDetail-row {
+    display: flex;
+    flex-flow: row;
+    flex: 1 0 auto;
+    justify-content: center;
+}
+
+.friendDetail {
     display: flex;
     flex-flow: column;
     flex: 1 0 auto;
 }
 
-.footer {
-    width: 100%;
-	font-size: 8%;
-	text-align: center;
-    display: flex;
-    flex-flow: row;
-    flex: 0 0 12vh;
-    font-weight: bold;
-    background-color: tomato;
-}
-
-.footer-button {
-  text-align: center;
-  flex: 1 1 auto;
-}
-
-.inactive {
-    opacity: 0.5;
-}
-
-.info {
-  background-color: rgb(223, 86, 66);
-}
+/***************************** MAP *****************************/
 
 .map-festival {
     flex: 1 1 auto;
     width: 100%;
-	height: 100%;
+    height: 100%;
     max-height: 100vh;
     align-items: center;
     justify-content: center;
     background-image: url('assets/map_festival.png');
     background-size: 100% 100%;
-	flex-flow: column;
+    flex-flow: column;
 }
 
-#compass {
+.button_icon {
     position: absolute;
     top: -35%;
     left: 75%;
@@ -211,135 +265,100 @@ body {
     max-width: 20%;
 }
 
-#compass img {
-  width: 90%;
-  height: 90%;
+.button_icon img {
+    width: 90%;
+    height: 90%;
 }
 
-#compass img:active {
-  width: 100%;
-  height: 100%;
-}
-
-#map_icon {
-  position: absolute;
-  top: -35%;
-  left: 75%;
-  cursor: pointer;
-  max-height: 20%;
-  max-width: 20%;
-}
-
-#map_icon img {
-  width: 90%;
-  height: 90%;
-}
-
-#map_icon img:active {
-  width: 100%;
-  height: 100%;
-}
-
-#arrowDirection {
-    font-size: 60%;
-  margin: auto;
-  /*top: 20%;
-  left: 15%;
-  overflow: hidden;*/
-
-  transition-duration: 0.8s;
-  transition-property: transform;
-  animation: aproximar;
-  animation-duration: 25s;
-  animation-timing-function: ease-in;
-  animation-fill-mode: forwards;
-}
-
-@keyframes aproximar {
-    0% {color: tomato;}
-    60% {color: yellow;}
-    100% {color: lawngreen;}
-}
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-/*#arrowDirection:hover {
-  transform: rotate(360deg);
-}*/
-
-#friendToFindPic {
-	width: 50%;
-	height: 50%;
-	margin: auto;
-	border-radius: 100%;
-}
-
-#friendToFindName {
-	font-size: 10%;
-}
-
-#friendToFindDistance {
-	font-size: 10%;
-}
-
-.detailF-row {
-	display: flex;
-	flex-flow: row;
-	flex: 1 0 auto;
-	justify-content: center;
+.button_icon img:active {
+    width: 100%;
+    height: 100%;
 }
 
 .pin {
-	position: absolute;
-	font-size: 8%;
+    position: absolute;
+    font-size: 8%;
 }
 
 #pinUser {
     top: 60%;
-	left: 77%;
-	color: #55a8fd;
+    left: 77%;
+    color: #55a8fd;
 }
 
 #pinFriend {
     width: 10pt;
     top: 20%;
-	left: 20%;
-	color:rgb(255, 145, 0);
+    left: 20%;
+    color: rgb(255, 145, 0);
 }
 
-.scrollable.scroll-down {
-    box-shadow: 0 -10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
+/***************************** COMPASS *****************************/
+
+#arrowDirection {
+    font-size: 60%;
+    margin: auto;
+    /*top: 20%;
+    left: 15%;
+    overflow: hidden;*/
+    transition-duration: 0.8s;
+    transition-property: transform;
+    animation: aproximar;
+    animation-duration: 25s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
 }
 
-.scrollable.scroll-up {
-    box-shadow: 0 10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
+/*#arrowDirection:hover {
+    transform: rotate(360deg);
+}*/
+
+/***************************** ANIMATIONS *****************************/
+
+@keyframes aproximar {
+    0% {
+        color: tomato;
+    }
+    60% {
+        color: yellow;
+    }
+    100% {
+        color: lawngreen;
+    }
 }
 
-.scrollable.scroll-down.scroll-up {
-    box-shadow: 0 -10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset, 0 10pt 10pt -3pt rgba(128, 128, 128, 0.3) inset;
-}
-
-#map1 {
-	width: 100%;
-}
-
-#lockScreen i {
-    flex: 1 1 auto;
-    color: rgba(255, 255, 255, 0.356);
-    font-size: 24pt;
-}
-
-#lockScreenClock {
-    color: rgba(255, 255, 255, 0.651)
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
 }

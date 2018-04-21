@@ -113,13 +113,13 @@ function reSetDistance() {
 
 function infoPerson(personName) {
     var person = findPersonWithName(personName);
-    var screen = document.getElementById("friendDetail");
+    var screen = document.getElementsByClassName("friendDetail")[0];
     prevScreenArgs = personName;
     setAttributes(screen, [person["img"], person["name"], person["distance"]+"m"]);
 }
 
 function shakePic() {
-	var screen = document.getElementById("friendDetail");
+	var screen = document.getElementsByClassName("friendDetail")[0];
 	screen.style.animation = "shake 0.5s";
 	screen.style.animationIterationCount = "3";
 	setTimeout(function() {

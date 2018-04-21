@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
@@ -18,13 +19,13 @@
 	</div>
 
 	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
+		
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
 		</div>
 
 		<div class="screen" id="appScreen">
-			
 			<div class="grid" id="appgrid">
 				<div class="cell inactive" id="app1">
 					<div class="cell-content">
@@ -52,6 +53,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="solo screen" id="friendScreen">
@@ -60,15 +62,13 @@
 
 	<div class="solo screen" id="mapScreen">
 		<div class="map-festival">
-			<div id="map1">
-			</div>
 			<div class="pin" id="pinUser">
 				<i class="fa fa-circle"></i>
 			</div>
 			<div class="pin" id="pinFriend">
 				<i class="material-icons">person_pin_circle</i>
 			</div>
-			<div id="compass">
+			<div class="button_icon" id="compass_icon">
 				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen', 'prevArg');">
 			</div>
 		</div>
@@ -76,21 +76,18 @@
 
 	<div class="solo screen" id="compassScreen">
 		<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
-		<div id="map_icon">
+		<div class="button_icon" id="map_icon">
 			<img src="assets\map_icon.png" onclick="loadScreen('mapScreen', 'prevArg');">
 		</div>
 	</div>
 
 	<div class="solo screen" id="friendDetailScreen">
-		<div id="friendDetail">
+		<div class="friendDetail">
 			<img class="avatar attr-m" attrm="src" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
-			<div class="detailF-row">
+			<div class="friendDetail-row">
 				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindName">Daniel</div>
 				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindDistance">100m</div>
 			</div>
-			<!--<div class="map-festival" onclick="loadScreen('mapScreen')">
-				<img src="assets\map_festival.png">
-			</div>-->
 		</div>
 	</div>
 
@@ -99,9 +96,9 @@
 			<table class="notification">
 				<tr>
 					<td class="notif-icon">
-						<img src="" width="14pt" class="attr-m" attrm="src">
+						<img class="notif-avatar avatar attr-m" attrm="src">
 					</td>
-					<td class="notif-text attr-m" attrm="innerHTML"></td>
+					<td class="notif-text text attr-m" attrm="innerHTML"></td>
 				</tr>
 			</table>
 		</div>
