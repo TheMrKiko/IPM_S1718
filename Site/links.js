@@ -45,13 +45,13 @@ var links = [
 	},
 	{
 		"id": "pf1b",
-		"url": "protFuncional1-beta.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pf1b/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "pf1c",
-		"url": "protFuncional1-completo.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pf1c/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "pf2b",
