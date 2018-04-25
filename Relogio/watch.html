@@ -15,11 +15,11 @@
 
 	<div class="solo screen" id="lockScreen">
 		<div class="clock bigClock" id="lockScreenClock"></div>
-		<i class="material-icons" onclick="loadScreen('mainScreen')">fingerprint</i>
+		<i class="material-icons button" onclick="loadScreen('mainScreen')">fingerprint</i>
 	</div>
 
 	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
-		
+
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
@@ -33,7 +33,7 @@
 					</div>
 					<div class="cell-content text">Cartaz</div>
 				</div>
-				<div class="cell" id="app2" onclick="loadScreen('friendScreen');">
+				<div class="cell button" id="app2" onclick="loadScreen('friendScreen');">
 					<div class="cell-content">
 						<i class="material-icons">group</i>
 					</div>
@@ -62,13 +62,14 @@
 
 	<div class="solo screen" id="mapScreen">
 		<div class="map-festival">
+			<div class="map-festival-img"></div>
 			<div class="pin" id="pinUser">
 				<i class="fa fa-circle"></i>
 			</div>
 			<div class="pin" id="pinFriend">
 				<i class="material-icons">person_pin_circle</i>
 			</div>
-			<div class="button_icon" id="compass_icon">
+			<div class="button_icon button" id="compass_icon">
 				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen', 'prevArg');">
 			</div>
 		</div>
@@ -77,7 +78,7 @@
 	<div class="solo screen" id="compassScreen">
 		<div class="compass">
 			<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
-			<div class="button_icon" id="map_icon">
+			<div class="button_icon button" id="map_icon">
 				<img src="assets\map_icon.png" onclick="loadScreen('mapScreen', 'prevArg');">
 			</div>
 		</div>
@@ -105,7 +106,7 @@
 			</table>
 		</div>
 		<div class="person-model">
-			<div class="cell" onclick="loadScreen('friendDetailScreen');">
+			<div class="cell button" onclick="loadScreen('friendDetailScreen');">
 				<div class="cell-content">
 					<img class="avatar attr-m" attrm="src">
 				</div>
@@ -114,7 +115,7 @@
 			</div>
 		</div>
 		<div class="header-model">
-			<div class="header" onclick="goBack();">
+			<div class="header button" onclick="goBack();">
 				<div class="return-button attr-m" attrm="style">
 					<i class="fa fa-angle-left"></i>
 				</div>
@@ -134,6 +135,9 @@
 				<div class="footer-button attr-m" attrm="innerHTML onclick class"></div>
 				<div class="footer-button attr-m" attrm="innerHTML onclick class"></div>
 			</div>
+		</div>
+		<div class="popup-model">
+			<div class="popup"></div>
 		</div>
 	</div>
 </body>

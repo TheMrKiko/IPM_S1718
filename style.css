@@ -89,6 +89,7 @@ button {
     flex : 1 1 auto;
     display: flex;
     text-align: center;
+    cursor: pointer;
 }
 
 /* .homeButton {

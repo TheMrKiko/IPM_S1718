@@ -278,7 +278,7 @@ function addFooter(screenID, num, args) {
 
 function convertFooterArgs(args) {
     function isempty(clickstr) {
-        if (clickstr != "") return "attr-m";
+        if (clickstr != "") return "button";
         return "info";
     }
     if (args.length > 4) {
