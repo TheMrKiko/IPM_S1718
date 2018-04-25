@@ -192,7 +192,7 @@ body {
 }
 
 .cell {
-    font-size: 6%;
+    font-size: 7%;
     width: 50%;
     /*height: 50%;*/
     float: left;
@@ -239,7 +239,7 @@ body {
 }
 
 .avatar {
-    max-width: 80%;
+    max-width: 75%;
     max-height: 75%;
     margin: auto;
     border-radius: 100%;
