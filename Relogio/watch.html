@@ -18,7 +18,7 @@
 		<i class="material-icons button" onclick="loadScreen('mainScreen')">fingerprint</i>
 	</div>
 
-	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
+	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "mainSolo", "mainScreen", "appScreen")' ondrop='drop(event, "mainSolo", "mainScreen", "appScreen")'>
 
 		<div class="screen" id="mainScreen">
 			<div class="clock bigClock" id="mainScreenClock"></div>

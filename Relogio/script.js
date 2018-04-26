@@ -354,47 +354,47 @@ function startDrag(ev) {
     then = ev.clientX;
 }
 
-function dragging(ev) {
+function dragging(ev, solo, leftscreen, rightscreen) {
     ev.stopPropagation();
     ev.preventDefault();
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    if (currentScreen == "mainScreen") {
+    if (currentScreen == leftscreen) {
         if (diff < 0) {
             var string = "translateX(" + diff + "px)";
-            document.getElementById("mainSolo").style.transform = string;
+            document.getElementById(solo).style.transform = string;
         }
     }
-    if (currentScreen == "appScreen") {
+    if (currentScreen == rightscreen) {
         if (diff > 0) {
             diff -= document.getElementById("appScreen").clientWidth;
             var string = "translateX(" + diff + "px)";
-            document.getElementById("mainSolo").style.transform = string;
+            document.getElementById(solo).style.transform = string;
         }
     }
 }
 
-function drop(ev) {
+function drop(ev, solo, leftscreen, rightscreen) {
     ev.preventDefault();
-    var width = document.getElementById("appScreen").clientWidth;
+    var width = document.getElementById(rightscreen).clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (currentScreen == "mainScreen") {
+    if (currentScreen == leftscreen) {
         if (then - now >= 40) {
-            nice("mainSolo", now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
-            currentScreen = "appScreen";
-            loadScreen("appScreen");
+            nice(solo, now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
+            currentScreen = rightscreen;
+            loadScreen(rightscreen);
         } else if (then - now > 0) {
-            nice("mainSolo", now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
+            nice(solo, now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
         }
-    } else if (currentScreen == "appScreen") {
+    } else if (currentScreen == rightscreen) {
         if (now - then >= 40) {
-            nice("mainSolo", now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
-            currentScreen = "mainScreen";
-            loadScreen("mainScreen");
+            nice(solo, now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
+            currentScreen = leftscreen;
+            loadScreen(leftscreen);
         } else if (now - then > 0) {
-            nice("mainSolo", now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
+            nice(solo, now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
         }
     }
 }
