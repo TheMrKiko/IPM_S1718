@@ -39,7 +39,7 @@
 					</div>
 					<div class="cell-content text">Amigos</div>
 				</div>
-				<div class="cell inactive" id="app3">
+				<div class="cell button" id="app3" onclick="loadScreen('chooseRoP');">
 					<div class="cell-content">
 						<i class="material-icons">restaurant</i>
 					</div>
@@ -90,6 +90,25 @@
 			<div class="friendDetail-row">
 				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindName">Daniel</div>
 				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindDistance">100m</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- COMIDA AGORA -->
+	<div class="solo screen" id="chooseRoP">
+		<div class="grid" id="storeprod-grid">
+			<div class="cell button storeprod" onclick="loadScreen('');">
+				<div class="cell-content">
+					<img src="assets\store.png" id="storeImg">
+				</div>
+				<div class="cell-content text">Barraca</div>
+			</div>
+
+			<div class="cell button storeprod" onclick="loadScreen('');">
+				<div class="cell-content">
+					<img src="assets\carrot.png" id="productImg">
+				</div>
+				<div class="cell-content text">Produto</div>
 			</div>
 		</div>
 	</div>

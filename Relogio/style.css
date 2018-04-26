@@ -351,6 +351,18 @@ body {
     transform: rotate(360deg);
 }*/
 
+/******************* FOOD *************************/
+.storeprod img {
+	width: 75%;
+}
+
+.storeprod {
+	height: 75%;
+}
+
+#storeprod-grid {
+	align-items: center;
+}
 /***************************** ANIMATIONS *****************************/
 
 @keyframes aproximar {

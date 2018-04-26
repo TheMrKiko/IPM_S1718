@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")]; 
+var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -10,7 +10,8 @@ new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false)
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "reSetDistance", "", "appScreen", true, false),
 new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", 'shakePic()'),
 new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
-new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", "")
+new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
+new Screen("Escolher por", "chooseRoP", "", "", "",  "appScreen", true, false)
 ];
 var currentSolo;
 var currentScreen;
