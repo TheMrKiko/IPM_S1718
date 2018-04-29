@@ -5,7 +5,7 @@ var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person(
 
 var swipes = [];
 var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
-new Screen("Main", "mainScreen", "", "addNotification", "mainSolo", "lockScreen", false, false),
+new Screen("Main", "mainScreen", "", " omg100comms(); addNotification", "mainSolo", "lockScreen", false, false),
 new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
 new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "reSetDistance", "", "appScreen", true, false),
 new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", 'shakePic()'),
@@ -68,7 +68,7 @@ function cloneElementTo(classModel, idParent, args) {
 }
 
 function setAttributes(element, args) {
-    var atributEls = element.getElementsByClassName("attr-m");
+    var atributEls = element.getElementsByClassName("attr-m"); //Nao pode ser no proprio
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
@@ -84,6 +84,10 @@ function setAttributes(element, args) {
 }
 
 /************************************ ECRAS ESPECIFICOS ************************************/
+function omg100comms() {
+    cloneElementTo("popup-model", currentSolo, ["OMG É O 100 COMMIT SOS FELICIDADES!"]);
+}
+
 function addNotification() {
     var cur = (notifN++) % notifications.length;
     cloneElementTo("table-model", "notification-bar", [notifications[cur]["img"], notifications[cur]["name"]]);
