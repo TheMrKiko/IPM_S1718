@@ -150,14 +150,14 @@ body {
     font-size: 20%;
 }
 
-#lockScreen i {
+#lock-screen i {
     flex: 1 1 auto;
     color: var(--bs-bcolor);/*rgba(255, 255, 255, 0.356);*/
     opacity: 0.35;
     font-size: 24%;
 }
 
-#lockScreenClock {
+#lock-screen .clock {
     color: var(--bs-bcolor);/*rgba(255, 255, 255, 0.651);*/
     opacity: 0.65;
 }

@@ -2,16 +2,17 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-
+var stores = [new Store("Casa do Zé", "svg.svg"), new Store("Carills", "car.svg")];
+var produts = [new Product("Água", "", "all"), new Product("Caril", "", ["Carills"])];
 var swipes = [];
-var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
-new Screen("Main", "mainScreen", "", "addNotification", "mainSolo", "lockScreen", false, false),
-new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "reSetDistance", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
-new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
-new Screen("Escolher por", "chooseRoP", "", "", "",  "appScreen", true, false)
+var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
+new Screen("Main", "main-screen", "", "addNotification", "mainSolo", "lock-screen", false, false),
+new Screen("App", "app-screen", "", "", "mainSolo", "main-screen", "clock", false),
+new Screen("Amigos", "friend-fscreen", "distancePeople(); showPeople();", "reSetDistance", "", "app-screen", true, false),
+new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); infoPerson", "", "app-screen", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
+new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); nadaContinua", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Escolher por", "choose-oscreen", "", "", "",  "app-screen", true, false)
 ];
 var currentSolo;
 var currentScreen;
@@ -99,7 +100,7 @@ function distancePeople() {
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
         var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-        el.setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
+        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i]["name"] + "');");
     }
 }
 
@@ -108,7 +109,7 @@ function reSetDistance() {
 	var peopleHTML = document.getElementById("gridFriends").children;
 	for (var i =0; i < people.length; i++) {
 		setAttributes(peopleHTML[i], [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-		peopleHTML[i].setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
+		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i]["name"] + "');");
 	}
 }
 
@@ -203,6 +204,13 @@ function findSoloWithID(soloID) {
         return solo["id"] == soloID;
     }
     return swipes.find(findSolo);
+}
+
+function findStoreWithName(storeName) {
+    function findStore(store) {
+        return store["name"] == storeName;
+    }
+    return stores.find(findStore);
 }
 
 function loadScreen(screenID, ...args) {
@@ -361,15 +369,15 @@ function dragging(ev) {
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    if (currentScreen == "mainScreen") {
+    if (currentScreen == "main-screen") {
         if (diff < 0) {
             var string = "translateX(" + diff + "px)";
             document.getElementById("mainSolo").style.transform = string;
         }
     }
-    if (currentScreen == "appScreen") {
+    if (currentScreen == "app-screen") {
         if (diff > 0) {
-            diff -= document.getElementById("appScreen").clientWidth;
+            diff -= document.getElementById("app-screen").clientWidth;
             var string = "translateX(" + diff + "px)";
             document.getElementById("mainSolo").style.transform = string;
         }
@@ -378,22 +386,22 @@ function dragging(ev) {
 
 function drop(ev) {
     ev.preventDefault();
-    var width = document.getElementById("appScreen").clientWidth;
+    var width = document.getElementById("app-screen").clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (currentScreen == "mainScreen") {
+    if (currentScreen == "main-screen") {
         if (then - now >= 40) {
             nice("mainSolo", now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
-            currentScreen = "appScreen";
-            loadScreen("appScreen");
+            currentScreen = "app-screen";
+            loadScreen("app-screen");
         } else if (then - now > 0) {
             nice("mainSolo", now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
         }
-    } else if (currentScreen == "appScreen") {
+    } else if (currentScreen == "app-screen") {
         if (now - then >= 40) {
             nice("mainSolo", now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
-            currentScreen = "mainScreen";
-            loadScreen("mainScreen");
+            currentScreen = "main-screen";
+            loadScreen("main-screen");
         } else if (now - then > 0) {
             nice("mainSolo", now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
         }
@@ -431,6 +439,31 @@ function Notification(name, img) {
     /*this.changeName = function (name) {
         this.lastName = name;
     };*/
+}
+
+function Product(name, svg, store) {
+    this.name = name;
+    this.svg = svg;
+    this.store = store == "all" ? [] : store;
+    if (store == "all") {
+        for (var s = 0; s < stores.length; s++) {
+            this.store.push(stores[s]["name"]);
+            stores[s].addProduct(this.name);
+        }
+    } else {
+        for (var s = 0; s < this.store.length; s++) {
+            findStoreWithName(this.store[s]).addProduct(this.name);
+        }
+    }
+}
+
+function Store(name, svg) {
+    this.name = name;
+    this.svg = svg;
+    this.produts = [];
+    this.addProduct = function (prodName) {
+        this.produts.push(prodName);
+    };
 }
 
 function Solo(id, el) {
