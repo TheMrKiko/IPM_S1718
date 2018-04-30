@@ -6,12 +6,12 @@ var stores = [new Store("Casa do Zé", "svg.svg"), new Store("Carills", "car.svg
 var produts = [new Product("Água", "", "all"), new Product("Caril", "", ["Carills"])];
 var swipes = [];
 var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
-new Screen("Main", "main-screen", "", "addNotification", "mainSolo", "lock-screen", false, false),
-new Screen("App", "app-screen", "", "", "mainSolo", "main-screen", "clock", false),
-new Screen("Amigos", "friend-fscreen", "distancePeople(); showPeople();", "reSetDistance", "", "app-screen", true, false),
-new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); infoPerson", "", "app-screen", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); nadaContinua", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Main", "main-screen", "", "addNotification", "main-solo", "lock-screen", false, false),
+new Screen("App", "app-screen", "", "", "main-solo", "main-screen", "clock", false),
+new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "app-screen", true, false),
+new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "app-screen", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
+new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "",  "app-screen", true, false)
 ];
 var currentSolo;
@@ -44,6 +44,106 @@ function updateClock(clock) {
         updateClock(clock);
     }, 1000);
 }
+
+/************************************ ECRAS ESPECIFICOS ************************************/
+// ------------------- MAIN
+function addNotification() {
+    var cur = (notifN++) % notifications.length;
+    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
+}
+
+// ------------------- FRIENDS
+function setPeopleList() {
+    for (var i = 0; i < people.length; i++) {
+        var el = cloneElementTo("person-model", "gridFriends", [people[i].img, people[i].name, people[i].distance + "m"]);
+        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+    }
+}
+
+function distancePeople() {
+    for (var i = 0; i < people.length; i++) {
+        people[i].calcDistance(i);
+    }
+}
+
+function randomDistance() {
+    var distances = document.getElementsByClassName("distance");
+    for (var d = 0; d < distances.length; d++) {
+        distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
+    }
+}
+
+function reSetDistance() {
+	reSortPeopleList();
+	var peopleHTML = document.getElementById("gridFriends").children;
+	for (var i = 0; i < people.length; i++) {
+		setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance + "m"]);
+		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+	}
+}
+
+function reSortPeopleList() {
+	people.sort(function(a, b) {
+		return a.distance - b.distance;
+	});
+}
+
+function showPersonInfo(personName) {
+    var person = findPersonWithName(personName);
+    var screen = document.getElementsByClassName("friendDetail")[0];
+    prevScreenArgs = personName;
+    setAttributes(screen, [person.img, person.name, person.distance + "m"]);
+}
+
+function shakePic() {
+	var screen = document.getElementsByClassName("friendDetail")[0];
+	screen.style.animation = "shake 0.5s";
+	screen.style.animationIterationCount = "3";
+	setTimeout(function() {
+		screen.style.animation = "";
+	}, 1500);
+}
+
+function aproxPerson(personName) {
+    var person = findPersonWithName(personName);
+    var iniDist = (person.distance / 20) + 1;
+    var currScreen = currentScreen;
+    editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+    var inte = setInterval(function () {
+        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
+        if (person.distance < 0) {
+            person.distance = 0;
+            clearInterval(inte);
+        } else if (currScreen != currentScreen) {
+            clearInterval(inte);
+            return ;
+        }
+        editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+    }, 1000);
+}
+
+function arrowAnimation() {
+    var limit = 8;
+    function rotateArrow() {
+        if (!limit) {
+            clearInterval(intervalVar);
+        }
+        limit--;
+        var degree = randomNumberGenerator(0, 360);
+        var arg = "rotate(" + degree + "deg)";
+        document.getElementById("arrowDirection").style.transform = arg;
+    }
+
+    intervalVar = setInterval(rotateArrow, 2000);
+    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
+}
+
+function arrowEnd() {
+    clearInterval(intervalVar);
+}
+
+// -------------------------- ORDER
+
 
 /************************************ CLONE ************************************/
 function cloneElement(classModel) {
@@ -83,105 +183,6 @@ function setAttributes(element, args) {
             }
         }
     }
-}
-
-/************************************ ECRAS ESPECIFICOS ************************************/
-function addNotification() {
-    var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
-}
-
-function distancePeople() {
-    for (var i = 0; i < people.length; i++) {
-        people[i].calcDistance(i);
-    }
-}
-
-function showPeople() {
-    for (var i = 0; i < people.length; i++) {
-        var el = cloneElementTo("person-model", "gridFriends", [people[i].img, people[i].name, people[i].distance+"m"]);
-        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
-    }
-}
-
-function reSetDistance() {
-	reSort();
-	var peopleHTML = document.getElementById("gridFriends").children;
-	for (var i =0; i < people.length; i++) {
-		setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance+"m"]);
-		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
-	}
-}
-
-function infoPerson(personName) {
-    var person = findPersonWithName(personName);
-    var screen = document.getElementsByClassName("friendDetail")[0];
-    prevScreenArgs = personName;
-    setAttributes(screen, [person.img, person.name, person.distance+"m"]);
-}
-
-function shakePic() {
-	var screen = document.getElementsByClassName("friendDetail")[0];
-	screen.style.animation = "shake 0.5s";
-	screen.style.animationIterationCount = "3";
-	setTimeout(function() {
-		screen.style.animation = "";
-	}, 1500);
-}
-
-function randomNumberGenerator(myMin, myMax) {
-    return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
-}
-
-function randomDistance() {
-    var distances = document.getElementsByClassName("distance");
-    for (var d = 0; d < distances.length; d++) {
-        distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
-    }
-}
-
-function arrowAnimation() {
-    var limit = 8;
-    function rotateArrow() {
-        if (!limit) {
-            clearInterval(intervalVar);
-        }
-        limit--;
-        var degree = randomNumberGenerator(0, 360);
-        var arg = "rotate(" + degree + "deg)";
-        document.getElementById("arrowDirection").style.transform = arg;
-    }
-
-    intervalVar = setInterval(rotateArrow, 2000);
-    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
-}
-
-function arrowEnd() {
-    clearInterval(intervalVar);
-}
-
-function nadaContinua(personName) {
-    var person = findPersonWithName(personName);
-    var iniDist = (person.distance / 20) + 1;
-    var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person.name, person.distance+"m");
-    var inte = setInterval(function () {
-        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
-        if (person.distance < 0) {
-            person.distance = 0;
-            clearInterval(inte);
-        } else if (currScreen != currentScreen) {
-            clearInterval(inte);
-            return ;
-        }
-        editFooter(currentScreen, "Fim", person.name, person.distance+"m");
-    }, 1000);
-}
-
-function reSort() {
-	people.sort(function(a, b) {
-		return a.distance - b.distance;
-	});
 }
 
 /************************************ GERIR ECRAS ************************************/
@@ -296,6 +297,11 @@ function convertFooterArgs(args) {
     return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3])];
 }
 
+
+function randomNumberGenerator(myMin, myMax) {
+    return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
+}
+
 /************************************ SCROLL ************************************/
 window.addEventListener('message', function (event) {
     switch (event.data) {
@@ -363,47 +369,47 @@ function startDrag(ev) {
     then = ev.clientX;
 }
 
-function dragging(ev) {
+function dragging(ev, solo, leftscreen, rightscreen) {
     ev.stopPropagation();
     ev.preventDefault();
     /*var then = ev.dataTransfer.getData("Text");*/
     var now = ev.clientX;
     var diff = now - then;
-    if (currentScreen == "main-screen") {
+    if (currentScreen == leftscreen) {
         if (diff < 0) {
             var string = "translateX(" + diff + "px)";
-            document.getElementById("mainSolo").style.transform = string;
+            document.getElementById(solo).style.transform = string;
         }
     }
-    if (currentScreen == "app-screen") {
+    if (currentScreen == rightscreen) {
         if (diff > 0) {
             diff -= document.getElementById("app-screen").clientWidth;
             var string = "translateX(" + diff + "px)";
-            document.getElementById("mainSolo").style.transform = string;
+            document.getElementById(solo).style.transform = string;
         }
     }
 }
 
-function drop(ev) {
+function drop(ev, solo, leftscreen, rightscreen) {
     ev.preventDefault();
-    var width = document.getElementById("app-screen").clientWidth;
+    var width = document.getElementById(rightscreen).clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (currentScreen == "main-screen") {
+    if (currentScreen == leftscreen) {
         if (then - now >= 40) {
-            nice("mainSolo", now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
-            currentScreen = "app-screen";
-            loadScreen("app-screen");
+            nice(solo, now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
+            currentScreen = rightscreen;
+            loadScreen(rightscreen);
         } else if (then - now > 0) {
-            nice("mainSolo", now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
+            nice(solo, now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
         }
-    } else if (currentScreen == "app-screen") {
+    } else if (currentScreen == rightscreen) {
         if (now - then >= 40) {
-            nice("mainSolo", now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
-            currentScreen = "main-screen";
-            loadScreen("main-screen");
+            nice(solo, now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
+            currentScreen = leftscreen;
+            loadScreen(leftscreen);
         } else if (now - then > 0) {
-            nice("mainSolo", now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
+            nice(solo, now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
         }
     }
 }

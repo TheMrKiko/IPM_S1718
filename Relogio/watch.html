@@ -18,7 +18,7 @@
 		<i class="material-icons button" onclick="loadScreen('main-screen')">fingerprint</i>
 	</div>
 
-	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover="dragging(event)" ondrop="drop(event)">
+	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo", "main-screen", "app-screen")' ondrop='drop(event, "main-solo", "main-screen", "app-screen")'>
 
 		<div class="screen" id="main-screen">
 			<div class="clock bigClock"></div>
@@ -114,12 +114,14 @@
 		</div>
 	</div>
 
-	<div class="solo screen" id="products-oscreen">
+	<div class="solo swipe" id="products-oswipe">
+		<div class="screen" id="drinks-oscreen">
 			<div class="grid" id="prod-grid"></div>
+		</div>
 	</div>
 
-	<div class="solo screen" id="products-oscreen">
-			<div class="grid" id="prod-grid"></div>
+	<div class="solo screen" id="store-oscreen">
+		<div class="grid" id="store-grid"></div>
 	</div>
 
 	<!-- MODELOS -->
