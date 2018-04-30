@@ -4,13 +4,13 @@ var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 
 var swipes = [];
-var screens = [new Screen("Lock", "lockScreen", "", "", "lockScreen", "lockScreen", false, false),
-new Screen("Main", "mainScreen", "", " omg100comms(); addNotification", "mainSolo", "lockScreen", false, false),
-new Screen("App", "appScreen", "", "", "mainSolo", "mainScreen", "clock", false),
-new Screen("Amigos", "friendScreen", "distancePeople(); showPeople();", "reSetDistance", "", "appScreen", true, false),
-new Screen("Contacto", "friendDetailScreen", "", "arrowEnd(); infoPerson", "", "appScreen", true, true, "Mapa", 'loadScreen("mapScreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "mapScreen", "pinMotion();", "arrowEnd(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", ""),
-new Screen("Bússola", "compassScreen", "", "arrowAnimation(); nadaContinua", "", "appScreen", true, "true3", "Fim", 'loadScreen("friendDetailScreen")', "", "", "", "")
+var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
+new Screen("Main", "main-screen", "", "addNotification", "main-solo", "lock-screen", false, false),
+new Screen("App", "app-screen", "", "", "main-solo", "main-screen", "clock", false),
+new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "app-screen", true, false),
+new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "app-screen", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
+new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", "")
 ];
 var currentSolo;
 var currentScreen;
@@ -43,6 +43,103 @@ function updateClock(clock) {
     }, 1000);
 }
 
+/************************************ ECRAS ESPECIFICOS ************************************/
+// ------------------- MAIN
+function addNotification() {
+    var cur = (notifN++) % notifications.length;
+    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
+}
+
+// ------------------- FRIENDS
+function setPeopleList() {
+    for (var i = 0; i < people.length; i++) {
+        var el = cloneElementTo("person-model", "gridFriends", [people[i].img, people[i].name, people[i].distance + "m"]);
+        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+    }
+}
+
+function distancePeople() {
+    for (var i = 0; i < people.length; i++) {
+        people[i].calcDistance(i);
+    }
+}
+
+function randomDistance() {
+    var distances = document.getElementsByClassName("distance");
+    for (var d = 0; d < distances.length; d++) {
+        distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
+    }
+}
+
+function reSetDistance() {
+	reSortPeopleList();
+	var peopleHTML = document.getElementById("gridFriends").children;
+	for (var i = 0; i < people.length; i++) {
+		setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance + "m"]);
+		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+	}
+}
+
+function reSortPeopleList() {
+	people.sort(function(a, b) {
+		return a.distance - b.distance;
+	});
+}
+
+function showPersonInfo(personName) {
+    var person = findPersonWithName(personName);
+    var screen = document.getElementsByClassName("friendDetail")[0];
+    prevScreenArgs = personName;
+    setAttributes(screen, [person.img, person.name, person.distance + "m"]);
+}
+
+function shakePic() {
+	var screen = document.getElementsByClassName("friendDetail")[0];
+	screen.style.animation = "shake 0.5s";
+	screen.style.animationIterationCount = "3";
+	setTimeout(function() {
+		screen.style.animation = "";
+	}, 1500);
+}
+
+function aproxPerson(personName) {
+    var person = findPersonWithName(personName);
+    var iniDist = (person.distance / 20) + 1;
+    var currScreen = currentScreen;
+    editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+    var inte = setInterval(function () {
+        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
+        if (person.distance < 0) {
+            person.distance = 0;
+            clearInterval(inte);
+        } else if (currScreen != currentScreen) {
+            clearInterval(inte);
+            return ;
+        }
+        editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+    }, 1000);
+}
+
+function arrowAnimation() {
+    var limit = 8;
+    function rotateArrow() {
+        if (!limit) {
+            clearInterval(intervalVar);
+        }
+        limit--;
+        var degree = randomNumberGenerator(0, 360);
+        var arg = "rotate(" + degree + "deg)";
+        document.getElementById("arrowDirection").style.transform = arg;
+    }
+
+    intervalVar = setInterval(rotateArrow, 2000);
+    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
+}
+
+function arrowEnd() {
+    clearInterval(intervalVar);
+}
+
 /************************************ CLONE ************************************/
 function cloneElement(classModel) {
     var model = document.getElementById("models").getElementsByClassName(classModel)[0].firstElementChild;
@@ -68,7 +165,7 @@ function cloneElementTo(classModel, idParent, args) {
 }
 
 function setAttributes(element, args) {
-    var atributEls = element.getElementsByClassName("attr-m"); //Nao pode ser no proprio
+    var atributEls = element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
@@ -83,127 +180,24 @@ function setAttributes(element, args) {
     }
 }
 
-/************************************ ECRAS ESPECIFICOS ************************************/
-function omg100comms() {
-    cloneElementTo("popup-model", currentSolo, ["OMG É O 100 COMMIT SOS FELICIDADES!"]);
-}
-
-function addNotification() {
-    var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", [notifications[cur]["img"], notifications[cur]["name"]]);
-}
-
-function distancePeople() {
-    for (var i = 0; i < people.length; i++) {
-        people[i].calcDistance(i);
-    }
-}
-
-function showPeople() {
-    for (var i = 0; i < people.length; i++) {
-        var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-        el.setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
-    }
-}
-
-function reSetDistance() {
-	reSort();
-	var peopleHTML = document.getElementById("gridFriends").children;
-	for (var i =0; i < people.length; i++) {
-		setAttributes(peopleHTML[i], [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-		peopleHTML[i].setAttribute("onclick", "loadScreen('friendDetailScreen', '" + people[i]["name"] + "');");
-	}
-}
-
-function infoPerson(personName) {
-    var person = findPersonWithName(personName);
-    var screen = document.getElementsByClassName("friendDetail")[0];
-    prevScreenArgs = personName;
-    setAttributes(screen, [person["img"], person["name"], person["distance"]+"m"]);
-}
-
-function shakePic() {
-	var screen = document.getElementsByClassName("friendDetail")[0];
-	screen.style.animation = "shake 0.5s";
-	screen.style.animationIterationCount = "3";
-	setTimeout(function() {
-		screen.style.animation = "";
-	}, 1500);
-}
-
-function randomNumberGenerator(myMin, myMax) {
-    return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
-}
-
-function randomDistance() {
-    var distances = document.getElementsByClassName("distance");
-    for (var d = 0; d < distances.length; d++) {
-        distances[d].innerHTML = randomNumberGenerator(d * 150, (d + 1) * 150);
-    }
-}
-
-function arrowAnimation() {
-    var limit = 8;
-    function rotateArrow() {
-        if (!limit) {
-            clearInterval(intervalVar);
-        }
-        limit--;
-        var degree = randomNumberGenerator(0, 360);
-        var arg = "rotate(" + degree + "deg)";
-        document.getElementById("arrowDirection").style.transform = arg;
-    }
-
-    intervalVar = setInterval(rotateArrow, 2000);
-    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
-}
-
-function arrowEnd() {
-    clearInterval(intervalVar);
-}
-
-function nadaContinua(personName) {
-    var person = findPersonWithName(personName);
-    var iniDist = (person["distance"] / 20) + 1;
-    var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
-    var inte = setInterval(function () {
-        person["distance"] = parseInt(eval(person["distance"] - iniDist).toFixed(0));
-        if (person["distance"] < 0) {
-            person["distance"] = 0;
-            clearInterval(inte);
-        } else if (currScreen != currentScreen) {
-            clearInterval(inte);
-            return ;
-        }
-        editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
-    }, 1000);
-}
-
-function reSort() {
-	people.sort(function(a, b) {
-		return a["distance"] - b["distance"];
-	});
-}
-
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
     function findScreen(screen) {
-        return screen["id"] == screenID;
+        return screen.id == screenID;
     }
     return screens.find(findScreen);
 }
 
 function findPersonWithName(name) {
     function findPerson(person) {
-        return person["name"] == name;
+        return person.name == name;
     }
     return people.find(findPerson);
 }
 
 function findSoloWithID(soloID) {
     function findSolo(solo) {
-        return solo["id"] == soloID;
+        return solo.id == soloID;
     }
     return swipes.find(findSolo);
 }
@@ -212,17 +206,17 @@ function loadScreen(screenID, ...args) {
     var loadingScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
-        var prevScreenObj = findScreenWithID(currentScreenObj["prevScreen"])
+        var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
     }
     /*if (savePrev) {
         if (currentScreenObj != undefined && prevScreenObj != undefined) {
-            loadingScreenObj["prevScreen"] = (prevScreenObj["id"] == loadingScreenObj["id"] ? prevScreenObj["prevScreen"] : currentScreen);
+            loadingScreenObj.prevScreen = (prevScreenObj.id == loadingScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
         } else {
-            loadingScreenObj["prevScreen"] = currentScreen;
+            loadingScreenObj.prevScreen = currentScreen;
         }
     } else*/
-    if (loadingScreenObj["prevScreen"] == undefined) { //isto funciona desde que não se passe ecrans à frente!
-        loadingScreenObj["prevScreen"] = currentScreen;
+    if (loadingScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
+        loadingScreenObj.prevScreen = currentScreen;
     }
     moveScreen(screenID, args);
 }
@@ -233,7 +227,7 @@ function loadSolo(screenID, soloID, args) {
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
-        SsInS = findSoloWithID(soloID)["screens"];
+        SsInS = findSoloWithID(soloID).screens;
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
@@ -256,11 +250,11 @@ function moveScreen(screenID, args) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
     //screenObj.initScreen();
-    loadSolo(screenID, screenObj["solo"], args);
+    loadSolo(screenID, screenObj.solo, args);
 }
 
 function goBack() {
-    moveScreen(findScreenWithID(currentScreen)["prevScreen"], "");
+    moveScreen(findScreenWithID(currentScreen).prevScreen, "");
 }
 
 function addHeader(screenID, args) {
@@ -270,7 +264,7 @@ function addHeader(screenID, args) {
 
 function editFooter(screenID, b1, b2, b3) {
     var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
-    screenFootArgs = findScreenWithID(screenID)["footarg"];
+    screenFootArgs = findScreenWithID(screenID).footarg;
     args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
     setAttributes(footer, args);
 }
@@ -289,6 +283,11 @@ function convertFooterArgs(args) {
         return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
     }
     return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3])];
+}
+
+
+function randomNumberGenerator(myMin, myMax) {
+    return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
 }
 
 /************************************ SCROLL ************************************/
@@ -372,7 +371,7 @@ function dragging(ev, solo, leftscreen, rightscreen) {
     }
     if (currentScreen == rightscreen) {
         if (diff > 0) {
-            diff -= document.getElementById("appScreen").clientWidth;
+            diff -= document.getElementById("app-screen").clientWidth;
             var string = "translateX(" + diff + "px)";
             document.getElementById(solo).style.transform = string;
         }
@@ -418,8 +417,6 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
         count += 0.1;
     }, interval);
 }
-
-
 
 function pinMotion() {
     nice("pinUser", 77, 20+7, -0.25, 0, "left", "", "%", 100);

@@ -11,21 +11,21 @@
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
-<body onload="loadClocks(); loadScreen('lockScreen');">
+<body onload="loadClocks(); loadScreen('lock-screen');">
 
-	<div class="solo screen" id="lockScreen">
-		<div class="clock bigClock" id="lockScreenClock"></div>
-		<i class="material-icons button" onclick="loadScreen('mainScreen')">fingerprint</i>
+	<div class="solo screen" id="lock-screen">
+		<div class="clock bigClock"></div>
+		<i class="material-icons button" onclick="loadScreen('main-screen')">fingerprint</i>
 	</div>
 
-	<div class="swipe solo" id="mainSolo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "mainSolo", "mainScreen", "appScreen")' ondrop='drop(event, "mainSolo", "mainScreen", "appScreen")'>
+	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo", "main-screen", "app-screen")' ondrop='drop(event, "main-solo", "main-screen", "app-screen")'>
 
-		<div class="screen" id="mainScreen">
-			<div class="clock bigClock" id="mainScreenClock"></div>
+		<div class="screen" id="main-screen">
+			<div class="clock bigClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
 		</div>
 
-		<div class="screen" id="appScreen">
+		<div class="screen" id="app-screen">
 			<div class="grid" id="appgrid">
 				<div class="cell inactive" id="app1">
 					<div class="cell-content">
@@ -33,13 +33,13 @@
 					</div>
 					<div class="cell-content text">Cartaz</div>
 				</div>
-				<div class="cell button" id="app2" onclick="loadScreen('friendScreen');">
+				<div class="cell button" id="app2" onclick="loadScreen('friend-fscreen');">
 					<div class="cell-content">
 						<i class="material-icons">group</i>
 					</div>
 					<div class="cell-content text">Amigos</div>
 				</div>
-				<div class="cell inactive" id="app3">
+				<div class="cell button" id="app3" onclick="loadScreen('choose-oscreen');">
 					<div class="cell-content">
 						<i class="material-icons">restaurant</i>
 					</div>
@@ -56,11 +56,22 @@
 
 	</div>
 
-	<div class="solo screen" id="friendScreen">
+	<!-- APP FRIENDS -->
+	<div class="solo screen" id="friend-fscreen">
 		<div class="grid scrollable" id="gridFriends"></div>
 	</div>
 
-	<div class="solo screen" id="mapScreen">
+	<div class="solo screen" id="friend-detail-fscreen">
+		<div class="friendDetail">
+			<img class="avatar attr-m" attrm="src" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+			<div class="friendDetail-row">
+				<div class="text friendDetailText attr-m" attrm="innerHTML"></div>
+				<div class="text friendDetailText attr-m" attrm="innerHTML"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="solo screen" id="map-fscreen">
 		<div class="map-festival">
 			<div class="map-festival-img"></div>
 			<div class="pin" id="pinUser">
@@ -70,30 +81,21 @@
 				<i class="material-icons">person_pin_circle</i>
 			</div>
 			<div class="button_icon button" id="compass_icon">
-				<img src="assets\rsz_1compass.png" onclick="loadScreen('compassScreen', 'prevArg');">
+				<img src="assets\rsz_1compass.png" onclick="loadScreen('compass-fscreen', 'prevArg');">
 			</div>
 		</div>
 	</div>
 
-	<div class="solo screen" id="compassScreen">
+	<div class="solo screen" id="compass-fscreen">
 		<div class="compass">
 			<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
 			<div class="button_icon button" id="map_icon">
-				<img src="assets\map_icon.png" onclick="loadScreen('mapScreen', 'prevArg');">
+				<img src="assets\map_icon.png" onclick="loadScreen('map-fscreen', 'prevArg');">
 			</div>
 		</div>
 	</div>
 
-	<div class="solo screen" id="friendDetailScreen">
-		<div class="friendDetail">
-			<img class="avatar attr-m" attrm="src" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
-			<div class="friendDetail-row">
-				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindName">Daniel</div>
-				<div class="text friendDetailText attr-m" attrm="innerHTML" id="friendToFindDistance">100m</div>
-			</div>
-		</div>
-	</div>
-
+	<!-- MODELOS -->
 	<div hidden id="models">
 		<div class="table-model">
 			<table class="notification">
@@ -106,7 +108,7 @@
 			</table>
 		</div>
 		<div class="person-model">
-			<div class="cell button" onclick="loadScreen('friendDetailScreen');">
+			<div class="cell button" onclick="loadScreen('friend-detail-fscreen');">
 				<div class="cell-content">
 					<img class="avatar attr-m" attrm="src">
 				</div>
