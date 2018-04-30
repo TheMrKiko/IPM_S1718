@@ -88,7 +88,7 @@ function setAttributes(element, args) {
 /************************************ ECRAS ESPECIFICOS ************************************/
 function addNotification() {
     var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", [notifications[cur]["img"], notifications[cur]["name"]]);
+    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
 }
 
 function distancePeople() {
@@ -99,8 +99,8 @@ function distancePeople() {
 
 function showPeople() {
     for (var i = 0; i < people.length; i++) {
-        var el = cloneElementTo("person-model", "gridFriends", [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i]["name"] + "');");
+        var el = cloneElementTo("person-model", "gridFriends", [people[i].img, people[i].name, people[i].distance+"m"]);
+        el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
     }
 }
 
@@ -108,8 +108,8 @@ function reSetDistance() {
 	reSort();
 	var peopleHTML = document.getElementById("gridFriends").children;
 	for (var i =0; i < people.length; i++) {
-		setAttributes(peopleHTML[i], [people[i]["img"], people[i]["name"], people[i]["distance"]+"m"]);
-		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i]["name"] + "');");
+		setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance+"m"]);
+		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
 	}
 }
 
@@ -117,7 +117,7 @@ function infoPerson(personName) {
     var person = findPersonWithName(personName);
     var screen = document.getElementsByClassName("friendDetail")[0];
     prevScreenArgs = personName;
-    setAttributes(screen, [person["img"], person["name"], person["distance"]+"m"]);
+    setAttributes(screen, [person.img, person.name, person.distance+"m"]);
 }
 
 function shakePic() {
@@ -162,53 +162,53 @@ function arrowEnd() {
 
 function nadaContinua(personName) {
     var person = findPersonWithName(personName);
-    var iniDist = (person["distance"] / 20) + 1;
+    var iniDist = (person.distance / 20) + 1;
     var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
+    editFooter(currentScreen, "Fim", person.name, person.distance+"m");
     var inte = setInterval(function () {
-        person["distance"] = parseInt(eval(person["distance"] - iniDist).toFixed(0));
-        if (person["distance"] < 0) {
-            person["distance"] = 0;
+        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
+        if (person.distance < 0) {
+            person.distance = 0;
             clearInterval(inte);
         } else if (currScreen != currentScreen) {
             clearInterval(inte);
             return ;
         }
-        editFooter(currentScreen, "Fim", person["name"], person["distance"]+"m");
+        editFooter(currentScreen, "Fim", person.name, person.distance+"m");
     }, 1000);
 }
 
 function reSort() {
 	people.sort(function(a, b) {
-		return a["distance"] - b["distance"];
+		return a.distance - b.distance;
 	});
 }
 
 /************************************ GERIR ECRAS ************************************/
 function findScreenWithID(screenID) {
     function findScreen(screen) {
-        return screen["id"] == screenID;
+        return screen.id == screenID;
     }
     return screens.find(findScreen);
 }
 
 function findPersonWithName(name) {
     function findPerson(person) {
-        return person["name"] == name;
+        return person.name == name;
     }
     return people.find(findPerson);
 }
 
 function findSoloWithID(soloID) {
     function findSolo(solo) {
-        return solo["id"] == soloID;
+        return solo.id == soloID;
     }
     return swipes.find(findSolo);
 }
 
 function findStoreWithName(storeName) {
     function findStore(store) {
-        return store["name"] == storeName;
+        return store.name == storeName;
     }
     return stores.find(findStore);
 }
@@ -217,17 +217,17 @@ function loadScreen(screenID, ...args) {
     var loadingScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
-        var prevScreenObj = findScreenWithID(currentScreenObj["prevScreen"])
+        var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
     }
     /*if (savePrev) {
         if (currentScreenObj != undefined && prevScreenObj != undefined) {
-            loadingScreenObj["prevScreen"] = (prevScreenObj["id"] == loadingScreenObj["id"] ? prevScreenObj["prevScreen"] : currentScreen);
+            loadingScreenObj.prevScreen = (prevScreenObj.id == loadingScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
         } else {
-            loadingScreenObj["prevScreen"] = currentScreen;
+            loadingScreenObj.prevScreen = currentScreen;
         }
     } else*/
-    if (loadingScreenObj["prevScreen"] == undefined) { //isto funciona desde que não se passe ecrans à frente!
-        loadingScreenObj["prevScreen"] = currentScreen;
+    if (loadingScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
+        loadingScreenObj.prevScreen = currentScreen;
     }
     moveScreen(screenID, args);
 }
@@ -238,7 +238,7 @@ function loadSolo(screenID, soloID, args) {
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
-        SsInS = findSoloWithID(soloID)["screens"];
+        SsInS = findSoloWithID(soloID).screens;
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
@@ -261,11 +261,11 @@ function moveScreen(screenID, args) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
     //screenObj.initScreen();
-    loadSolo(screenID, screenObj["solo"], args);
+    loadSolo(screenID, screenObj.solo, args);
 }
 
 function goBack() {
-    moveScreen(findScreenWithID(currentScreen)["prevScreen"], "");
+    moveScreen(findScreenWithID(currentScreen).prevScreen, "");
 }
 
 function addHeader(screenID, args) {
@@ -275,7 +275,7 @@ function addHeader(screenID, args) {
 
 function editFooter(screenID, b1, b2, b3) {
     var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
-    screenFootArgs = findScreenWithID(screenID)["footarg"];
+    screenFootArgs = findScreenWithID(screenID).footarg;
     args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
     setAttributes(footer, args);
 }
@@ -447,7 +447,7 @@ function Product(name, svg, store) {
     this.store = store == "all" ? [] : store;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
-            this.store.push(stores[s]["name"]);
+            this.store.push(stores[s].name);
             stores[s].addProduct(this.name);
         }
     } else {
