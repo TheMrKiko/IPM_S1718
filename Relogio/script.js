@@ -2,7 +2,7 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg")];
+var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg"), new Store("cachorros do chico", "assets/food/sandwich.svg"), new Store("donuts do dani", "assets/food/sandwich.svg"), new Store("cachorros do chico", ""), new Store("cachorros do chico", "")];
 var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg)
@@ -15,7 +15,7 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "",
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "setProductsList('Carills');", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
@@ -171,7 +171,7 @@ function setProductsList(storeName) {
 function setStoresList(){
     for (var s = 0; s < stores.length; s++) {
         var el = cloneElementTo("store-model", "store-grid", [stores[s].svg, stores[s].name]);
-        //el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+        el.setAttribute("onclick", "loadScreen('drinks-oscreen', '" + stores[s].name + "');");
     }
 }
 

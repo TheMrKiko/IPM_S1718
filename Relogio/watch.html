@@ -105,7 +105,7 @@
 				<div class="cell-content text">Barraca</div>
 			</div>
 
-			<div class="cell button storeprod" onclick="loadScreen('drinks-oscreen');">
+			<div class="cell button storeprod" onclick="loadScreen('drinks-oscreen', 'all');">
 				<div class="cell-content">
 					<img src="assets\food\sandwich.svg">
 				</div>
@@ -122,12 +122,12 @@
 			<div class="grid scrollable" id="prod-snacks-grid"></div>
 		</div>
 		<div class="screen" id="sweets-oscreen">
-			<div class="grid" id="prod-grid"></div>
+			<div class="grid scrollable" id="prod-grid"></div>
 		</div>
 	</div>
 		
 	<div class="solo screen" id="store-oscreen">
-		<div class="grid" id="store-grid"></div>
+		<div class="grid scrollable" id="store-grid"></div>
 	</div>
 
 	<!-- MODELOS -->
@@ -178,19 +178,28 @@
 		</div>
 		<div class="item-model">
 			<div class="item">
-				<div class="item-icon">
-					<img class="attr-m" attrm="src">
+				<div class="item-info">
+					<div class="item-icon">
+						<img class="attr-m" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML"></div>
+					<div class="item-count-bubble attr-m" attrm="innerHTML"></div>
 				</div>
-				<div class="item-text text attr-m" attrm="innerHTML"></div>
-				<div class="item-count attr-m" attrm="innerHTML"></div>
+				<div class="item-quant">
+					<div class="text" id="item-plus">+</div>
+					<div class="text" id="item-count">0</div>
+					<div class="text" id="item-minus">-</div>
+				</div>
 			</div>
 		</div>
 		<div class="store-model">
 			<div class="item">
-				<div class="item-icon">
-					<img class="attr-m" attrm="src">
+				<div class="item-info">
+					<div class="item-icon">
+						<img class="attr-m" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML"></div>
 				</div>
-				<div class="item-text text attr-m" attrm="innerHTML"></div>
 			</div>
 		</div>
 	</div>

@@ -363,24 +363,34 @@ body {
 /******************* ITEM LISTS *************************/
 
 .item {
-    position: relative;
+    width: 100%;
+    height: 40%;
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 8%;
     margin: 3%;
-    border-radius: 2%;
-    border: 2px solid salmon;
+}
+
+.item-info {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-flow: row;
-    font-size: 8%;
+    flex: 1 1 auto;
+    position: relative;
     align-items: center;
-    width: 100%;
-    height: 30%;
+    border-radius: 2%;
+    border: 2px solid salmon;
     background: burlywood;
 }
 
 .item-icon {
+    height: 100%;
     flex: 0 1 auto;
     display: flex;
     align-items: center;
-    height: 100%;
 }
 
 .item-icon img {
@@ -389,12 +399,28 @@ body {
 
 .item-text {
     flex: 1 1 auto;
-    align-items: center;
-    justify-content: center;
     display: flex;
+    align-items: center;
+    /* justify-content: center; */
 }
 
-.item-count {
+.item-quant {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row;
+    width: 70%;
+    height: 100%;
+    background: brown;
+    align-items: center;
+}
+
+.item-quant div {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.item-count-bubble {
     transform: translate(-50%, -50%);
     position: absolute;
     width: 10%;
