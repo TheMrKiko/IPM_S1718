@@ -267,21 +267,20 @@ function filterProductsInStore(productS, storeName) {
 }
 
 function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo -> initScreen
-    var loadingScreenObj = findScreenWithID(screenID);
+    var nextScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
         var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
     }
-    /*if (savePrev) {
-        if (currentScreenObj != undefined && prevScreenObj != undefined) {
-            loadingScreenObj.prevScreen = (prevScreenObj.id == loadingScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
+    //if (savePrev) {
+        if (currentScreenObj != undefined && prevScreenObj != undefined) { console.log("oiii");
+            nextScreenObj.prevScreen = (prevScreenObj.id == nextScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
         } else {
-            loadingScreenObj.prevScreen = currentScreen;
+            nextScreenObj.prevScreen = currentScreen;
         }
-    } else*/
-    if (loadingScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
-        loadingScreenObj.prevScreen = currentScreen;
-    }
+    /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
+        nextScreenObj.prevScreen = currentScreen;
+    }*/
     moveScreen(screenID, args);
 }
 
