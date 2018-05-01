@@ -105,7 +105,7 @@
 				<div class="cell-content text">Barraca</div>
 			</div>
 
-			<div class="cell button storeprod" onclick="loadScreen('');">
+			<div class="cell button storeprod" onclick="loadScreen('drinks-oscreen');">
 				<div class="cell-content">
 					<img src="assets\food\sandwich.svg">
 				</div>
@@ -114,12 +114,42 @@
 		</div>
 	</div>
 
-	<div class="solo swipe" id="products-oswipe">
+	<div class="swipe solo" id="products-oswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "products-oswipe", "drinks-oscreen", "snacks-oscreen")' ondrop='drop(event, "products-oswipe", "drinks-oscreen", "snacks-oscreen")'>
 		<div class="screen" id="drinks-oscreen">
+			<div class="grid scrollable" id="prod-grid">
+				<div class="item">
+					<div class="item-icon">
+						<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML">Água</div>
+					<div class="item-count">1</div>
+				</div>
+
+				<div class="item">
+					<div class="item-icon">
+						<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML">Água</div>
+					<div class="item-count">1</div>
+				</div>
+
+				<div class="item">
+						<div class="item-icon">
+							<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
+						</div>
+						<div class="item-text text attr-m" attrm="innerHTML">Água</div>
+						<div class="item-count"></div>
+					</div>
+			</div>
+		</div>
+		<div class="screen" id="snacks-oscreen">
 			<div class="grid" id="prod-grid"></div>
 		</div>
+		<!--<div class="screen" id="sweets-oscreen">
+			<div class="grid" id="prod-grid"></div>
+		</div>-->
 	</div>
-
+		
 	<div class="solo screen" id="store-oscreen">
 		<div class="grid" id="store-grid"></div>
 	</div>

@@ -347,7 +347,7 @@ body {
     transform: rotate(360deg);
 }*/
 
-/******************* FOOD *************************/
+/******************* CHOOSE ORDER *************************/
 .storeprod img {
 	width: 75%;
 }
@@ -359,6 +359,53 @@ body {
 #storeprod-grid {
 	align-items: center;
 }
+
+/******************* ITEM LISTS *************************/
+
+.item {
+    position: relative;
+    margin: 3%;
+    border-radius: 2%;
+    border: 2px solid salmon;
+    display: flex;
+    flex-flow: row;
+    font-size: 8%;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    background: burlywood;
+}
+
+.item-icon {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.item-icon img {
+    height: 100%;
+}
+
+.item-text {
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.item-count {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 10%;
+    height: 50%;
+    top: 0;
+    left: 100%;
+    background: cornflowerblue;
+    border-radius: 5pt;
+}
+
+
 /***************************** ANIMATIONS *****************************/
 
 @keyframes aproximar {

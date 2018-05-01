@@ -3,16 +3,20 @@ var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var stores = [new Store("Casa do Zé", "svg.svg"), new Store("Carills", "car.svg")];
-var produts = [new Product("Água", "", "all"), new Product("Caril", "", ["Carills"])];
+var produts = [new Product("Água", "", "", "all"), new Product("Caril", "", "", ["Carills"])];
 var swipes = [];
+// Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
 new Screen("Main", "main-screen", "", "addNotification", "main-solo", "lock-screen", false, false),
 new Screen("App", "app-screen", "", "", "main-solo", "main-screen", "clock", false),
-new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "app-screen", true, false),
-new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "app-screen", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "app-screen", true, "true3", "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Escolher por", "choose-oscreen", "", "", "",  "app-screen", true, false)
+new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", true, false),
+new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
+new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
+new Screen("Bebidas", "drinks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
+//new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
 var currentSolo;
 var currentScreen;
@@ -338,14 +342,14 @@ function scrollValue(screen, value) {
 
 function testscrollTop(element) {
     var currP = element.scrollTop++;
-    if (element.scrollTop != currP) {
+    if (element.scrollTop > currP) {
         element.classList.toggle("scroll-down", true);
         element.scrollTop--;
     } else {
         element.classList.toggle("scroll-down", false);
     }
     currP = element.scrollTop--;
-    if (element.scrollTop != currP) {
+    if (element.scrollTop < currP) {
         element.classList.toggle("scroll-up", true);
         element.scrollTop++;
     } else {
@@ -447,9 +451,10 @@ function Notification(name, img) {
     };*/
 }
 
-function Product(name, svg, store) {
+function Product(name, svg, type, store) {
     this.name = name;
     this.svg = svg;
+    this.type = type;
     this.store = store == "all" ? [] : store;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
@@ -495,7 +500,7 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
     this.initFunc = initFunc;
     this.constFuncN = constFuncN;
     this.solo = solo != "" ? solo : id;
-    this.homeButton = homeButton;
+    this.homeButton = homeButton == "" ? "app-screen" : homeButton;
     this.header = header;
     this.footer = footer;
     this.footarg = footarg;
@@ -522,9 +527,9 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
         }
     }
     this.addFooter = function () {
-        if (this.footer == "true3") {
+        if (this.footer && this.footarg.length > 4) {
             addFooter(this.id, 3, this.footarg);
-        } else {
+        } else if (this.footer && this.footarg.length > 2){
             addFooter(this.id, 2, this.footarg);
         }
     }
