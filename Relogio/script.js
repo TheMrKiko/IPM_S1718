@@ -2,8 +2,8 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-var stores = [new Store("Casa do Zé", "svg.svg"), new Store("Carills", "car.svg")];
-var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
+var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg")];
+var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
@@ -14,9 +14,10 @@ new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo"
 new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
-new Screen("Bebidas", "drinks-oscreen", "setProductsList();", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", true, true, "Fim", "", "", ""),
+new Screen("Bebidas", "drinks-oscreen", "setProductsList('Carills');", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
-new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
 var currentSolo;
 var currentScreen;
@@ -148,17 +149,30 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
-function setProductsListType(type, grid) {
-    var prods = filterAllProductsWithType(type);
+function setProductsListType(prods, type, grid) {
+    prods = filterProductsWithType(prods, type);
     for (var p = 0; p < prods.length; p++) {
         var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].count]);
         //el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
     }
 }
 
-function setProductsList() {
-    setProductsListType(1, "prod-drinks-grid");
-    setProductsListType(2, "prod-snacks-grid");
+function setProductsList(storeName) {
+    var prods;
+    if (storeName == "all") {
+        prods = products;
+    } else {
+        prods = filterAllProductsInStore(storeName);
+    }
+    setProductsListType(prods, 1, "prod-drinks-grid");
+    setProductsListType(prods, 2, "prod-snacks-grid");
+}
+
+function setStoresList(){
+    for (var s = 0; s < stores.length; s++) {
+        var el = cloneElementTo("store-model", "store-grid", [stores[s].svg, stores[s].name]);
+        //el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+    }
 }
 
 /************************************ CLONE ************************************/
@@ -231,10 +245,25 @@ function findStoreWithName(storeName) {
 }
 
 function filterAllProductsWithType(typeName) {
+    return filterProductsWithType(products, typeName);
+}
+
+function filterAllProductsInStore(storeName) {
+    return filterProductsInStore(products, storeName);
+}
+
+function filterProductsWithType(productS, typeName) {
     function filterType(prod) {
         return prod.type == typeName;
     }
-    return products.filter(filterType);
+    return productS.filter(filterType);
+}
+
+function filterProductsInStore(productS, storeName) {
+    function filterInStore(prod) {
+        return prod.stores.includes(storeName);
+    }
+    return productS.filter(filterInStore);
 }
 
 function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo -> initScreen
@@ -339,7 +368,7 @@ window.addEventListener('message', function (event) {
         case "home":
             loadScreen(findScreenWithID(currentScreen).homeButton);
             break;
-
+            
         default:
             console.log(event.data);
             break;
@@ -347,7 +376,7 @@ window.addEventListener('message', function (event) {
 });
 
 function scrollCurrScreen(value) {
-    var scrollElement = document.getElementById(currentSolo);
+    var scrollElement = document.getElementById(currentScreen);
     scrollValue(scrollElement, value);
 }
 
@@ -401,7 +430,7 @@ function dragging(ev, solo) {
     var now = ev.clientX;
     var diff = now - then;
 
-    var screenN = soloObj.screens.indexOf(currentScreen); console.log(screenN);
+    var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = screenN * document.getElementById(currentScreen).clientWidth;
 
     if ((screenN != 0 && screenN != soloObj.screens.length - 1) || (screenN == 0 && diff < 0) || (screenN == soloObj.screens.length - 1 && diff > 0)) {
@@ -419,7 +448,7 @@ function drop(ev, solo) {
 
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
-    var screenN = soloObj.screens.indexOf(currentScreen); console.log(screenN);
+    var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = - screenN * document.getElementById(currentScreen).clientWidth;
 
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
@@ -474,16 +503,11 @@ function Product(name, svg, type, store) {
     this.name = name;
     this.svg = svg;
     this.type = type;
-    this.store = store == "all" ? [] : store;
+    this.stores = store == "all" ? [] : store;
     this.count = 0;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
-            this.store.push(stores[s].name);
-            stores[s].addProduct(this.name);
-        }
-    } else {
-        for (var s = 0; s < this.store.length; s++) {
-            findStoreWithName(this.store[s]).addProduct(this.name);
+            this.stores.push(stores[s].name);
         }
     }
 }
@@ -491,10 +515,6 @@ function Product(name, svg, type, store) {
 function Store(name, svg) {
     this.name = name;
     this.svg = svg;
-    this.products = [];
-    this.addProduct = function (prodName) {
-        this.products.push(prodName);
-    };
 }
 
 function Solo(id, el) {
@@ -528,8 +548,8 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
     this.prevScreen;
     this.keepArgs;
     this.initScreen = function (args) {
-        if (args == "prevArg")  args = prevScreenArgs;
-        if (args != "") this.keepArgs = args;
+        if (args == "prevArg")  args = prevScreenArgs; //Se for "prevArgs" nos argumentos e anteriormente tiverem dado um valor ao prevScreenArgs
+        if (args != "") this.keepArgs = args; //Se tiver argumentos, guardar os novos
         if (!this.init) {
             if (this.header) this.addHeader();
             if (this.footer) this.addFooter();
