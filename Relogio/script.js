@@ -15,8 +15,8 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "",
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
 new Screen("Bebidas", "drinks-oscreen", "setProductsList();", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
-new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
-//new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
+new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 ];
 var currentSolo;
 var currentScreen;
@@ -237,7 +237,7 @@ function filterAllProductsWithType(typeName) {
     return products.filter(filterType);
 }
 
-function loadScreen(screenID, ...args) {
+function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo -> initScreen
     var loadingScreenObj = findScreenWithID(screenID);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
@@ -392,48 +392,48 @@ function startDrag(ev) {
     then = ev.clientX;
 }
 
-function dragging(ev, solo, leftscreen, rightscreen) {
+function dragging(ev, solo) {
     ev.stopPropagation();
     ev.preventDefault();
     /*var then = ev.dataTransfer.getData("Text");*/
+    var soloEl = document.getElementById(solo);
+    var soloObj = findSoloWithID(solo);
     var now = ev.clientX;
     var diff = now - then;
-    if (currentScreen == leftscreen) {
-        if (diff < 0) {
-            var string = "translateX(" + diff + "px)";
-            document.getElementById(solo).style.transform = string;
-        }
-    }
-    if (currentScreen == rightscreen) {
-        if (diff > 0) {
-            diff -= document.getElementById("app-screen").clientWidth;
-            var string = "translateX(" + diff + "px)";
-            document.getElementById(solo).style.transform = string;
-        }
+
+    var screenN = soloObj.screens.indexOf(currentScreen); console.log(screenN);
+    var offset = screenN * document.getElementById(currentScreen).clientWidth;
+
+    if ((screenN != 0 && screenN != soloObj.screens.length - 1) || (screenN == 0 && diff < 0) || (screenN == soloObj.screens.length - 1 && diff > 0)) {
+        diff -= offset;
+        var string = "translateX(" + diff + "px)";
+        soloEl.style.transform = string;
     }
 }
 
-function drop(ev, solo, leftscreen, rightscreen) {
+function drop(ev, solo) {
     ev.preventDefault();
-    var width = document.getElementById(rightscreen).clientWidth;
+    var width = document.getElementById(currentScreen).clientWidth;
     var now = ev.clientX;
     var then = ev.dataTransfer.getData("Text");
-    if (currentScreen == leftscreen) {
-        if (then - now >= 40) {
-            nice(solo, now - then, -width, -1, 0, "transform", "translateX(", "px)", 5);
-            currentScreen = rightscreen;
-            loadScreen(rightscreen);
-        } else if (then - now > 0) {
-            nice(solo, now - then, 0, 1, 0, "transform", "translateX(", "px)", 5);
-        }
-    } else if (currentScreen == rightscreen) {
-        if (now - then >= 40) {
-            nice(solo, now - then, width, 1, -width, "transform", "translateX(", "px)", 5);
-            currentScreen = leftscreen;
-            loadScreen(leftscreen);
-        } else if (now - then > 0) {
-            nice(solo, now - then, 0, -1, -width, "transform", "translateX(", "px)", 5);
-        }
+
+    var soloEl = document.getElementById(solo);
+    var soloObj = findSoloWithID(solo);
+    var screenN = soloObj.screens.indexOf(currentScreen); console.log(screenN);
+    var offset = - screenN * document.getElementById(currentScreen).clientWidth;
+
+    if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
+        nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
+        currentScreen = soloObj.screens[screenN + 1];
+        loadScreen(currentScreen);
+    } else if (now - then >= 40 && 0 != screenN) {
+        nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
+        currentScreen = soloObj.screens[screenN - 1];
+        loadScreen(currentScreen);
+    } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
+        nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
+    } else if (now - then > 0 && 0 != screenN) {
+        nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
     }
 }
 
