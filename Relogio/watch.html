@@ -116,34 +116,10 @@
 
 	<div class="swipe solo" id="products-oswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "products-oswipe", "drinks-oscreen", "snacks-oscreen")' ondrop='drop(event, "products-oswipe", "drinks-oscreen", "snacks-oscreen")'>
 		<div class="screen" id="drinks-oscreen">
-			<div class="grid scrollable" id="prod-grid">
-				<div class="item">
-					<div class="item-icon">
-						<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
-					</div>
-					<div class="item-text text attr-m" attrm="innerHTML">Água</div>
-					<div class="item-count">1</div>
-				</div>
-
-				<div class="item">
-					<div class="item-icon">
-						<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
-					</div>
-					<div class="item-text text attr-m" attrm="innerHTML">Água</div>
-					<div class="item-count">1</div>
-				</div>
-
-				<div class="item">
-						<div class="item-icon">
-							<img class="attr-m" src="assets\food\sandwich.svg" attrm="src">
-						</div>
-						<div class="item-text text attr-m" attrm="innerHTML">Água</div>
-						<div class="item-count"></div>
-					</div>
-			</div>
+			<div class="grid scrollable" id="prod-drinks-grid"></div>
 		</div>
 		<div class="screen" id="snacks-oscreen">
-			<div class="grid" id="prod-grid"></div>
+			<div class="grid scrollable" id="prod-snacks-grid"></div>
 		</div>
 		<!--<div class="screen" id="sweets-oscreen">
 			<div class="grid" id="prod-grid"></div>
@@ -199,6 +175,15 @@
 		</div>
 		<div class="popup-model">
 			<div class="popup"></div>
+		</div>
+		<div class="item-model">
+			<div class="item">
+				<div class="item-icon">
+					<img class="attr-m" attrm="src">
+				</div>
+				<div class="item-text text attr-m" attrm="innerHTML"></div>
+				<div class="item-count attr-m" attrm="innerHTML"></div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -3,7 +3,7 @@ var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var stores = [new Store("Casa do Zé", "svg.svg"), new Store("Carills", "car.svg")];
-var produts = [new Product("Água", "", "", "all"), new Product("Caril", "", "", ["Carills"])];
+var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
@@ -14,7 +14,7 @@ new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo"
 new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
-new Screen("Bebidas", "drinks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Bebidas", "drinks-oscreen", "setProductsList();", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 //new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
@@ -148,6 +148,18 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
+function setProductsListType(type, grid) {
+    var prods = filterAllProductsWithType(type);
+    for (var p = 0; p < prods.length; p++) {
+        var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].count]);
+        //el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+    }
+}
+
+function setProductsList() {
+    setProductsListType(1, "prod-drinks-grid");
+    setProductsListType(2, "prod-snacks-grid");
+}
 
 /************************************ CLONE ************************************/
 function cloneElement(classModel) {
@@ -216,6 +228,13 @@ function findStoreWithName(storeName) {
         return store.name == storeName;
     }
     return stores.find(findStore);
+}
+
+function filterAllProductsWithType(typeName) {
+    function filterType(prod) {
+        return prod.type == typeName;
+    }
+    return products.filter(filterType);
 }
 
 function loadScreen(screenID, ...args) {
@@ -456,6 +475,7 @@ function Product(name, svg, type, store) {
     this.svg = svg;
     this.type = type;
     this.store = store == "all" ? [] : store;
+    this.count = 0;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
             this.store.push(stores[s].name);
@@ -471,9 +491,9 @@ function Product(name, svg, type, store) {
 function Store(name, svg) {
     this.name = name;
     this.svg = svg;
-    this.produts = [];
+    this.products = [];
     this.addProduct = function (prodName) {
-        this.produts.push(prodName);
+        this.products.push(prodName);
     };
 }
 
