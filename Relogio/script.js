@@ -5,19 +5,19 @@ var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person(
 var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg"), new Store("cachorros do chico", "assets/food/sandwich.svg"), new Store("donuts do dani", "assets/food/sandwich.svg"), new Store("cachorros do chico", ""), new Store("cachorros do chico", "")];
 var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
 var swipes = [];
-// Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg)
-var screens = [new Screen("Lock", "lock-screen", "", "", "lock-screen", "lock-screen", false, false),
-new Screen("Main", "main-screen", "", "addNotification", "main-solo", "lock-screen", false, false),
-new Screen("App", "app-screen", "", "", "main-solo", "main-screen", "clock", false),
-new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", true, false),
-new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Escolher por", "choose-oscreen", "", "", "", "", true, false),
-new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
-new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
-new Screen("Doces", "sweets-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
+// Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
+var screens = [new Screen("Lock", "lock-screen", "", "", "", "lock-screen", "lock-screen", false, false),
+new Screen("Main", "main-screen", "", "addNotification", "", "main-solo", "lock-screen", false, false),
+new Screen("App", "app-screen", "", "", "", "main-solo", "main-screen", "clock", false),
+new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", "", true, false),
+new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
+new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
+new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
 var currentSolo;
 var currentScreen;
@@ -315,10 +315,16 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
 function loadSolo(screenID, soloID, args) {
     //clear and build
     if (currentSolo != soloID) {
+        if (currentSolo != undefined) {
+            var SOsInS = findSoloWithID(currentSolo).screens;
+            for (var s = 0; s < SOsInS.length; s++) {
+                findScreenWithID(SOsInS[s]).exitScreen();
+            }
+        }
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
-        SsInS = findSoloWithID(soloID).screens;
+        var SsInS = findSoloWithID(soloID).screens;
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
@@ -582,11 +588,12 @@ function Person(name, img) {
     };
 }
 
-function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer, ...footarg) {
+function Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg) {
     this.name = name;
     this.id = id;
     this.initFunc = initFunc;
     this.constFuncN = constFuncN;
+    this.exitFunc = exitFunc;
     this.solo = solo != "" ? solo : id;
     this.homeButton = homeButton == "" ? "app-screen" : homeButton;
     this.header = header;
@@ -606,6 +613,9 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
         }
         if (this.constFuncN != "") eval(this.constFuncN + "('" + this.keepArgs + "');");
         testscrollTopScreen();
+    };
+    this.exitScreen = function() {
+        if (this.exitFunc != "") eval(this.exitFunc);
     };
     this.addHeader = function () {
         if (this.header == "clock") {
