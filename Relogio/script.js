@@ -609,20 +609,24 @@ function Store(name, svg) {
 function Bill(store) {
     this.store = store;
     this.billitems = [];
+    this.billprice = 0;
     this.addItem = function(productName) {
+        console.log(this.billprice);
         var prodItemObjs = findBillItemWithProduct(productName);
         if (prodItemObjs != undefined) {
-            this.billitems[this.billitems.indexOf(prodItemObjs)].addItem();
+            if (this.billitems[this.billitems.indexOf(prodItemObjs)].addItem()) this.billprice += findProductWithName(productName).price;
         } else {
             var newBillItem = new BillItem(productName);
             newBillItem.addItem();
+            this.billprice += findProductWithName(productName).price;
             this.billitems.push(newBillItem);
         }
     };
     this.removeItem = function(productName) {
+        console.log(this.billprice);
         var prodItemObjs = findBillItemWithProduct(productName);
         if (prodItemObjs != undefined) {
-            this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem();
+            if (this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem()) this.billprice -= findProductWithName(productName).price;
             if (prodItemObjs.count == 0) {
                 this.billitems.splice(this.billitems.indexOf(prodItemObjs));
             }
@@ -638,10 +642,10 @@ function BillItem(name) {
     this.name = name;
     this.count = 0;
     this.addItem = function() {
-        this.count = this.count < 9 ? this.count+1 : this.count;
+        return this.count < 9 ? this.count++ || true : false;
     }
     this.removeItem = function() {
-        this.count = this.count > 0 ? this.count-1 : this.count;
+        return this.count > 0 ? this.count-- || true : false;
     }
     /*this.changeName = function (name) {
         this.lastName = name;
