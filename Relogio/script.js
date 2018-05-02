@@ -3,8 +3,18 @@ var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var bill = new Bill("");
-var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg"), new Store("cachorros do chico", "assets/food/sandwich.svg"), new Store("donuts do dani", "assets/food/sandwich.svg"), new Store("cachorros do chico", ""), new Store("cachorros do chico", "")];
-var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
+var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("cachorros do chico", "assets/shops/hotdog.svg"), new Store("donuts do dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
+var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, "all"), new Product("7UP", "assets/drink/soda.svg", 1, "all"), new Product("Caril", "assets/food/curry.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/tofu.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, ["Carills"]),
+new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, ["Portugália"]), new Product("Imperial", "assets/drink/beer_fino.svg", 1, "all"), new Product("Milkshake", "assets/drink/starbucks_milkshake.svg", 1, "all"), new Product("Café", "assets/drink/starbucks.svg", 1, "all"),
+new Product("Whisky", "assets/drink/whisky.svg", 1, ["Portugália"]),
+
+new Product("Batatas fritas", "assets/food/batata_frita.svg", 2, "all"), new Product("Frango", "assets/food/chicken_leg.svg", 2, ["Casa do Zé"]), new Product("Hamburguer", "assets/food/hamburger.svg", 2, ["Rei das Bifanas"]), new Product("Cheeseburguer", "assets/food/hamburguer.svg", 2, ["cachorros do chico"]), new Product("Cachorro quente", "assets/food/hotdog.svg", 2, ["cachorros do chico"]), new Product("Noodles", "assets/food/noodles.svg", 2, ["Carills"]),
+new Product("Pizza Ham & Cheese", "assets/food/pizza_box.svg", 2, ["Casa do Zé"]), new Product("Presunto", "assets/food/presunto.svg", 2, ["Portugália"]), new Product("Pizza", "assets/food/pizza.svg", 2, ["cachorros do chico"]), new Product("Sanduíche", "assets/food/sandwich.svg", 2, "all"), new Product("Sushi", "assets/food/sushi.svg", 2, ["Carills"]), new Product("Wrap", "assets/food/wrap.svg", 2, ["Carills"]),
+
+new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, ["donuts do dani", "Starbucks"]), new Product("Croissant", "assets/candy/croissant.svg", 3, ["donuts do dani", "Portugália", "Starbucks", "Carills"]), new Product("Cupcake", "assets/candy/cupcake.svg", 3, ["donuts do dani", "Portugália"]), new Product("Cupcake Simples", "assets/candy/cupcake2.svg", 3, ["donuts do dani", "Rei das Bifanas"]), new Product("Donuts", "assets/candy/donut.svg", 3, ["donuts do dani"]),
+new Product("Donuts", "assets/candy/donut2.svg", 3, ["donuts do dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, ["donuts do dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, ["donuts do dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, ["donuts do dani", "Portugália"]),
+new Product("Lollipop", "assets/candy/lollipop.svg", 3, ["donuts do dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, "all"), new Product("Panquecas", "assets/candy/pancake.svg", 3, ["donuts do dani", "Portugália", "Carills"])
+];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "", "lock-screen", "lock-screen", false, false),
@@ -204,6 +214,7 @@ function setProductsList(storeName) {
     }
     setProductsListType(prodsObjs, 1, "prod-drinks-grid");
     setProductsListType(prodsObjs, 2, "prod-snacks-grid");
+	setProductsListType(prodsObjs, 3, "prod-sweets-grid");
 }
 
 function setStoresList() {
@@ -333,7 +344,7 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
     }
     /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
         nextScreenObj.prevScreen = currentScreen;
-    }*/ 
+    }*/
     console.log(screenID);
     console.log("new: " + screenID);
     //console.log("prev: " + nextScreenObj.prevScreen);

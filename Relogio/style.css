@@ -380,9 +380,9 @@ body {
     flex: 1 0 auto;
     position: relative;
     align-items: center;
-    border-radius: 2%;
-    border: 2px solid salmon;
-    background: burlywood;
+    border-radius: 40%;
+    border: 2px solid #5A95AE;
+    background: #f3fbff;
 }
 
 .item-icon {
