@@ -4,12 +4,12 @@ var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var bill = new Bill("");
 var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("cachorros do chico", "assets/shops/hotdog.svg"), new Store("donuts do dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
-var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1.50 , "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]), new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
+var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]), new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
 new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milkshake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["donuts do dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
 new Product("Whisky", "assets/drink/whisky.svg", 1, 8.20, ["Portugália"]),
 
 new Product("Batatas fritas", "assets/food/batata_frita.svg", 2, 1.40,"all"), new Product("Frango", "assets/food/chicken_leg.svg", 2, 4, ["Casa do Zé"]), new Product("Hamburguer", "assets/food/hamburger.svg", 2, 4, ["Rei das Bifanas"]), new Product("X-burguer", "assets/food/hamburguer.svg", 2, 5.20, ["cachorros do chico"]), new Product("Cachorro quente", "assets/food/hotdog.svg", 2, 4, ["cachorros do chico"]), new Product("Noodles", "assets/food/noodles.svg", 2, 3, ["Carills"]),
-new Product("Pizza Ham & Cheese", "assets/food/pizza_box.svg", 2, 4.50, ["Casa do Zé"]), new Product("Presunto", "assets/food/presunto.svg", 2, 2.50, ["Portugália"]), new Product("Pizza", "assets/food/pizza.svg", 2, 3.50, ["cachorros do chico"]), new Product("Sanduíche", "assets/food/sandwich.svg", 2, 2.30, "all"), new Product("Sushi", "assets/food/sushi.svg", 2, 5.50, ["Carills"]), new Product("Wrap", "assets/food/wrap.svg", 2, 3,5, ["Carills"]),
+new Product("Pizza Ham & Cheese", "assets/food/pizza_box.svg", 2, 4.50, ["Casa do Zé"]), new Product("Presunto", "assets/food/presunto.svg", 2, 2.50, ["Portugália"]), new Product("Pizza", "assets/food/pizza.svg", 2, 3.50, ["cachorros do chico"]), new Product("Sanduíche", "assets/food/sandwich.svg", 2, 2.30, "all"), new Product("Sushi", "assets/food/sushi.svg", 2, 5.50, ["Carills"]), new Product("Wrap", "assets/food/wrap.svg", 2, 3.5, ["Carills"]),
 
 new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["donuts do dani", "Starbucks"]), new Product("Croissant", "assets/candy/croissant.svg", 3, 4.20, ["donuts do dani", "Portugália", "Starbucks", "Carills"]), new Product("Cupcake", "assets/candy/cupcake.svg", 3, 1.80, ["donuts do dani", "Portugália"]), new Product("Cupcake Simples", "assets/candy/cupcake2.svg", 3, 1.60, ["donuts do dani", "Rei das Bifanas"]), new Product("Donuts", "assets/candy/donut.svg", 3, 2.20, ["donuts do dani"]),
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["donuts do dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["donuts do dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["donuts do dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["donuts do dani", "Portugália"]),
@@ -26,7 +26,7 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "", "products-oswipe", "", true, true, "Anular", "c", "€3", "c", "1 item", "c"),
+new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "", "products-oswipe", "", true, true, "Anular", "c", "€3", "c", "1 item", "c"),
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
@@ -163,7 +163,7 @@ function arrowEnd() {
 function setProductsListType(prodsObjs, type, grid) {
     prodsObjs = filterProductsWithType(prodsObjs, type);
     for (var p = 0; p < prodsObjs.length; p++) {
-        var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + prodsObjs[p].price, "0", "0"]);
+        var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
@@ -201,7 +201,7 @@ function deltaProdQuant(prodName, increment) {
 }
 
 function updateProdFooter() {
-    editFooter("products-oswipe", "Anular", "€" + 3, 5 + " itens");
+    editFooter("products-oswipe", "Anular", "€" + Number(bill.billprice).toFixed(2), bill.billcount + " itens");
 }
 
 function updateProdQuant(element, prodName) {
@@ -214,8 +214,10 @@ function setProductsList(storeName) {
     var prodsObjs;
     if (storeName == "all") {
         prodsObjs = products;
-    } else {
+    } else if (storeName != undefined) {
         prodsObjs = filterAllProductsInStore(storeName);
+    } else {
+        console.log("Ups!");
     }
     setProductsListType(prodsObjs, 1, "prod-drinks-grid");
     setProductsListType(prodsObjs, 2, "prod-snacks-grid");
@@ -350,10 +352,10 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
     /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
         nextScreenObj.prevScreen = currentScreen;
     }*/
-    console.log(screenID);
-    console.log("new: " + screenID);
+    //console.log(screenID);
+    //console.log("new: " + screenID);
     //console.log("prev: " + nextScreenObj.prevScreen);
-    console.log("---");
+    //console.log("---");
     moveScreen(screenID, args);
 }
 
@@ -371,9 +373,12 @@ function loadSolo(screenID, soloID, args) {
         showSolo(soloID);
         var SsInS = findSoloWithID(soloID).screens;
         for (var s = 0; s < SsInS.length; s++) {
+            findScreenWithID(SsInS[s]).drawScreen();
+        }
+        for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
-        if(soloID != "main-solo") {
+        if (soloID != "main-solo") {
             document.getElementById(soloID).style.transform = "translateX(0px)";
         }
     } else if (currentSolo == soloID && currentScreen != screenID) {
@@ -609,24 +614,30 @@ function Store(name, svg) {
 function Bill(store) {
     this.store = store;
     this.billitems = [];
+    this.billcount = 0;
     this.billprice = 0;
     this.addItem = function(productName) {
-        console.log(this.billprice);
         var prodItemObjs = findBillItemWithProduct(productName);
         if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].addItem()) this.billprice += findProductWithName(productName).price;
+            if (this.billitems[this.billitems.indexOf(prodItemObjs)].addItem()) {
+                this.billprice += findProductWithName(productName).price;
+                this.billcount++;
+            }
         } else {
             var newBillItem = new BillItem(productName);
             newBillItem.addItem();
             this.billprice += findProductWithName(productName).price;
+            this.billcount++;
             this.billitems.push(newBillItem);
         }
     };
     this.removeItem = function(productName) {
-        console.log(this.billprice);
         var prodItemObjs = findBillItemWithProduct(productName);
         if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem()) this.billprice -= findProductWithName(productName).price;
+            if (this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem()) {
+                this.billprice -= findProductWithName(productName).price;
+                this.billcount--;
+            }
             if (prodItemObjs.count == 0) {
                 this.billitems.splice(this.billitems.indexOf(prodItemObjs));
             }
@@ -682,15 +693,22 @@ function Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, head
     this.header = header;
     this.footer = footer;
     this.footarg = footarg;
+    this.drawn = false;
     this.init = false;
     this.prevScreen;
     this.keepArgs;
+    this.drawScreen = function () {
+        if (!this.drawn) {
+            if (this.header) this.addHeader();
+            if (this.footer) this.addFooter();
+            this.drawn = true;
+        }
+    }
     this.initScreen = function (args) {
         if (args == "prevArg") args = prevScreenArgs; //Se for "prevArgs" nos argumentos e anteriormente tiverem dado um valor ao prevScreenArgs
         if (args != "") this.keepArgs = args; //Se tiver argumentos, guardar os novos
         if (!this.init) {
-            if (this.header) this.addHeader();
-            if (this.footer) this.addFooter();
+            this.drawScreen();
             eval(this.initFunc);
             this.init = true;
         }
