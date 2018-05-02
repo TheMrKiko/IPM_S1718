@@ -319,20 +319,25 @@ function filterProductsInStore(productS, storeName) {
 }
 
 function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo -> initScreen
-    var nextScreenObj = findScreenWithID(screenID);
+    var nextSoloObj = findSoloWithID(findScreenWithID(screenID).solo);
     var currentScreenObj = findScreenWithID(currentScreen);
     if (currentScreenObj != undefined) {
-        var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
+        var prevSoloObj = findSoloWithID(findSoloWithID(currentScreenObj.solo).prevSolo);
     }
     //if (savePrev) {
-    if (currentScreenObj != undefined && prevScreenObj != undefined) {
-        nextScreenObj.prevScreen = (prevScreenObj.id == nextScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
-    } else {
-        nextScreenObj.prevScreen = currentScreen;
+    if (currentScreenObj != undefined && prevSoloObj != undefined) {
+        if (nextSoloObj.prevSolo == undefined)
+            nextSoloObj.prevSolo = (prevSoloObj.id == nextSoloObj.id ? prevSoloObj.prevSolo : currentScreenObj.solo);
+    } else if (currentScreenObj != undefined){
+        nextSoloObj.prevSolo = currentScreenObj.solo;
     }
     /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
         nextScreenObj.prevScreen = currentScreen;
-    }*/
+    }*/ 
+    console.log(screenID);
+    console.log("new: " + screenID);
+    //console.log("prev: " + nextScreenObj.prevScreen);
+    console.log("---");
     moveScreen(screenID, args);
 }
 
@@ -352,9 +357,14 @@ function loadSolo(screenID, soloID, args) {
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
+        if(soloID != "main-solo") {
+            document.getElementById(soloID).style.transform = "translateX(0px)";
+        }
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
-        nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
+        if (screenID == "main-screen") {
+            nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
+        }
         currentScreen = screenID;
     }
 }
@@ -375,7 +385,10 @@ function moveScreen(screenID, args) {
 }
 
 function goBack() {
-    moveScreen(findScreenWithID(currentScreen).prevScreen, "");
+    var currentSolo = findSoloWithID(findScreenWithID(currentScreen).solo)
+    var prevSoloID = currentSolo.prevSolo
+    moveScreen(findSoloWithID(prevSoloID).currentScreen, "");
+    currentSolo.prevSolo = undefined;
 }
 
 function addHeader(screenID, args) {
@@ -510,12 +523,10 @@ function drop(ev, solo) {
 
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
-        currentScreen = soloObj.screens[screenN + 1];
-        loadScreen(currentScreen);
+        loadScreen(soloObj.screens[screenN + 1]);
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
-        currentScreen = soloObj.screens[screenN - 1];
-        loadScreen(currentScreen);
+        loadScreen(soloObj.screens[screenN - 1]);
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
     } else if (now - then > 0 && 0 != screenN) {
@@ -623,6 +634,8 @@ function Solo(id, el) {
     this.addScreen = function (screenID) {
         this.screens.push(screenID);
     };
+    this.prevSolo;
+    this.currentScreen;
 }
 
 function Person(name, img) {
@@ -679,7 +692,9 @@ function Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, head
     }
     var soloO = findSoloWithID(this.solo);
     if (soloO == undefined) {
-        swipes.push(new Solo(this.solo, this.id));
+        var newsolo = new Solo(this.solo, this.id);
+        swipes.push(newsolo);
+        newsolo.currentScreen = this.id;
     } else {
         soloO.addScreen(this.id);
     }
