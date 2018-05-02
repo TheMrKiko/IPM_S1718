@@ -403,9 +403,9 @@ body {
     justify-content: center;
 }
 
-.item-quant {
+.item-quant-editor {
     flex: 1 1 auto;
-    display: flex;
+    display: none;
     flex-flow: row;
     width: 70%;
     height: 100%;
@@ -413,7 +413,7 @@ body {
     align-items: center;
 }
 
-.item-quant div {
+.item-quant-editor div {
     flex: 1 1 auto;
     display: flex;
     justify-content: center;

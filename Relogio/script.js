@@ -153,7 +153,19 @@ function setProductsListType(prods, type, grid) {
     prods = filterProductsWithType(prods, type);
     for (var p = 0; p < prods.length; p++) {
         var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].count]);
-        //el.setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+        el.setAttribute("onclick", "toggleQuantityEditor( event, '" + prods[p].name + "');");
+    }
+}
+
+function toggleQuantityEditor(ev, prodName) {
+    var el = ev.currentTarget.getElementsByClassName("item-quant-editor")[0];
+    var prod = findProductWithName(prodName);
+    if (prod.togglerActive) {
+        el.style.display = "none";
+        prod.togglerActive = false;
+    } else {
+        el.style.display = "flex";
+        prod.togglerActive = true;
     }
 }
 
@@ -244,6 +256,13 @@ function findStoreWithName(storeName) {
     return stores.find(findStore);
 }
 
+function findProductWithName(prodName) {
+    function findProduct(prod) {
+        return prod.name == prodName;
+    }
+    return products.find(findProduct);
+}
+
 function filterAllProductsWithType(typeName) {
     return filterProductsWithType(products, typeName);
 }
@@ -273,7 +292,7 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
         var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
     }
     //if (savePrev) {
-        if (currentScreenObj != undefined && prevScreenObj != undefined) { console.log("oiii");
+        if (currentScreenObj != undefined && prevScreenObj != undefined) { 
             nextScreenObj.prevScreen = (prevScreenObj.id == nextScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
         } else {
             nextScreenObj.prevScreen = currentScreen;
@@ -504,6 +523,7 @@ function Product(name, svg, type, store) {
     this.type = type;
     this.stores = store == "all" ? [] : store;
     this.count = 0;
+    this.togglerActive = false;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
             this.stores.push(stores[s].name);
