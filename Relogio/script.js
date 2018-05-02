@@ -529,11 +529,31 @@ function Product(name, svg, type, store) {
             this.stores.push(stores[s].name);
         }
     }
+    this.addItem = function() {
+        this.count = count < 9 ? this.count++ : this.count;
+    }
+    this.removeItem = function() {
+        this.count = count > 0 ? this.count-- : this.count;
+    }
 }
 
 function Store(name, svg) {
     this.name = name;
     this.svg = svg;
+}
+
+function Bill(store) {
+    this.store = store;
+    this.products = [];
+    this.updateProduct = function(productName) {
+        if (this.products.includes(productName)) {
+            if (findProductWithName(productName).count == 0) {
+                this.products.splice(this.products.indexOf(productName));
+            }
+        } else {
+            this.products.includes(productName);
+        }
+    };
 }
 
 function Solo(id, el) {
