@@ -143,6 +143,10 @@ body {
     cursor: default;
 }
 
+.footer-button:nth-child(2){
+    border-left: 1px solid rgb(0, 255, 42);
+}
+
 /***************************** LOCK SCREEN *****************************/
 
 .bigClock {
@@ -398,6 +402,13 @@ body {
 
 .item-text {
     flex: 5 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-price {
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;

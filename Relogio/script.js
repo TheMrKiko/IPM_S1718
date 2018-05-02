@@ -26,7 +26,7 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "", "products-oswipe", "", true, true, "Anular", "c", "€3", "c", "1 item", "c"),
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", "")
 ];
@@ -163,7 +163,7 @@ function arrowEnd() {
 function setProductsListType(prodsObjs, type, grid) {
     prodsObjs = filterProductsWithType(prodsObjs, type);
     for (var p = 0; p < prodsObjs.length; p++) {
-        var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "0", "0"]);
+        var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + prodsObjs[p].price, "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
@@ -200,9 +200,14 @@ function deltaProdQuant(prodName, increment) {
     } else console.log("go fuck urself");
 }
 
+function updateProdFooter() {
+    editFooter("products-oswipe", "Anular", "€" + 3, 5 + " itens");
+}
+
 function updateProdQuant(element, prodName) {
-    var prodsObj = findProductWithName(prodName);
-    setAttributes(element, [prodsObj.svg, prodsObj.name, bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
+    var prodObj = findProductWithName(prodName);
+    setAttributes(element, [prodObj.svg, prodObj.name, "€" + prodObj.price, bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
+    updateProdFooter();
 }
 
 function setProductsList(storeName) {
@@ -407,11 +412,14 @@ function addHeader(screenID, args) {
     updateClock(el.getElementsByClassName("clock")[0]);
 }
 
-function editFooter(screenID, b1, b2, b3) {
-    var footer = document.getElementById(screenID).getElementsByClassName("footer")[0];
-    screenFootArgs = findScreenWithID(screenID).footarg;
-    args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
-    setAttributes(footer, args);
+function editFooter(soloID, b1, b2, b3) {
+    var screenList = findSoloWithID(soloID).screens;
+    for (var s = 0; s < screenList.length; s++) {
+        var footer = document.getElementById(screenList[s]).getElementsByClassName("footer")[0];
+        screenFootArgs = findScreenWithID(screenList[s]).footarg;
+        args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
+        setAttributes(footer, args);
+    }
 }
 
 function addFooter(screenID, num, args) {
@@ -578,10 +586,11 @@ function Notification(name, img) {
     };*/
 }
 
-function Product(name, svg, type, store) {
+function Product(name, svg, type, price, store) {
     this.name = name;
     this.svg = svg;
     this.type = type;
+    this.price = price;
     this.stores = store == "all" ? [] : store;
     this.inbill = false;
     this.togglerActive = false;
