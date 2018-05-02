@@ -419,7 +419,7 @@ body {
     justify-content: center;
 }
 
-.item-count-bubble {
+.item-quant-bubble {
     transform: translate(-50%, -50%);
     position: absolute;
     width: 10%;

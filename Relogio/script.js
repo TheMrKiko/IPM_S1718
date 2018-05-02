@@ -13,7 +13,7 @@ new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "re
 new Screen("Contacto", "friend-detail-fscreen", "", "arrowEnd(); showPersonInfo", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
 new Screen("Mapa", "map-fscreen", "pinMotion();", "arrowEnd(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Escolher por", "choose-oscreen", "", "", "",  "", true, false),
+new Screen("Escolher por", "choose-oscreen", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", true, true, "Fim", "", "", ""),
 new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
 new Screen("Snacks", "snacks-oscreen", "", "", "products-oswipe", "", true, true, "Fim", "", "", "", "", ""),
@@ -79,18 +79,18 @@ function randomDistance() {
 }
 
 function reSetDistance() {
-	reSortPeopleList();
-	var peopleHTML = document.getElementById("gridFriends").children;
-	for (var i = 0; i < people.length; i++) {
-		setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance + "m"]);
-		peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
-	}
+    reSortPeopleList();
+    var peopleHTML = document.getElementById("gridFriends").children;
+    for (var i = 0; i < people.length; i++) {
+        setAttributes(peopleHTML[i], [people[i].img, people[i].name, people[i].distance + "m"]);
+        peopleHTML[i].setAttribute("onclick", "loadScreen('friend-detail-fscreen', '" + people[i].name + "');");
+    }
 }
 
 function reSortPeopleList() {
-	people.sort(function(a, b) {
-		return a.distance - b.distance;
-	});
+    people.sort(function(a, b) {
+        return a.distance - b.distance;
+    });
 }
 
 function showPersonInfo(personName) {
@@ -101,19 +101,19 @@ function showPersonInfo(personName) {
 }
 
 function shakePic() {
-	var screen = document.getElementsByClassName("friendDetail")[0];
-	screen.style.animation = "shake 0.5s";
-	screen.style.animationIterationCount = "3";
-	setTimeout(function() {
-		screen.style.animation = "";
-	}, 1500);
+    var screen = document.getElementsByClassName("friendDetail")[0];
+    screen.style.animation = "shake 0.5s";
+    screen.style.animationIterationCount = "3";
+    setTimeout(function() {
+        screen.style.animation = "";
+    }, 1500);
 }
 
 function aproxPerson(personName) {
     var person = findPersonWithName(personName);
     var iniDist = (person.distance / 20) + 1;
     var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+    editFooter(currentScreen, "Fim", person.name, person.distance + "m");
     var inte = setInterval(function () {
         person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
         if (person.distance < 0) {
@@ -121,9 +121,9 @@ function aproxPerson(personName) {
             clearInterval(inte);
         } else if (currScreen != currentScreen) {
             clearInterval(inte);
-            return ;
+            return;
         }
-        editFooter(currentScreen, "Fim", person.name, person.distance+"m");
+        editFooter(currentScreen, "Fim", person.name, person.distance + "m");
     }, 1000);
 }
 
@@ -152,13 +152,14 @@ function arrowEnd() {
 function setProductsListType(prods, type, grid) {
     prods = filterProductsWithType(prods, type);
     for (var p = 0; p < prods.length; p++) {
-        var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].count]);
-        el.setAttribute("onclick", "toggleQuantityEditor( event, '" + prods[p].name + "');");
+        var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].quant]);
+        el = el.getElementsByClassName("item-info")[0];
+        el.setAttribute("onclick", "toggleQuantityEditor(event, '" + prods[p].name + "');");
     }
 }
 
 function toggleQuantityEditor(ev, prodName) {
-    var el = ev.currentTarget.getElementsByClassName("item-quant-editor")[0];
+    var el = ev.currentTarget.parentElement.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
         el.style.display = "none";
@@ -167,6 +168,14 @@ function toggleQuantityEditor(ev, prodName) {
         el.style.display = "flex";
         prod.togglerActive = true;
     }
+}
+
+function updateProdQuant(prodName, increment) {
+    if (increment == 1) {
+        findProductWithName(prodName).addItem();
+    } else if (increment == -1) {
+        findProductWithName(prodName).removeItem();
+    } else console.log("go fuck urself");
 }
 
 function setProductsList(storeName) {
@@ -180,7 +189,7 @@ function setProductsList(storeName) {
     setProductsListType(prods, 2, "prod-snacks-grid");
 }
 
-function setStoresList(){
+function setStoresList() {
     for (var s = 0; s < stores.length; s++) {
         var el = cloneElementTo("store-model", "store-grid", [stores[s].svg, stores[s].name]);
         el.setAttribute("onclick", "loadScreen('drinks-oscreen', '" + stores[s].name + "');");
@@ -292,11 +301,11 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
         var prevScreenObj = findScreenWithID(currentScreenObj.prevScreen)
     }
     //if (savePrev) {
-        if (currentScreenObj != undefined && prevScreenObj != undefined) { 
-            nextScreenObj.prevScreen = (prevScreenObj.id == nextScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
-        } else {
-            nextScreenObj.prevScreen = currentScreen;
-        }
+    if (currentScreenObj != undefined && prevScreenObj != undefined) {
+        nextScreenObj.prevScreen = (prevScreenObj.id == nextScreenObj.id ? prevScreenObj.prevScreen : currentScreen);
+    } else {
+        nextScreenObj.prevScreen = currentScreen;
+    }
     /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
         nextScreenObj.prevScreen = currentScreen;
     }*/
@@ -315,7 +324,7 @@ function loadSolo(screenID, soloID, args) {
         }
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
-        nice(soloID, 0, width, 1, -width, "transform","translateX(", "px)", 5);
+        nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
         currentScreen = screenID;
     }
 }
@@ -386,7 +395,7 @@ window.addEventListener('message', function (event) {
         case "home":
             loadScreen(findScreenWithID(currentScreen).homeButton);
             break;
-            
+
         default:
             console.log(event.data);
             break;
@@ -503,8 +512,8 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
 
 
 function pinMotion() {
-    nice("pinUser", 77, 20+7, -0.25, 0, "left", "", "%", 100);
-    nice("pinUser", 60, 20+17, -0.25, 0, "top", "", "%", 100);
+    nice("pinUser", 77, 20 + 7, -0.25, 0, "left", "", "%", 100);
+    nice("pinUser", 60, 20 + 17, -0.25, 0, "top", "", "%", 100);
 }
 
 
@@ -522,7 +531,7 @@ function Product(name, svg, type, store) {
     this.svg = svg;
     this.type = type;
     this.stores = store == "all" ? [] : store;
-    this.count = 0;
+    this.quant = 0;
     this.togglerActive = false;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
@@ -587,7 +596,7 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
     this.prevScreen;
     this.keepArgs;
     this.initScreen = function (args) {
-        if (args == "prevArg")  args = prevScreenArgs; //Se for "prevArgs" nos argumentos e anteriormente tiverem dado um valor ao prevScreenArgs
+        if (args == "prevArg") args = prevScreenArgs; //Se for "prevArgs" nos argumentos e anteriormente tiverem dado um valor ao prevScreenArgs
         if (args != "") this.keepArgs = args; //Se tiver argumentos, guardar os novos
         if (!this.init) {
             if (this.header) this.addHeader();
@@ -608,7 +617,7 @@ function Screen(name, id, initFunc, constFuncN, solo, homeButton, header, footer
     this.addFooter = function () {
         if (this.footer && this.footarg.length > 4) {
             addFooter(this.id, 3, this.footarg);
-        } else if (this.footer && this.footarg.length > 2){
+        } else if (this.footer && this.footarg.length > 2) {
             addFooter(this.id, 2, this.footarg);
         }
     }
