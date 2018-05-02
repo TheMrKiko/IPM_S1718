@@ -2,6 +2,7 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
+var bill = new Bill("");
 var stores = [new Store("Casa do Zé", "assets/food/sandwich.svg"), new Store("Carills", "assets/food/sandwich.svg"), new Store("cachorros do chico", "assets/food/sandwich.svg"), new Store("donuts do dani", "assets/food/sandwich.svg"), new Store("cachorros do chico", ""), new Store("cachorros do chico", "")];
 var products = [new Product("Água", "assets/food/sandwich.svg", 1, "all"), new Product("Vinho", "assets/food/sandwich.svg", 1, "all"), new Product("7UP", "assets/food/sandwich.svg", 1, "all"), new Product("Caril", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("João Daniel do bom", "assets/food/sandwich.svg", 2, ["Casa do Zé"]), new Product("Tofu", "assets/food/sandwich.svg", 2, ["Carills"]), new Product("Pizza", "assets/food/sandwich.svg", 2, ["Carills"])];
 var swipes = [];
@@ -149,44 +150,60 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
-function setProductsListType(prods, type, grid) {
-    prods = filterProductsWithType(prods, type);
-    for (var p = 0; p < prods.length; p++) {
-        var el = cloneElementTo("item-model", grid, [prods[p].svg, prods[p].name, prods[p].quant]);
-        el = el.getElementsByClassName("item-info")[0];
-        el.setAttribute("onclick", "toggleQuantityEditor(event, '" + prods[p].name + "');");
+function setProductsListType(prodsObjs, type, grid) {
+    prodsObjs = filterProductsWithType(prodsObjs, type);
+    for (var p = 0; p < prodsObjs.length; p++) {
+        var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "0", "0"]);
+        var eli = el.getElementsByClassName("item-info")[0];
+        eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
+        el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
+        el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1);");
     }
 }
 
 function toggleQuantityEditor(ev, prodName) {
-    var el = ev.currentTarget.parentElement.getElementsByClassName("item-quant-editor")[0];
+    var el = ev.currentTarget.parentElement;
+    var elP = el.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
-        el.style.display = "none";
+        elP.style.display = "none";
         prod.togglerActive = false;
     } else {
-        el.style.display = "flex";
+        deltaProdQuant(prodName, 1);
+        elP.style.display = "flex";
         prod.togglerActive = true;
     }
+    updateProdQuant(el, prodName);
 }
 
-function updateProdQuant(prodName, increment) {
+function toggleQuantity(ev, prodName, increment) {
+    var el = ev.currentTarget.parentElement.parentElement;
+    deltaProdQuant(prodName, increment);
+    updateProdQuant(el, prodName);
+}
+
+function deltaProdQuant(prodName, increment) {
     if (increment == 1) {
-        findProductWithName(prodName).addItem();
+        bill.addItem(prodName);
     } else if (increment == -1) {
-        findProductWithName(prodName).removeItem();
+        bill.removeItem(prodName);
     } else console.log("go fuck urself");
 }
 
+function updateProdQuant(element, prodName) {
+    var prodsObj = findProductWithName(prodName);
+    setAttributes(element, [prodsObj.svg, prodsObj.name, bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
+}
+
 function setProductsList(storeName) {
-    var prods;
+    var prodsObjs;
     if (storeName == "all") {
-        prods = products;
+        prodsObjs = products;
     } else {
-        prods = filterAllProductsInStore(storeName);
+        prodsObjs = filterAllProductsInStore(storeName);
     }
-    setProductsListType(prods, 1, "prod-drinks-grid");
-    setProductsListType(prods, 2, "prod-snacks-grid");
+    setProductsListType(prodsObjs, 1, "prod-drinks-grid");
+    setProductsListType(prodsObjs, 2, "prod-snacks-grid");
 }
 
 function setStoresList() {
@@ -270,6 +287,13 @@ function findProductWithName(prodName) {
         return prod.name == prodName;
     }
     return products.find(findProduct);
+}
+
+function findBillItemWithProduct(prodName) {
+    function findProductItem(item) {
+        return item.name == prodName;
+    }
+    return bill.billitems.find(findProductItem);
 }
 
 function filterAllProductsWithType(typeName) {
@@ -537,18 +561,12 @@ function Product(name, svg, type, store) {
     this.svg = svg;
     this.type = type;
     this.stores = store == "all" ? [] : store;
-    this.quant = 0;
+    this.inbill = false;
     this.togglerActive = false;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
             this.stores.push(stores[s].name);
         }
-    }
-    this.addItem = function() {
-        this.count = count < 9 ? this.count++ : this.count;
-    }
-    this.removeItem = function() {
-        this.count = count > 0 ? this.count-- : this.count;
     }
 }
 
@@ -559,16 +577,44 @@ function Store(name, svg) {
 
 function Bill(store) {
     this.store = store;
-    this.products = [];
-    this.updateProduct = function(productName) {
-        if (this.products.includes(productName)) {
-            if (findProductWithName(productName).count == 0) {
-                this.products.splice(this.products.indexOf(productName));
-            }
+    this.billitems = [];
+    this.addItem = function(productName) {
+        var prodItemObjs = findBillItemWithProduct(productName);
+        if (prodItemObjs != undefined) {
+            this.billitems[this.billitems.indexOf(prodItemObjs)].addItem();
         } else {
-            this.products.includes(productName);
+            var newBillItem = new BillItem(productName);
+            newBillItem.addItem();
+            this.billitems.push(newBillItem);
         }
     };
+    this.removeItem = function(productName) {
+        var prodItemObjs = findBillItemWithProduct(productName);
+        if (prodItemObjs != undefined) {
+            this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem();
+            if (prodItemObjs.count == 0) {
+                this.billitems.splice(this.billitems.indexOf(prodItemObjs));
+            }
+        }
+    };
+    this.getQuantItem = function(productName) {
+        var prodItemObjs = findBillItemWithProduct(productName);
+        return prodItemObjs != undefined ? prodItemObjs.count : 0;
+    };
+}
+
+function BillItem(name) {
+    this.name = name;
+    this.count = 0;
+    this.addItem = function() {
+        this.count = this.count < 9 ? this.count+1 : this.count;
+    }
+    this.removeItem = function() {
+        this.count = this.count > 0 ? this.count-1 : this.count;
+    }
+    /*this.changeName = function (name) {
+        this.lastName = name;
+    };*/
 }
 
 function Solo(id, el) {
