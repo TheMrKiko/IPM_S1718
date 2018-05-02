@@ -428,6 +428,7 @@ body {
     flex: 1 1 auto;
     display: flex;
     justify-content: center;
+    color: white;
 }
 
 .item-quant-bubble {
@@ -441,6 +442,13 @@ body {
     border-radius: 5pt;
 }
 
+.item-plus {
+  background-color: #219A52;
+}
+
+.item-quant {
+  background-color: #5A95AE;
+}
 
 .popup-buttons  {
   width: 80%;
@@ -449,6 +457,19 @@ body {
   display:flex;
   flex-flow: row;
   flex: 1 1 auto;
+}
+
+.popup-button-1 {
+  text-align: center;
+  flex: 1 1 auto;
+  background-color: red;
+}
+
+.popup-button-2 {
+  background-color: blue;
+  text-align: center;
+  flex: 1 1 auto;
+}
 
 /***************************** ANIMATIONS *****************************/
 
