@@ -507,6 +507,11 @@ function randomNumberGenerator(myMin, myMax) {
     return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
 }
 
+function stopActPopup(action, message) {
+    addPopup(currentScreen, [message, "", "Não", "", "Sim", action]);
+    removePopup();
+}
+
 function addPopup(screenID, args) {
     popup = cloneElementTo("popup-model", screenID, args);
 }
