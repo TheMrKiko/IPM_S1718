@@ -161,8 +161,7 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
-function setProductsListType(prodsObjs, type, grid) {
-    prodsObjs = filterProductsWithType(prodsObjs, type);
+function setProducts(prodsObjs, grid) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
@@ -170,6 +169,11 @@ function setProductsListType(prodsObjs, type, grid) {
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1);");
     }
+}
+
+function setProductsListType(prodsObjs, type, grid) {
+    prodsObjs = filterProductsWithType(prodsObjs, type);
+    setProducts(prodsObjs, grid);
 }
 
 function toggleQuantityEditor(ev, prodName) {
@@ -238,6 +242,14 @@ function setStoresList() {
         var el = cloneElementTo("store-model", "store-grid", [stores[s].svg, stores[s].name]);
         el.setAttribute("onclick", "loadScreen('drinks-oscreen', '" + stores[s].name + "');");
     }
+}
+
+function setCartList() {
+    var prodsObjs = [];
+    for (var o = 0; o < bill.billitems.length; o++) {
+        prodsObjs.push(findProductWithName(bill.billitems[o].name));
+    }
+    setProducts(prodsObjs, "cart-grid");
 }
 
 /************************************ CLONE ************************************/
@@ -607,7 +619,6 @@ function Product(name, svg, type, price, store) {
     this.type = type;
     this.price = price;
     this.stores = store == "all" ? [] : store;
-    this.inbill = false;
     this.togglerActive = false;
     if (store == "all") {
         for (var s = 0; s < stores.length; s++) {
