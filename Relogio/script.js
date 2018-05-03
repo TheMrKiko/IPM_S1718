@@ -29,7 +29,7 @@ new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true
 new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "Continuar", 'loadScreen("pickup-oscreen")'),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", '', "", 'loadScreen("pickup-oscreen")'),
 new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "Cancelar", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
