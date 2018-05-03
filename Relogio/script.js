@@ -5,15 +5,15 @@ var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person(
 var bill = new Bill("");
 var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("Cachorros do Chico", "assets/shops/hotdog.svg"), new Store("Donuts do Dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
 var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), /*new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]),*/ new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
-new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milkshake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["Donuts do Dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
+new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milk shake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["Donuts do Dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
 new Product("Whisky", "assets/drink/whisky.svg", 1, 8.20, ["Portugália"]),
 
-new Product("Batatas fritas", "assets/food/batata_frita.svg", 2, 1.40,"all"), new Product("Frango", "assets/food/chicken_leg.svg", 2, 4, ["Casa do Zé"]), new Product("Hamburguer", "assets/food/hamburger.svg", 2, 4, ["Rei das Bifanas"]), new Product("X-burguer", "assets/food/hamburguer.svg", 2, 5.20, ["Cachorros do Chico"]), new Product("Cachorro quente", "assets/food/hotdog.svg", 2, 4, ["Cachorros do Chico"]), new Product("Noodles", "assets/food/noodles.svg", 2, 3, ["Carills"]),
+new Product("Batatas fritas", "assets/food/batata_frita.svg", 2, 1.40,"all"), new Product("Frango", "assets/food/chicken_leg.svg", 2, 4, ["Casa do Zé"]), new Product("Ham burguer", "assets/food/hamburger.svg", 2, 4, ["Rei das Bifanas"]), new Product("X-burguer", "assets/food/hamburguer.svg", 2, 5.20, ["Cachorros do Chico"]), new Product("Cachorro quente", "assets/food/hotdog.svg", 2, 4, ["Cachorros do Chico"]), new Product("Noodles", "assets/food/noodles.svg", 2, 3, ["Carills"]),
 new Product("Pizza Ham & Cheese", "assets/food/pizza_box.svg", 2, 4.50, ["Casa do Zé"]), new Product("Presunto", "assets/food/presunto.svg", 2, 2.50, ["Portugália"]), new Product("Pizza", "assets/food/pizza.svg", 2, 3.50, ["Cachorros do Chico"]), new Product("Sanduíche", "assets/food/sandwich.svg", 2, 2.30, "all"), new Product("Sushi", "assets/food/sushi.svg", 2, 5.50, ["Carills"]), new Product("Wrap", "assets/food/wrap.svg", 2, 3.5, ["Carills"]),
 
 new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["Donuts do Dani", "Starbucks"]), new Product("Croissant", "assets/candy/croissant.svg", 3, 4.20, ["Donuts do Dani", "Portugália", "Starbucks", "Carills"]), new Product("Cupcake", "assets/candy/cupcake.svg", 3, 1.80, ["Donuts do Dani", "Portugália"]), new Product("Cupcake Simples", "assets/candy/cupcake2.svg", 3, 1.60, ["Donuts do Dani", "Rei das Bifanas"]), new Product("Donuts", "assets/candy/donut.svg", 3, 2.20, ["Donuts do Dani"]),
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["Donuts do Dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["Donuts do Dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["Donuts do Dani", "Portugália"]),
-new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panquecas", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
+new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
@@ -233,7 +233,13 @@ function setProductsList(storeName) {
     var prodsObjs;
     if (storeName == "all") {
         prodsObjs = products;
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = "";
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = "";
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = "";
     } else if (storeName != undefined) {
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = storeName;
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = storeName;
+        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = storeName;
         prodsObjs = filterAllProductsInStore(storeName);
     } else {
         console.log("Ups!");
