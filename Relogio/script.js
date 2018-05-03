@@ -25,7 +25,7 @@ new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", ""
 new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
-new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
+new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true),
 new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
@@ -260,6 +260,11 @@ function setStoresList() {
 
 function setCartList() {
     var prodsObjs = [];
+    if (bill.billitems.length != 0) {
+        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "";
+    } else {
+        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "Nenhum item na sua mochila.";
+    }
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
