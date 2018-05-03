@@ -29,7 +29,8 @@ new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true
 new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
 new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
+new Screen("Mochila", "cart-oscreen", "", "", "", "", "", true, true, "Fim", "", "Continuar", 'loadScreen("pickup-oscreen")'),
+new Screen("Levantamento", "pickup-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
 ];
 var currentSolo;
 var currentScreen;
