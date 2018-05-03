@@ -26,9 +26,9 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
+new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
 ];
 var currentSolo;
@@ -223,6 +223,14 @@ function setProductsList(storeName) {
     setProductsListType(prodsObjs, 1, "prod-drinks-grid");
     setProductsListType(prodsObjs, 2, "prod-snacks-grid");
 	setProductsListType(prodsObjs, 3, "prod-sweets-grid");
+}
+
+function emptyGrids(solo) {
+    var solo = document.getElementById(solo);
+    var grids = solo.getElementsByClassName("grid")
+    for (var i = 0; i < grids.length; i++) {
+        grids[i].innerHTML = "";
+    }
 }
 
 function setStoresList() {
@@ -574,6 +582,7 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
         count += 0.1;
     }, interval);
 }
+/* ------------------------------------------------------ */
 
 
 
