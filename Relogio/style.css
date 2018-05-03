@@ -62,16 +62,52 @@ body {
 }
 
 .popup {
-    justify-content:  center;
-	margin: 5%;
+    font-size: 10%;
+    margin: 5%;
+    flex-flow: column;
+    justify-content: center;
 	align-items: center;
 	display:  flex;
 	position: absolute;
 	width: 90%;
 	height: 90%;
-	background-color: var(--bs-bcolor);
+    background-color: var(--bs-bcolor);
+    box-shadow: 3px 3px gray;
 	color:  white;
 	z-index: 1;
+}
+
+.popup-buttons  {
+    flex-flow: row;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-flow: row;
+    flex: 1 1 auto;
+}
+
+.popup-text {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-button {
+    margin: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.popup-button:nth-child(1) {
+    background-color: brown;
+}
+
+.popup-button:nth-child(2) {
+    background-color: #219A52;
 }
 
 .button {
@@ -450,7 +486,6 @@ body {
     display: none;
     flex-flow: row;
     width: 70%;
-    background: brown;
     align-items: center;
 }
 
@@ -480,25 +515,8 @@ body {
     background-color: #5A95AE;
 }
 
-.popup-buttons  {
-    width: 80%;
-    font-size: 15%;
-    text-align: center;
-    display:flex;
-    flex-flow: row;
-    flex: 1 1 auto;
-}
-
-.popup-button-1 {
-    text-align: center;
-    flex: 1 1 auto;
-    background-color: red;
-}
-
-.popup-button-2 {
-    background-color: blue;
-    text-align: center;
-    flex: 1 1 auto;
+.item-minus {
+    background-color: brown;
 }
 
 /***************************** ANIMATIONS *****************************/
