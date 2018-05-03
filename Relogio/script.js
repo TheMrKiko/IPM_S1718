@@ -4,7 +4,7 @@ var notifN = 0;
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
 var bill = new Bill("");
 var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("Cachorros do Chico", "assets/shops/hotdog.svg"), new Store("Donuts do Dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
-var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]), new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
+var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), /*new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]),*/ new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
 new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milkshake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["Donuts do Dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
 new Product("Whisky", "assets/drink/whisky.svg", 1, 8.20, ["Portugália"]),
 
@@ -26,10 +26,10 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "Anular", "voltar", "", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "", "", "", "", true, true, "Fim", "", "Continuar", 'loadScreen("pickup-oscreen")'),
+new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "Fim", "", "Continuar", 'loadScreen("pickup-oscreen")'),
 new Screen("Levantamento", "pickup-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
 ];
 var currentSolo;
@@ -162,13 +162,21 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
-function setProducts(prodsObjs, grid) {
+function setProducts(prodsObjs, grid, forceopen) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1);");
+        if (prodsObjs[p].togglerActive || forceopen) {
+            el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
+            el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
+        } else {
+            el.getElementsByClassName("item-quant-editor")[0].style.display = "none";
+            el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
+        }
+        updateProdQuant(el, prodsObjs[p].name);
     }
 }
 
@@ -182,10 +190,13 @@ function toggleQuantityEditor(ev, prodName) {
     var elP = el.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
+        console.log(el, el.getElementsByClassName("item-quant-bubble")[0])
         elP.style.display = "none";
+        el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
     } else {
-        deltaProdQuant(prodName, 1);
+        if (!findBillItemWithProduct(prodName)) deltaProdQuant(prodName, 1);
+        el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
         elP.style.display = "flex";
         prod.togglerActive = true;
     }
@@ -207,12 +218,12 @@ function deltaProdQuant(prodName, increment) {
 }
 
 function updateProdFooter() {
-    editFooter("products-oswipe", "Anular", "€" + Number(bill.billprice).toFixed(2), bill.billcount + " itens");
+    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "✔ " + bill.billcount);
 }
 
 function updateProdQuant(element, prodName) {
     var prodObj = findProductWithName(prodName);
-    setAttributes(element, [prodObj.svg, prodObj.name, "€" + prodObj.price, bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
+    setAttributes(element, [prodObj.svg, prodObj.name, "€" + Number(prodObj.price).toFixed(2), bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
     updateProdFooter();
 }
 
@@ -250,7 +261,7 @@ function setCartList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    setProducts(prodsObjs, "cart-grid");
+    setProducts(prodsObjs, "cart-grid", true);
 }
 
 /************************************ CLONE ************************************/
@@ -282,7 +293,8 @@ function setAttributes(element, args) {
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
-            if (atributReq[a] === "innerHTML") {
+            if (args[i * atributReq.length + a] === "keep") {
+            } else if (atributReq[a] === "innerHTML") {
                 atributEls[i].innerHTML = args[i * atributReq.length + a];
             } else if (atributReq[a] === "class") {
                 atributEls[i].classList.add(args[i * atributReq.length + a]);

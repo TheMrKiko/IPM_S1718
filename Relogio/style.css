@@ -144,7 +144,8 @@ body {
 }
 
 .footer-button:nth-child(2){
-    border-left: 1px solid rgb(0, 255, 42);
+    /* border-left: 1px solid var(--footer-dark-bg-color); */
+    border-left: 1px solid white;
 }
 
 /***************************** LOCK SCREEN *****************************/
@@ -411,7 +412,7 @@ body {
     height: 20vh;
     display: flex;
     flex-flow: row;
-    flex: 1 0 auto;
+    flex: 0 0 auto;
     position: relative;
     align-items: center;
     border-radius: 40%;
@@ -445,11 +446,10 @@ body {
 }
 
 .item-quant-editor {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     display: none;
     flex-flow: row;
     width: 70%;
-    height: 100%;
     background: brown;
     align-items: center;
 }
