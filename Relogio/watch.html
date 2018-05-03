@@ -137,9 +137,20 @@
 	</div>
 
 	<div class="solo screen" id="pickup-oscreen">
-		<div class="text">daqui a:</div>
+		<div class="text" id="daqui-a">daqui a:</div>
 		<div class="time-scrolls">
-			<div class="timewheel scrollable" id="hours-scroll">
+			<div class="timething" id="hours-thing">
+				<div class="timething-plus" id="hours-thing-plus" onclick="changeTime('hours-thing-quant', 1)">+</div>
+				<div class="timething-quant" id="hours-thing-quant">00</div>
+				<div class="timething-minus" id="hours-thing-minus" onclick="changeTime('hours-thing-quant', -1)">-</div>
+			</div>
+			<div class="timething-colom">:</div>
+			<div class="timething" id="minutes-thing">
+				<div class="timething-plus" id="minutes-thing-plus" onclick="changeTime('minutes-thing-quant', 5)">+</div>
+				<div class="timething-quant" id="minutes-thing-quant">00</div>
+				<div class="timething-minus" id="minutes-thing-minus" onclick="changeTime('minutes-thing-quant', -5)">-</div>
+			</div>
+			<!-- <div class="timewheel scrollable" id="hours-scroll">
 				<div class="hour">00</div>
 				<div class="hour">01</div>
 				<div class="hour">02</div>
@@ -160,7 +171,7 @@
 				<div class="minute">45</div>
 				<div class="minute">50</div>
 				<div class="minute">55</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="text">
 			<div>Horas</div>

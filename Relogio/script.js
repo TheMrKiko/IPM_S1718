@@ -38,6 +38,8 @@ var intervalVar;
 var prevScreenArgs;
 /*var currentSwipe;*/
 
+var pickupTime = [PUhour = 0 , PUminute = 0];
+
 /************************************ CLOCK ************************************/
 function loadClocks() {
     var clocks = document.getElementsByClassName("clock");
@@ -262,6 +264,28 @@ function setCartList() {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
     setProducts(prodsObjs, "cart-grid", true);
+}
+
+function changeTime(segment, increment) {
+    if (segment == "hours-thing-quant") {
+        if (PUhour + increment >= 0 && PUhour + increment <= 5) {
+            PUhour += increment;
+            document.getElementById(segment).innerHTML = "";
+            if (PUhour < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += PUhour;
+            return true;
+        }
+    } else if (segment == "minutes-thing-quant") {
+        if (PUminute + increment >= 0 && PUminute + increment < 60) {
+            PUminute += increment;
+            document.getElementById(segment).innerHTML = "";
+            if (PUminute < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += PUminute;
+        } else if (PUminute + increment == 60 && changeTime("hours-thing-quant", 1)) {
+            PUminute = 0;
+            document.getElementById(segment).innerHTML = "00";
+        }
+    }
 }
 
 /************************************ CLONE ************************************/
