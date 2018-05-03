@@ -107,7 +107,6 @@ function reSortPeopleList() {
         return a.distance - b.distance;
     });
 }
-
 function showPersonInfo(personName) {
     var person = findPersonWithName(personName);
     var screen = document.getElementsByClassName("friendDetail")[0];
@@ -136,7 +135,7 @@ function aproxPerson(personName) {
             clearInterval(inte);
         } else if (currScreen != currentScreen) {
             clearInterval(inte);
-            return;
+            return ;
         }
         editFooter(currentScreen, "Fim", person.name, person.distance + "m");
     }, 1000);
@@ -656,8 +655,6 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
     }, interval);
 }
 /* ------------------------------------------------------ */
-
-
 
 function pinMotion() {
     nice("pinUser", 77, 20 + 7, -0.25, 0, "left", "", "%", 100);
