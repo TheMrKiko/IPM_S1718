@@ -62,17 +62,53 @@ body {
 }
 
 .popup {
-    justify-content:  center;
-	margin: 5%;
+    font-size: 10%;
+    margin: 5%;
+    flex-flow: column;
+    justify-content: center;
 	align-items: center;
 	display:  flex;
 	position: absolute;
 	width: 90%;
 	height: 90%;
-	background-color: var(--bs-bcolor);
+    background-color: var(--bs-bcolor);
+    box-shadow: 3px 3px gray;
 	color:  white;
     z-index: 1;
     font-size: 9%;
+}
+
+.popup-buttons  {
+    flex-flow: row;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-flow: row;
+    flex: 1 1 auto;
+}
+
+.popup-text {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-button {
+    margin: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.popup-button:nth-child(1) {
+    background-color: brown;
+}
+
+.popup-button:nth-child(2) {
+    background-color: #219A52;
 }
 
 .button {
@@ -142,6 +178,11 @@ body {
 .info {
     background-color: var(--footer-dark-bg-color);
     cursor: default;
+}
+
+.footer-button:nth-child(2){
+    /* border-left: 1px solid var(--footer-dark-bg-color); */
+    border-left: 1px solid white;
 }
 
 /***************************** LOCK SCREEN *****************************/
@@ -347,6 +388,169 @@ body {
 /*#arrowDirection:hover {
     transform: rotate(360deg);
 }*/
+
+/******************* CHOOSE ORDER *************************/
+.storeprod img {
+	width: 75%;
+}
+
+.storeprod {
+	height: 75%;
+}
+
+#storeprod-grid {
+	align-items: center;
+}
+
+
+
+.time-scrolls {
+    font-size: 14%;
+    display: flex;
+    flex-flow: row;
+    flex: 1 1 40vh;
+}
+
+.timewheel {
+    background-color: rgb(0, 0, 0);
+    width: 50%;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+
+.timething {
+    background-color: rgb(0, 0, 0);
+    width: 50%;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+
+.timething div {
+    flex: 0 0 25%;
+    font-size: 78%;
+}
+
+.timething-colom {
+    display: flex;
+    align-items: center;
+}
+
+.timething-plus {
+    background-color: #219A52;
+    margin: 0 12pt;
+}
+
+.timething-minus {
+    background-color: #8b1e1e;
+    margin: 0 12pt;
+}
+
+#pickup-oscreen .text {
+    flex: 1 1 auto;
+    font-size: 9%;
+    display: flex;
+    flex-flow: row;
+}
+
+#daqui-a {
+    padding: 0 10pt;
+}
+
+#pickup-oscreen .text div {
+    flex: 1 1 50%;
+}
+
+/******************* ITEM LISTS *************************/
+
+.item {
+    width: 100%;
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 8%;
+    margin: 3%;
+}
+
+.item-info {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-flow: row;
+    flex: 0 0 auto;
+    position: relative;
+    align-items: center;
+    border-radius: 40%;
+    border: 2px solid #5A95AE;
+    background: #f3fbff;
+}
+
+.item-icon {
+    height: 100%;
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+}
+
+.item-icon img {
+    height: 100%;
+}
+
+.item-text {
+    flex: 5 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-price {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-quant-editor {
+    flex: 0 0 auto;
+    display: none;
+    flex-flow: row;
+    width: 70%;
+    align-items: center;
+}
+
+.item-quant-editor div {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.item-quant-bubble {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 10%;
+    height: 50%;
+    top: 0;
+    left: 100%;
+    background: cornflowerblue;
+    border-radius: 5pt;
+}
+
+.item-plus {
+    background-color: #219A52;
+}
+
+.item-quant {
+    background-color: #5A95AE;
+}
+
+.item-minus {
+    background-color: brown;
+}
 
 /***************************** ANIMATIONS *****************************/
 
