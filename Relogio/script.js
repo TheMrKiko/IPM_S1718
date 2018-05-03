@@ -30,7 +30,7 @@ new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList
 new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "Fim", "", "Continuar", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantamento", "pickup-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
+new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
 ];
 var currentSolo;
 var currentScreen;
@@ -230,6 +230,7 @@ function updateProdQuant(element, prodName) {
 }
 
 function setProductsList(storeName) {
+    addPopup("drinks-oscreen", ["Deseja remover?", "", "Não", "", "Sim", "removePopup();"]);
     var prodsObjs;
     if (storeName == "all") {
         prodsObjs = products;
@@ -504,6 +505,14 @@ function convertFooterArgs(args) {
 
 function randomNumberGenerator(myMin, myMax) {
     return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
+}
+
+function addPopup(screenID, args) {
+    popup = cloneElementTo("popup-model", screenID, args);
+}
+
+function removePopup() {
+    popup.parentElement.removeChild(popup);
 }
 
 /************************************ SCROLL ************************************/
