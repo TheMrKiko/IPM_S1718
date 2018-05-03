@@ -26,9 +26,9 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, true, "Fim", "", "", ""),
-new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "voltar", "stopActPopup('removePopup(); goBack()', 'tem a certeza?')", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "Fim", "", "Continuar", 'loadScreen("pickup-oscreen")'),
 new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "Fim", "", "", ""),
 ];
@@ -230,7 +230,6 @@ function updateProdQuant(element, prodName) {
 }
 
 function setProductsList(storeName) {
-    addPopup("drinks-oscreen", ["Deseja remover?", "", "Não", "", "Sim", "removePopup();"]);
     var prodsObjs;
     if (storeName == "all") {
         prodsObjs = products;
@@ -288,6 +287,7 @@ function changeTime(segment, increment) {
         }
     }
 }
+
 
 /************************************ CLONE ************************************/
 function cloneElement(classModel) {
@@ -508,8 +508,7 @@ function randomNumberGenerator(myMin, myMax) {
 }
 
 function stopActPopup(action, message) {
-    addPopup(currentScreen, [message, "", "Não", "", "Sim", action]);
-    removePopup();
+    addPopup(currentScreen, [message, "", "Não", "removePopup()", "Sim", action]);
 }
 
 function addPopup(screenID, args) {
