@@ -191,7 +191,6 @@ function toggleQuantityEditor(ev, prodName) {
     var elP = el.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
-        console.log(el, el.getElementsByClassName("item-quant-bubble")[0])
         elP.style.display = "none";
         el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
@@ -314,7 +313,12 @@ function cloneElement(classModel) {
 function cloneElementToBegin(classModel, idParent, args) {
     var copy = cloneElement(classModel);
     setAttributes(copy, args);
-    return document.getElementById(idParent).insertBefore(copy, document.getElementById(idParent).firstChild);
+    var children = document.getElementById(idParent).children;
+    if (children && children[0].classList.contains("header")) {
+        return document.getElementById(idParent).insertBefore(copy, children[1]);
+    } else {
+        return document.getElementById(idParent).insertBefore(copy, children[0]);
+    }
 }
 
 function cloneElementTo(classModel, idParent, args) {
@@ -518,7 +522,7 @@ function randomNumberGenerator(myMin, myMax) {
 }
 
 function stopActPopup(action, message) {
-    addPopup(currentScreen, [message, "", "Não", "removePopup()", "Sim", action]);
+    addPopup(currentScreen, [message, "", "Não", "removePopup();", "Sim", "removePopup(); " + action]);
 }
 
 function addPopup(screenID, args) {
@@ -527,6 +531,15 @@ function addPopup(screenID, args) {
 
 function removePopup() {
     popup.parentElement.removeChild(popup);
+}
+
+function addMessageToScreen(screenID, message) {
+    cloneElementToBegin("message-model", screenID, [message]);
+}
+
+function removeMessageToScreen(screenID) {
+    var el = document.getElementById(screenID).getElementsByClassName("message")[0];
+    el.parentElement.removeChild(el);
 }
 
 /************************************ SCROLL ************************************/
