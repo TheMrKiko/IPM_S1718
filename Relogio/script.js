@@ -164,13 +164,13 @@ function arrowEnd() {
 
 // -------------------------- ORDER
 
-function setProducts(prodsObjs, grid, forceopen) {
+function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
-        el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
-        el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1);");
+        el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
+        el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
         if (prodsObjs[p].togglerActive || forceopen) {
             el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
             el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
@@ -180,6 +180,7 @@ function setProducts(prodsObjs, grid, forceopen) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
+    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
@@ -188,33 +189,46 @@ function setProductsListType(prodsObjs, type, grid) {
 }
 
 function toggleQuantityEditor(ev, prodName) {
-    var el = ev.currentTarget.parentElement;
-    var elP = el.getElementsByClassName("item-quant-editor")[0];
+    var elItem = ev.currentTarget.parentElement;
+    updateQuantityEditor(elItem, prodName);
+}
+
+function updateQuantityEditor(elItem, prodName) {
+    var elQuant = elItem.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
-        elP.style.display = "none";
-        el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
+        elQuant.style.display = "none";
+        elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
     } else {
         if (!findBillItemWithProduct(prodName)) deltaProdQuant(prodName, 1);
-        el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
-        elP.style.display = "flex";
+        elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
+        elQuant.style.display = "flex";
         prod.togglerActive = true;
     }
-    updateProdQuant(el, prodName);
+    updateProdQuant(elItem, prodName);
+    updateProdFooter();
 }
 
-function toggleQuantity(ev, prodName, increment) {
+function toggleQuantity(ev, prodName, increment, delvsshrink) {
     var el = ev.currentTarget.parentElement.parentElement;
-    deltaProdQuant(prodName, increment);
+    if (!deltaProdQuant(prodName, increment)) {
+        if (delvsshrink) {
+            el.parentElement.removeChild(el);
+            emptyCartCheck();
+        } else {
+            updateQuantityEditor(el, prodName);
+        }
+    }
     updateProdQuant(el, prodName);
+    updateProdFooter();
 }
 
 function deltaProdQuant(prodName, increment) {
     if (increment == 1) {
-        bill.addItem(prodName);
+        return bill.addItem(prodName);
     } else if (increment == -1) {
-        bill.removeItem(prodName);
+        return bill.removeItem(prodName);
     } else console.log("go fuck urself");
 }
 
@@ -225,7 +239,6 @@ function updateProdFooter() {
 function updateProdQuant(element, prodName) {
     var prodObj = findProductWithName(prodName);
     setAttributes(element, [prodObj.svg, prodObj.name, "€" + Number(prodObj.price).toFixed(2), bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
-    updateProdFooter();
 }
 
 function setProductsList(storeName) {
@@ -260,13 +273,17 @@ function setStoresList() {
 
 function setCartList() {
     var prodsObjs = [];
+    for (var o = 0; o < bill.billitems.length; o++) {
+        prodsObjs.push(findProductWithName(bill.billitems[o].name));
+    }
+    setProducts(prodsObjs, "cart-grid", true, true);
+    emptyCartCheck();
+    updateProdFooter();
+}
+
+function emptyCartCheck() {
     if (bill.billitems.length == 0) {
         addMessageToSolo("cart-oscreen", "Nenhum item na sua mochila.");
-    } else {
-        for (var o = 0; o < bill.billitems.length; o++) {
-            prodsObjs.push(findProductWithName(bill.billitems[o].name));
-        }
-        setProducts(prodsObjs, "cart-grid", true);
     }
 }
 
@@ -712,35 +729,37 @@ function Bill(store) {
     this.billcount = 0;
     this.billprice = 0;
     this.addItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].addItem()) {
+        var prodItemObj = findBillItemWithProduct(productName);
+        if (prodItemObj != undefined) {
+            if (prodItemObj.addItem()) {
                 this.billprice += findProductWithName(productName).price;
                 this.billcount++;
             }
         } else {
-            var newBillItem = new BillItem(productName);
-            newBillItem.addItem();
+            prodItemObj = new BillItem(productName);
+            prodItemObj.addItem();
             this.billprice += findProductWithName(productName).price;
             this.billcount++;
-            this.billitems.push(newBillItem);
+            this.billitems.push(prodItemObj);
         }
+        return prodItemObj.count;
     };
     this.removeItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem()) {
+        var prodItemObj = findBillItemWithProduct(productName);
+        if (prodItemObj != undefined) {
+            if (prodItemObj.removeItem()) {
                 this.billprice -= findProductWithName(productName).price;
                 this.billcount--;
             }
-            if (prodItemObjs.count == 0) {
-                this.billitems.splice(this.billitems.indexOf(prodItemObjs));
+            if (!prodItemObj.count) {
+                this.billitems.splice(this.billitems.indexOf(prodItemObj), 1);
             }
+            return prodItemObj.count;
         }
     };
     this.getQuantItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        return prodItemObjs != undefined ? prodItemObjs.count : 0;
+        var prodItemObj = findBillItemWithProduct(productName);
+        return prodItemObj != undefined ? prodItemObj.count : 0;
     };
 }
 
