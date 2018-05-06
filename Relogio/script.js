@@ -200,13 +200,11 @@ function updateQuantityEditor(elItem, prodName) {
         elQuant.style.display = "none";
         elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
-        elItem.classList.add("active-item");
     } else {
         if (!findBillItemWithProduct(prodName)) deltaProdQuant(prodName, 1);
         elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
         elQuant.style.display = "flex";
         prod.togglerActive = true;
-        elItem.classList.remove("active-item");
     }
     updateProdQuant(elItem, prodName);
     updateProdFooter();
@@ -316,11 +314,6 @@ function resetBill() {
     bill.billcount = 0;
     bill.billprice = 0;
     emptyCartCheck();
-    var activeItems = document.getElementsByClassName("active-item");
-    for (var i = 0; i < activeItems.length; i++) {
-        activeItems[i].getElementsByClassName("item-quant-editor")[0].style.display = "none";
-        activeItems[i].getElementsByClassName("item-quant-bubble")[0].style.display = "block";
-    }
     for (var i = 0; i < products.length; i++) {
         products[i].togglerActive = false;
     }
