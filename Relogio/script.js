@@ -30,7 +30,7 @@ new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("cart-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
@@ -200,11 +200,13 @@ function updateQuantityEditor(elItem, prodName) {
         elQuant.style.display = "none";
         elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
+        elItem.classList.add("active-item");
     } else {
         if (!findBillItemWithProduct(prodName)) deltaProdQuant(prodName, 1);
         elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
         elQuant.style.display = "flex";
         prod.togglerActive = true;
+        elItem.classList.remove("active-item");
     }
     updateProdQuant(elItem, prodName);
     updateProdFooter();
@@ -307,6 +309,24 @@ function changeTime(segment, increment) {
             document.getElementById(segment).innerHTML = "00";
         }
     }
+}
+
+function resetBill() {
+    bill.billitems = [];
+    bill.billcount = 0;
+    bill.billprice = 0;
+    emptyCartCheck();
+    var activeItems = document.getElementsByClassName("active-item");
+    for (var i = 0; i < activeItems.length; i++) {
+        activeItems[i].getElementsByClassName("item-quant-editor")[0].style.display = "none";
+        activeItems[i].getElementsByClassName("item-quant-bubble")[0].style.display = "block";
+    }
+    for (var i = 0; i < products.length; i++) {
+        products[i].togglerActive = false;
+    }
+    var message = document.getElementById("cart-oscreen").getElementsByClassName("notification")[0];
+    if (message != undefined)
+        message.parentElement.removeChild(message);
 }
 
 
