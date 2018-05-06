@@ -115,6 +115,10 @@ body {
     cursor: pointer;
 }
 
+.button:active {
+    filter: drop-shadow(2px 1px 2px #d41eea);
+}
+
 /***************************** HEADER *****************************/
 
 .clock, .header {
@@ -178,6 +182,10 @@ body {
 .info {
     background-color: var(--footer-dark-bg-color);
     cursor: default;
+}
+
+.info:active {
+    filter: none;
 }
 
 .footer-button:nth-child(2){

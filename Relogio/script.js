@@ -25,12 +25,13 @@ new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", ""
 new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
-new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true),
-new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "Continuar", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "Cancelar", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("cart-oscreen")'),
+new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
@@ -191,7 +192,6 @@ function toggleQuantityEditor(ev, prodName) {
     var elP = el.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
-        console.log(el, el.getElementsByClassName("item-quant-bubble")[0])
         elP.style.display = "none";
         el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
@@ -232,13 +232,8 @@ function setProductsList(storeName) {
     var prodsObjs;
     if (storeName == "all") {
         prodsObjs = products;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = "";
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = "";
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = "";
     } else if (storeName != undefined) {
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = storeName;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = storeName;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = storeName;
+        addMessageToSolo("products-oswipe", storeName);
         prodsObjs = filterAllProductsInStore(storeName);
     } else {
         console.log("Ups!");
@@ -265,15 +260,14 @@ function setStoresList() {
 
 function setCartList() {
     var prodsObjs = [];
-    if (bill.billitems.length != 0) {
-        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "";
+    if (bill.billitems.length == 0) {
+        addMessageToSolo("cart-oscreen", "Nenhum item na sua mochila.");
     } else {
-        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "Nenhum item na sua mochila.";
+        for (var o = 0; o < bill.billitems.length; o++) {
+            prodsObjs.push(findProductWithName(bill.billitems[o].name));
+        }
+        setProducts(prodsObjs, "cart-grid", true);
     }
-    for (var o = 0; o < bill.billitems.length; o++) {
-        prodsObjs.push(findProductWithName(bill.billitems[o].name));
-    }
-    setProducts(prodsObjs, "cart-grid", true);
 }
 
 function changeTime(segment, increment) {
@@ -314,7 +308,12 @@ function cloneElement(classModel) {
 function cloneElementToBegin(classModel, idParent, args) {
     var copy = cloneElement(classModel);
     setAttributes(copy, args);
-    return document.getElementById(idParent).insertBefore(copy, document.getElementById(idParent).firstChild);
+    var children = document.getElementById(idParent).children;
+    if (children && children[0].classList.contains("header")) {
+        return document.getElementById(idParent).insertBefore(copy, children[1]);
+    } else {
+        return document.getElementById(idParent).insertBefore(copy, children[0]);
+    }
 }
 
 function cloneElementTo(classModel, idParent, args) {
@@ -324,7 +323,7 @@ function cloneElementTo(classModel, idParent, args) {
 }
 
 function setAttributes(element, args) {
-    var atributEls = element.getElementsByClassName("attr-m");
+    var atributEls = element.classList.contains("attr-m") ? [element] : element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
@@ -518,7 +517,7 @@ function randomNumberGenerator(myMin, myMax) {
 }
 
 function stopActPopup(action, message) {
-    addPopup(currentScreen, [message, "", "Não", "removePopup()", "Sim", action]);
+    addPopup(currentScreen, [message, "", "Não", "removePopup();", "Sim", "removePopup(); " + action]);
 }
 
 function addPopup(screenID, args) {
@@ -527,6 +526,23 @@ function addPopup(screenID, args) {
 
 function removePopup() {
     popup.parentElement.removeChild(popup);
+}
+
+function addMessageToSolo(soloID, message) {
+    var screenList = findSoloWithID(soloID).screens;
+    for (var s = 0; s < screenList.length; s++) {
+        cloneElementToBegin("message-model", screenList[s], [message]);
+    }
+}
+
+function removeMessageFromSolo(soloID) {
+    var screenList = findSoloWithID(soloID).screens;
+    for (var s = 0; s < screenList.length; s++) {
+        var els = document.getElementById(screenList[s]).getElementsByClassName("message");
+        if (els.length) {
+            els[0].parentElement.removeChild(els[0]);
+        }
+    }
 }
 
 /************************************ SCROLL ************************************/
