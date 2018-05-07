@@ -26,17 +26,18 @@ new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", tru
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
-new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')"),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
 var intervalVar;
 var prevScreenArgs;
+var homePressed = false;
 /*var currentSwipe;*/
 
 /************************************ CLOCK ************************************/
@@ -294,7 +295,7 @@ function emptyCartCheck() {
 
 function changeTime(segment, increment) {
     if (segment == "hours-thing-quant") {
-        if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 10) {
+        if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 5) {
             bill.pickuptime[0] += increment;
             document.getElementById(segment).innerHTML = "";
             if (bill.pickuptime[0] < 10) document.getElementById(segment).innerHTML = "0";
@@ -331,6 +332,17 @@ function resetBill() {
     var message = document.getElementById("cart-oscreen").getElementsByClassName("notification")[0];
     if (message != undefined)
         message.parentElement.removeChild(message);
+}
+
+function confirmOrder() {
+    resetBill();
+    var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    loadScreen("app-screen");
+}
+
+function confirmCancelOrder() {
+    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
 }
 
 
@@ -487,12 +499,12 @@ function loadSolo(screenID, soloID, args) {
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
-        if (soloID != "main-solo") {
+        /* if (soloID != "main-solo") {
             document.getElementById(soloID).style.transform = "translateX(0px)";
-        }
+        } */
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
-        if (screenID == "main-screen") {
+        if (screenID == "main-screen" && homePressed) {
             nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
         }
         currentScreen = screenID;
@@ -558,11 +570,17 @@ function randomNumberGenerator(myMin, myMax) {
 }
 
 function stopActPopup(action, message) {
-    addPopup(currentScreen, [message, "", "Não", "removePopup();", "Sim", "removePopup(); " + action]);
+    addPopup(currentScreen, [message, "", "", "Não", "removePopup();", "", "Sim", "removePopup(); " + action, ""]);
 }
 
 function addPopup(screenID, args) {
     popup = cloneElementTo("popup-model", screenID, args);
+}
+
+function addNotificationPopup(timeout, args) {
+    setTimeout(function() {
+        addPopup(currentScreen, args);
+    }, timeout);
 }
 
 function removePopup() {
@@ -598,7 +616,9 @@ window.addEventListener('message', function (event) {
             break;
 
         case "home":
+            homePressed = true;
             loadScreen(findScreenWithID(currentScreen).homeButton);
+            homePressed = false;
             break;
 
         default:
@@ -686,9 +706,11 @@ function drop(ev, solo) {
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN + 1]);
+        soloObj.currentScreen = currentScreen;
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
+        soloObj.currentScreen = currentScreen;
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
     } else if (now - then > 0 && 0 != screenN) {
