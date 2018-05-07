@@ -2,7 +2,7 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-var bill = new Bill("");
+var bill;
 var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("Cachorros do Chico", "assets/shops/hotdog.svg"), new Store("Donuts do Dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
 var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), /*new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]),*/ new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
 new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milk shake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["Donuts do Dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
@@ -29,8 +29,8 @@ new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true
 new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("cart-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')"),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "stopActPopup('loadScreen(screens[7].id); resetBill();', 'Tem a certeza?')", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
@@ -38,8 +38,6 @@ var currentScreen;
 var intervalVar;
 var prevScreenArgs;
 /*var currentSwipe;*/
-
-var pickupTime = [PUhour = 0 , PUminute = 0];
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -50,20 +48,24 @@ function loadClocks() {
 }
 
 function updateClock(clock) {
-    var time = new Date();
-    var stringTime = "";
-    if (time.getHours() < 10) {
-        stringTime += "0";
-    }
-    stringTime += time.getHours() + ":";
-    if (time.getMinutes() < 10) {
-        stringTime += "0";
-    }
-    stringTime += time.getMinutes();
-    clock.innerText = stringTime;
+    clock.innerText = getTime();
     setTimeout(function () {
         updateClock(clock);
     }, 1000);
+}
+
+function getTime() {
+    var time = new Date();
+    return timeToString(time.getHours(), 24) + ":" + timeToString(time.getMinutes(), 60);
+}
+
+function timeToString(value, limit) {
+    var stringTime = "";
+    if (value % limit < 10) {
+        stringTime += "0";
+    }
+    stringTime += value % limit;
+    return stringTime;
 }
 
 /************************************ ECRAS ESPECIFICOS ************************************/
@@ -243,6 +245,9 @@ function updateProdQuant(element, prodName) {
 
 function setProductsList(storeName) {
     var prodsObjs;
+    if (bill == undefined || (bill != undefined && bill.store != storeName)) {
+        bill = new Bill(storeName);
+    }
     if (storeName == "all") {
         prodsObjs = products;
     } else if (storeName != undefined) {
@@ -289,24 +294,30 @@ function emptyCartCheck() {
 
 function changeTime(segment, increment) {
     if (segment == "hours-thing-quant") {
-        if (PUhour + increment >= 0 && PUhour + increment <= 5) {
-            PUhour += increment;
+        if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 10) {
+            bill.pickuptime[0] += increment;
             document.getElementById(segment).innerHTML = "";
-            if (PUhour < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += PUhour;
-            return true;
-        }
+            if (bill.pickuptime[0] < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += bill.pickuptime[0];
+        } else return true;
     } else if (segment == "minutes-thing-quant") {
-        if (PUminute + increment >= 0 && PUminute + increment < 60) {
-            PUminute += increment;
+        if (bill.pickuptime[1] + increment >= 0 && bill.pickuptime[1] + increment < 60) {
+            bill.pickuptime[1] += increment;
             document.getElementById(segment).innerHTML = "";
-            if (PUminute < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += PUminute;
-        } else if (PUminute + increment == 60 && changeTime("hours-thing-quant", 1)) {
-            PUminute = 0;
+            if (bill.pickuptime[1] < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += bill.pickuptime[1];
+        } else if (bill.pickuptime[1] + increment == 60 && !changeTime("hours-thing-quant", 1)) {
+            bill.pickuptime[1] = 0;
             document.getElementById(segment).innerHTML = "00";
         }
     }
+    updateTimeFooter();
+}
+
+function updateTimeFooter() {
+    var time = new Date();
+    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0; 
+    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
 }
 
 function resetBill() {
@@ -741,6 +752,7 @@ function Bill(store) {
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;
+    this.pickuptime = [0, 0];
     this.addItem = function(productName) {
         var prodItemObj = findBillItemWithProduct(productName);
         if (prodItemObj != undefined) {
