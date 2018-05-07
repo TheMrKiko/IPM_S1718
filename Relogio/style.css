@@ -502,6 +502,7 @@ body {
     flex: 0 1 auto;
     display: flex;
     align-items: center;
+    filter: saturate(60%);
 }
 
 .item-icon img {

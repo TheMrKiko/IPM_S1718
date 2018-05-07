@@ -73,7 +73,7 @@ function timeToString(value, limit) {
 // ------------------- MAIN
 function addNotification() {
     var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
+    cloneElementToBegin("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
 }
 
 // ------------------- FRIENDS
@@ -337,7 +337,7 @@ function resetBill() {
 function confirmOrder() {
     resetBill();
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     loadScreen("app-screen");
 }
 
@@ -362,7 +362,7 @@ function cloneElementToBegin(classModel, idParent, args) {
     var copy = cloneElement(classModel);
     setAttributes(copy, args);
     var children = document.getElementById(idParent).children;
-    if (children && children[0].classList.contains("header")) {
+    if (children.length && children[0].classList.contains("header")) {
         return document.getElementById(idParent).insertBefore(copy, children[1]);
     } else {
         return document.getElementById(idParent).insertBefore(copy, children[0]);
