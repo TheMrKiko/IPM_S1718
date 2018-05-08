@@ -30,7 +30,7 @@ new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id);', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
@@ -175,6 +175,10 @@ function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
+        var elItem = findBillItemWithProduct(prodsObjs[p].name);
+        if ((undefined !== elItem && 0 === elItem.count) || undefined === elItem) {
+            prodsObjs[p].togglerActive = false;
+        }
         if (prodsObjs[p].togglerActive || forceopen) {
             el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
             el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
@@ -322,28 +326,19 @@ function updateTimeFooter() {
     editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
 }
 
-function resetBill() {
-    bill.billitems = [];
-    bill.billcount = 0;
-    bill.billprice = 0;
-    emptyCartCheck();
-    for (var i = 0; i < products.length; i++) {
-        products[i].togglerActive = false;
-    }
-    var message = document.getElementById("cart-oscreen").getElementsByClassName("notification")[0];
-    if (message != undefined)
-        message.parentElement.removeChild(message);
-}
-
 function confirmOrder() {
-    resetBill();
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    bill = undefined;
     loadScreen("app-screen");
+    var timeThings = document.getElementsByClassName("timething-quant");
+    for (var i = 0; i < timeThings.length; i++) {
+        timeThings[i].innerHTML = "00";
+    }
 }
 
 function confirmCancelOrder() {
-    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
+    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
 }
 
 
