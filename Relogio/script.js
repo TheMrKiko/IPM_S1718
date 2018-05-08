@@ -2,7 +2,7 @@ var notifications = [new Notification("à tua procura.", "assets/people/sam-burr
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
-var bill = new Bill("");
+var bill;
 var stores = [new Store("Casa do Zé", "assets/shops/store1.svg"), new Store("Portugália", "assets/shops/restaurant.svg"), new Store("Carills", "assets/shops/carillis.svg"), new Store("Starpennies", "assets/shops/starbucksStore.svg"), new Store("Cachorros do Chico", "assets/shops/hotdog.svg"), new Store("Donuts do Dani", "assets/shops/donutsshop.svg"), new Store("Rei das Bifanas", "assets/shops/bifas.svg"), new Store("Mercado da Mõnîca", "assets/shops/grocery.svg")];
 var products = [new Product("Água", "assets/drink/garrafa_de_agua.svg", 1, 1.50, "all"), new Product("Vinho", "assets/drink/winecup.svg", 1, 1.75, "all"), new Product("7UP", "assets/drink/soda.svg", 1, 1.30, "all"), new Product("Caril", "assets/food/curry.svg", 2, 4, ["Carills"]), /*new Product("João Daniel do bom", "assets/people/sam-burriss.jpg", 2, 69, ["Casa do Zé"]),*/ new Product("Tofu", "assets/food/tofu.svg", 2, 4, ["Carills"]), new Product("Pizza", "assets/food/pizza2.svg", 2, 3.50, ["Carills"]),
 new Product("Caneca de Cerveja", "assets/drink/beer_caneca.svg", 1, 2, "all"), new Product("Imperial", "assets/drink/beer_fino.svg", 1, 1.50, ["Portugália"]), new Product("Daiquiri", "assets/drink/daiquiri.svg", 1, 2.50 ,["Portugália"]), new Product("Milk shake", "assets/drink/starbucks_milkshake.svg", 1, 1.80, ["Donuts do Dani"]), new Product("Café", "assets/drink/starbucks.svg", 1, 1.65, "all"),
@@ -25,17 +25,19 @@ new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", ""
 new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
-new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true),
-new Screen("Bebidas", "drinks-oscreen", "", "updateProdFooter(); setProductsList", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Snacks", "snacks-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Doces", "sweets-oscreen", "", "", "emptyGrids('products-oswipe')", "products-oswipe", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
-new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids('cart-oscreen')", "", "", true, true, "X", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "", '', "", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "", "", "", "", true, true, "Cancelar", "stopActPopup('removePopup(); goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
+new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
+new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
+new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
 var intervalVar;
 var prevScreenArgs;
+var homePressed = false;
 /*var currentSwipe;*/
 
 var pickupTime = [PUhour = 0 , PUminute = 0];
@@ -49,27 +51,31 @@ function loadClocks() {
 }
 
 function updateClock(clock) {
-    var time = new Date();
-    var stringTime = "";
-    if (time.getHours() < 10) {
-        stringTime += "0";
-    }
-    stringTime += time.getHours() + ":";
-    if (time.getMinutes() < 10) {
-        stringTime += "0";
-    }
-    stringTime += time.getMinutes();
-    clock.innerText = stringTime;
+    clock.innerText = getTime();
     setTimeout(function () {
         updateClock(clock);
     }, 1000);
+}
+
+function getTime() {
+    var time = new Date();
+    return timeToString(time.getHours(), 24) + ":" + timeToString(time.getMinutes(), 60);
+}
+
+function timeToString(value, limit) {
+    var stringTime = "";
+    if (value % limit < 10) {
+        stringTime += "0";
+    }
+    stringTime += value % limit;
+    return stringTime;
 }
 
 /************************************ ECRAS ESPECIFICOS ************************************/
 // ------------------- MAIN
 function addNotification() {
     var cur = (notifN++) % notifications.length;
-    cloneElementTo("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
+    cloneElementToBegin("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
 }
 
 // ------------------- FRIENDS
@@ -162,14 +168,13 @@ function arrowEnd() {
 }
 
 // -------------------------- ORDER
-
-function setProducts(prodsObjs, grid, forceopen) {
+function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
         eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
-        el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1);");
-        el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1);");
+        el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
+        el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
         if (prodsObjs[p].togglerActive || forceopen) {
             el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
             el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
@@ -179,6 +184,7 @@ function setProducts(prodsObjs, grid, forceopen) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
+    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
@@ -187,33 +193,46 @@ function setProductsListType(prodsObjs, type, grid) {
 }
 
 function toggleQuantityEditor(ev, prodName) {
-    var el = ev.currentTarget.parentElement;
-    var elP = el.getElementsByClassName("item-quant-editor")[0];
+    var elItem = ev.currentTarget.parentElement;
+    updateQuantityEditor(elItem, prodName);
+}
+
+function updateQuantityEditor(elItem, prodName) {
+    var elQuant = elItem.getElementsByClassName("item-quant-editor")[0];
     var prod = findProductWithName(prodName);
     if (prod.togglerActive) {
-        elP.style.display = "none";
-        el.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
+        elQuant.style.display = "none";
+        elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "block";
         prod.togglerActive = false;
     } else {
         if (!findBillItemWithProduct(prodName)) deltaProdQuant(prodName, 1);
-        el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
-        elP.style.display = "flex";
+        elItem.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
+        elQuant.style.display = "flex";
         prod.togglerActive = true;
     }
-    updateProdQuant(el, prodName);
+    updateProdQuant(elItem, prodName);
+    updateProdFooter();
 }
 
-function toggleQuantity(ev, prodName, increment) {
+function toggleQuantity(ev, prodName, increment, delvsshrink) {
     var el = ev.currentTarget.parentElement.parentElement;
-    deltaProdQuant(prodName, increment);
+    if (!deltaProdQuant(prodName, increment)) {
+        if (delvsshrink) {
+            el.parentElement.removeChild(el);
+            emptyCartCheck();
+        } else {
+            updateQuantityEditor(el, prodName);
+        }
+    }
     updateProdQuant(el, prodName);
+    updateProdFooter();
 }
 
 function deltaProdQuant(prodName, increment) {
     if (increment == 1) {
-        bill.addItem(prodName);
+        return bill.addItem(prodName);
     } else if (increment == -1) {
-        bill.removeItem(prodName);
+        return bill.removeItem(prodName);
     } else console.log("go fuck urself");
 }
 
@@ -224,20 +243,17 @@ function updateProdFooter() {
 function updateProdQuant(element, prodName) {
     var prodObj = findProductWithName(prodName);
     setAttributes(element, [prodObj.svg, prodObj.name, "€" + Number(prodObj.price).toFixed(2), bill.getQuantItem(prodName), bill.getQuantItem(prodName)]);
-    updateProdFooter();
 }
 
 function setProductsList(storeName) {
     var prodsObjs;
+    if (bill == undefined || (bill != undefined && bill.store != storeName)) {
+        bill = new Bill(storeName);
+    }
     if (storeName == "all") {
         prodsObjs = products;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = "";
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = "";
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = "";
     } else if (storeName != undefined) {
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[0].innerHTML = storeName;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[1].innerHTML = storeName;
-        document.getElementById("products-oswipe").getElementsByClassName("notification")[2].innerHTML = storeName;
+        addMessageToSolo("products-oswipe", storeName);
         prodsObjs = filterAllProductsInStore(storeName);
     } else {
         console.log("Ups!");
@@ -264,37 +280,70 @@ function setStoresList() {
 
 function setCartList() {
     var prodsObjs = [];
-    if (bill.billitems.length != 0) {
-        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "";
-    } else {
-        document.getElementById("cart-oscreen").getElementsByClassName("notification")[0].innerHTML = "Nenhum item na sua mochila.";
-    }
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    setProducts(prodsObjs, "cart-grid", true);
+    setProducts(prodsObjs, "cart-grid", true, true);
+    emptyCartCheck();
+    updateProdFooter();
+}
+
+function emptyCartCheck() {
+    if (bill.billitems.length == 0) {
+        addMessageToSolo("cart-oscreen", "Nenhum item na sua mochila.");
+    }
 }
 
 function changeTime(segment, increment) {
     if (segment == "hours-thing-quant") {
-        if (PUhour + increment >= 0 && PUhour + increment <= 5) {
-            PUhour += increment;
+        if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 5) {
+            bill.pickuptime[0] += increment;
             document.getElementById(segment).innerHTML = "";
-            if (PUhour < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += PUhour;
-            return true;
-        }
+            if (bill.pickuptime[0] < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += bill.pickuptime[0];
+        } else return true;
     } else if (segment == "minutes-thing-quant") {
-        if (PUminute + increment >= 0 && PUminute + increment < 60) {
-            PUminute += increment;
+        if (bill.pickuptime[1] + increment >= 0 && bill.pickuptime[1] + increment < 60) {
+            bill.pickuptime[1] += increment;
             document.getElementById(segment).innerHTML = "";
-            if (PUminute < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += PUminute;
-        } else if (PUminute + increment == 60 && changeTime("hours-thing-quant", 1)) {
-            PUminute = 0;
+            if (bill.pickuptime[1] < 10) document.getElementById(segment).innerHTML = "0";
+            document.getElementById(segment).innerHTML += bill.pickuptime[1];
+        } else if (bill.pickuptime[1] + increment == 60 && !changeTime("hours-thing-quant", 1)) {
+            bill.pickuptime[1] = 0;
             document.getElementById(segment).innerHTML = "00";
         }
     }
+    updateTimeFooter();
+}
+
+function updateTimeFooter() {
+    var time = new Date();
+    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0; 
+    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
+}
+
+function resetBill() {
+    bill.billitems = [];
+    bill.billcount = 0;
+    bill.billprice = 0;
+    emptyCartCheck();
+    for (var i = 0; i < products.length; i++) {
+        products[i].togglerActive = false;
+    }
+    var message = document.getElementById("cart-oscreen").getElementsByClassName("notification")[0];
+    if (message != undefined)
+        message.parentElement.removeChild(message);
+}
+
+function confirmOrder() {
+    resetBill();
+    var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    loadScreen("app-screen");
+}
+
+function confirmCancelOrder() {
+    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
 }
 
 
@@ -314,7 +363,7 @@ function cloneElementToBegin(classModel, idParent, args) {
     var copy = cloneElement(classModel);
     setAttributes(copy, args);
     var children = document.getElementById(idParent).children;
-    if (children && children[0].classList.contains("header")) {
+    if (children.length && children[0].classList.contains("header")) {
         return document.getElementById(idParent).insertBefore(copy, children[1]);
     } else {
         return document.getElementById(idParent).insertBefore(copy, children[0]);
@@ -328,7 +377,7 @@ function cloneElementTo(classModel, idParent, args) {
 }
 
 function setAttributes(element, args) {
-    var atributEls = element.getElementsByClassName("attr-m");
+    var atributEls = element.classList.contains("attr-m") ? [element] : element.getElementsByClassName("attr-m");
     for (var i = 0; i < atributEls.length; i++) {
         var atributReq = atributEls[i].getAttribute("attrm").split(" ");
         for (var a = 0; a < atributReq.length; a++) {
@@ -451,12 +500,12 @@ function loadSolo(screenID, soloID, args) {
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).initScreen(args);
         }
-        if (soloID != "main-solo") {
+        /* if (soloID != "main-solo") {
             document.getElementById(soloID).style.transform = "translateX(0px)";
-        }
+        } */
     } else if (currentSolo == soloID && currentScreen != screenID) {
         var width = document.getElementById(screenID).clientWidth;
-        if (screenID == "main-screen") {
+        if (screenID == "main-screen" && homePressed) {
             nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
         }
         currentScreen = screenID;
@@ -522,24 +571,38 @@ function randomNumberGenerator(myMin, myMax) {
 }
 
 function stopActPopup(action, message) {
-    addPopup(currentScreen, [message, "", "Não", "removePopup();", "Sim", "removePopup(); " + action]);
+    addPopup(currentScreen, [message, "", "", "Não", "removePopup();", "", "Sim", "removePopup(); " + action, ""]);
 }
 
 function addPopup(screenID, args) {
     popup = cloneElementTo("popup-model", screenID, args);
 }
 
+function addNotificationPopup(timeout, args) {
+    setTimeout(function() {
+        addPopup(currentScreen, args);
+    }, timeout);
+}
+
 function removePopup() {
     popup.parentElement.removeChild(popup);
 }
 
-function addMessageToScreen(screenID, message) {
-    cloneElementToBegin("message-model", screenID, [message]);
+function addMessageToSolo(soloID, message) {
+    var screenList = findSoloWithID(soloID).screens;
+    for (var s = 0; s < screenList.length; s++) {
+        cloneElementToBegin("message-model", screenList[s], [message]);
+    }
 }
 
-function removeMessageToScreen(screenID) {
-    var el = document.getElementById(screenID).getElementsByClassName("message")[0];
-    el.parentElement.removeChild(el);
+function removeMessageFromSolo(soloID) {
+    var screenList = findSoloWithID(soloID).screens;
+    for (var s = 0; s < screenList.length; s++) {
+        var els = document.getElementById(screenList[s]).getElementsByClassName("message");
+        if (els.length) {
+            els[0].parentElement.removeChild(els[0]);
+        }
+    }
 }
 
 /************************************ SCROLL ************************************/
@@ -554,7 +617,9 @@ window.addEventListener('message', function (event) {
             break;
 
         case "home":
+            homePressed = true;
             loadScreen(findScreenWithID(currentScreen).homeButton);
+            homePressed = false;
             break;
 
         default:
@@ -642,9 +707,11 @@ function drop(ev, solo) {
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN + 1]);
+        soloObj.currentScreen = currentScreen;
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
+        soloObj.currentScreen = currentScreen;
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
     } else if (now - then > 0 && 0 != screenN) {
@@ -708,36 +775,39 @@ function Bill(store) {
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;
+    this.pickuptime = [0, 0];
     this.addItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].addItem()) {
+        var prodItemObj = findBillItemWithProduct(productName);
+        if (prodItemObj != undefined) {
+            if (prodItemObj.addItem()) {
                 this.billprice += findProductWithName(productName).price;
                 this.billcount++;
             }
         } else {
-            var newBillItem = new BillItem(productName);
-            newBillItem.addItem();
+            prodItemObj = new BillItem(productName);
+            prodItemObj.addItem();
             this.billprice += findProductWithName(productName).price;
             this.billcount++;
-            this.billitems.push(newBillItem);
+            this.billitems.push(prodItemObj);
         }
+        return prodItemObj.count;
     };
     this.removeItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        if (prodItemObjs != undefined) {
-            if (this.billitems[this.billitems.indexOf(prodItemObjs)].removeItem()) {
+        var prodItemObj = findBillItemWithProduct(productName);
+        if (prodItemObj != undefined) {
+            if (prodItemObj.removeItem()) {
                 this.billprice -= findProductWithName(productName).price;
                 this.billcount--;
             }
-            if (prodItemObjs.count == 0) {
-                this.billitems.splice(this.billitems.indexOf(prodItemObjs));
+            if (!prodItemObj.count) {
+                this.billitems.splice(this.billitems.indexOf(prodItemObj), 1);
             }
+            return prodItemObj.count;
         }
     };
     this.getQuantItem = function(productName) {
-        var prodItemObjs = findBillItemWithProduct(productName);
-        return prodItemObjs != undefined ? prodItemObjs.count : 0;
+        var prodItemObj = findBillItemWithProduct(productName);
+        return prodItemObj != undefined ? prodItemObj.count : 0;
     };
 }
 
