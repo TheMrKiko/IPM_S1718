@@ -40,6 +40,8 @@ var prevScreenArgs;
 var homePressed = false;
 /*var currentSwipe;*/
 
+var pickupTime = [PUhour = 0 , PUminute = 0];
+
 /************************************ CLOCK ************************************/
 function loadClocks() {
     var clocks = document.getElementsByClassName("clock");
@@ -166,7 +168,6 @@ function arrowEnd() {
 }
 
 // -------------------------- ORDER
-
 function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
