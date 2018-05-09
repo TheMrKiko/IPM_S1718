@@ -410,51 +410,8 @@ body {
 	align-items: center;
 }
 
-
-
-.time-scrolls {
-    font-size: 14%;
-    display: flex;
-    flex-flow: row;
-    flex: 1 1 40vh;
-}
-
-.timewheel {
-    background-color: rgb(0, 0, 0);
-    width: 50%;
-    flex: 0 0 auto;
-    overflow: hidden;
-    display: flex;
-    flex-flow: column;
-}
-
-.timething {
-    background-color: rgb(0, 0, 0);
-    width: 50%;
-    flex: 0 0 auto;
-    overflow: hidden;
-    display: flex;
-    flex-flow: column;
-}
-
-.timething div {
-    flex: 0 0 25%;
-    font-size: 78%;
-}
-
-.timething-colom {
-    display: flex;
-    align-items: center;
-}
-
-.timething-plus {
-    background-color: #219A52;
-    margin: 0 12pt;
-}
-
-.timething-minus {
-    background-color: #8b1e1e;
-    margin: 0 12pt;
+.storeprod img {
+    filter: saturate(60%);
 }
 
 #pickup-oscreen .text {
@@ -462,10 +419,6 @@ body {
     font-size: 9%;
     display: flex;
     flex-flow: row;
-}
-
-#daqui-a {
-    padding: 0 10pt;
 }
 
 #pickup-oscreen .text div {
@@ -559,6 +512,57 @@ body {
 
 .item-minus {
     background-color: brown;
+}
+
+/******************* CHOOSE HOURS *************************/
+
+.time-scrolls {
+    font-size: 14%;
+    display: flex;
+    flex-flow: row;
+    flex: 1 1 40vh;
+}
+
+.timewheel {
+    background-color: rgb(0, 0, 0);
+    width: 50%;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+
+.timething {
+    background-color: rgb(0, 0, 0);
+    width: 50%;
+    flex: 0 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+}
+
+.timething div {
+    flex: 0 0 25%;
+    font-size: 78%;
+}
+
+.timething-colom {
+    display: flex;
+    align-items: center;
+}
+
+.timething-plus {
+    background-color: #219A52;
+    margin: 0 12pt;
+}
+
+.timething-minus {
+    background-color: #8b1e1e;
+    margin: 0 12pt;
+}
+
+#daqui-a {
+    padding: 0 10pt;
 }
 
 /***************************** ANIMATIONS *****************************/

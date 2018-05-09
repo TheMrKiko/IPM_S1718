@@ -31,7 +31,7 @@ new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, 
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
-new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
+new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "0.00€", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
@@ -320,15 +320,19 @@ function changeTime(segment, increment) {
     updateTimeFooter();
 }
 
-function updateTimeFooter() {
+function getFormatedPickupTime() {
     var time = new Date();
     var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0;
-    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);
+    return timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60);
+}
+
+function updateTimeFooter() {
+    editFooter("pickup-oscreen", "keep", getFormatedPickupTime(), "✔ " + bill.billcount);
 }
 
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
-	var store =  bill.store == "all" ? chooseStoreToPickUp() : bill.store;
+	var store = bill.store;
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     bill = undefined;
     loadScreen("app-screen");
@@ -364,7 +368,7 @@ function chooseStoreToPickUp() {
 }
 
 function confirmCancelOrder(productS) {
-    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
+    stopActPopup('loadScreen("choose-oscreen"); bill = undefined;', 'Irá cancelar a sua encomenda. Tem a certeza?');
 }
 
 function setConfirmOrderList() {
@@ -372,9 +376,9 @@ function setConfirmOrderList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    var store =  bill.store == "all" ? chooseStoreToPickUp() : bill.store;
+    bill.store = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     setProducts(prodsObjs, "confirm-grid", false, true, true);
-    addMessageToSolo("confirm-oscreen", "Loja: "+ store +"<br>Itens: " + bill.billcount + "<br>Total: " + bill.billprice + "€");
+    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.store +"<br>Hora: " + getFormatedPickupTime());
 }
 
 
