@@ -322,13 +322,15 @@ function changeTime(segment, increment) {
 
 function updateTimeFooter() {
     var time = new Date();
-    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0; 
-    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
+    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0;
+    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);
 }
 
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+	console.log("LOJA " + bill.store);
+	var store =  bill.store == undefined ? chooseStoreToPickUp() : bill.store;
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     bill = undefined;
     loadScreen("app-screen");
     var timeThings = document.getElementsByClassName("timething-quant");
@@ -339,6 +341,41 @@ function confirmOrder() {
 
 function confirmCancelOrder() {
     stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
+function chooseStoreToPickUp() {
+	var possibleStores = {};
+	console.log(bill.billitems);
+	for (var i = 0; i < bill.billitems.length; i++) {
+		console.log(i);
+		console.log(bill.billitems[i].name);
+		for (var j = 0; j < findProductWithName(bill.billitems[i].name).stores.length; j++) {
+			console.log(findProductWithName(bill.billitems[i].name).stores[j]);
+			if (!possibleStores.hasOwnProperty(findProductWithName(bill.billitems[i].name).stores[j])) {
+				console.log("nova loja " + findProductWithName(bill.billitems[i].name).stores[j]);
+				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] = 1;
+			} else {
+				console.log("já lá estava " + findProductWithName(bill.billitems[i].name).stores[j]);
+				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] ++;
+			}
+		}
+	}
+	console.log(possibleStores);
+	var maxStore;
+	var max = 0;
+	for (var store in possibleStores) {
+		console.log("ENTREI for each");
+		if (possibleStores.hasOwnProperty(store)) {
+			if (possibleStores[store] > max) {
+				max = possibleStores[store];
+				maxStore = store;
+			}
+		}
+	}
+	console.log(maxStore);
+	return maxStore;
+}
+
+function confirmCancelOrder(productS) {
+    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
 }
 
 function setConfirmOrderList() {
