@@ -30,8 +30,8 @@ new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id); resetBill();', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
-new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
+new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
@@ -168,14 +168,18 @@ function arrowEnd() {
 }
 
 // -------------------------- ORDER
-function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
+function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
-        eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
+        eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "', " + locktoggle + ");");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
-        if (prodsObjs[p].togglerActive || forceopen) {
+        var elItem = findBillItemWithProduct(prodsObjs[p].name);
+        if (undefined === elItem) {
+            prodsObjs[p].togglerActive = false;
+        }
+        if (forceopenclose || (prodsObjs[p].togglerActive && forceopenclose == undefined)) {
             el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
             el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
         } else {
@@ -184,17 +188,16 @@ function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
-    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
     prodsObjs = filterProductsWithType(prodsObjs, type);
-    setProducts(prodsObjs, grid);
+    setProducts(prodsObjs, grid, undefined, false, false);
 }
 
-function toggleQuantityEditor(ev, prodName) {
+function toggleQuantityEditor(ev, prodName, locktoggle) {
     var elItem = ev.currentTarget.parentElement;
-    updateQuantityEditor(elItem, prodName);
+    if (!locktoggle) updateQuantityEditor(elItem, prodName);
 }
 
 function updateQuantityEditor(elItem, prodName) {
@@ -260,7 +263,8 @@ function setProductsList(storeName) {
     }
     setProductsListType(prodsObjs, 1, "prod-drinks-grid");
     setProductsListType(prodsObjs, 2, "prod-snacks-grid");
-	setProductsListType(prodsObjs, 3, "prod-sweets-grid");
+    setProductsListType(prodsObjs, 3, "prod-sweets-grid");
+    updateProdFooter();
 }
 
 function emptyGrids(solo) {
@@ -283,7 +287,7 @@ function setCartList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    setProducts(prodsObjs, "cart-grid", true, true);
+    setProducts(prodsObjs, "cart-grid", true, true, false);
     emptyCartCheck();
     updateProdFooter();
 }
@@ -322,28 +326,28 @@ function updateTimeFooter() {
     editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
 }
 
-function resetBill() {
-    bill.billitems = [];
-    bill.billcount = 0;
-    bill.billprice = 0;
-    emptyCartCheck();
-    for (var i = 0; i < products.length; i++) {
-        products[i].togglerActive = false;
-    }
-    var message = document.getElementById("cart-oscreen").getElementsByClassName("notification")[0];
-    if (message != undefined)
-        message.parentElement.removeChild(message);
-}
-
 function confirmOrder() {
-    resetBill();
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    bill = undefined;
     loadScreen("app-screen");
+    var timeThings = document.getElementsByClassName("timething-quant");
+    for (var i = 0; i < timeThings.length; i++) {
+        timeThings[i].innerHTML = "00";
+    }
 }
 
 function confirmCancelOrder() {
-    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
+    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
+}
+
+function setConfirmOrderList() {
+    var prodsObjs = [];
+    for (var o = 0; o < bill.billitems.length; o++) {
+        prodsObjs.push(findProductWithName(bill.billitems[o].name));
+    }
+    setProducts(prodsObjs, "confirm-grid", false, true, true);
+    addMessageToSolo("confirm-oscreen", "A minha pila é gira e gigante e tem caução de 300€.com");
 }
 
 
@@ -800,6 +804,7 @@ function Bill(store) {
                 this.billcount--;
             }
             if (!prodItemObj.count) {
+                findProductWithName(productName).togglerActive = false;
                 this.billitems.splice(this.billitems.indexOf(prodItemObj), 1);
             }
             return prodItemObj.count;
