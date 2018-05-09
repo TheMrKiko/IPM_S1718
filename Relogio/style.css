@@ -576,6 +576,15 @@ body {
 	align-items: center;
 }
 
+.act {
+    display: flex;
+}
+
+.act-name {
+    flex: 1 1 auto;
+    font-size: 12pt;
+}
+
 /***************************** ANIMATIONS *****************************/
 
 @keyframes aproximar {

@@ -15,8 +15,22 @@ new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["Donuts do Dan
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["Donuts do Dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["Donuts do Dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["Donuts do Dani", "Portugália"]),
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
+//new Act(name, img, description, stage, day, hour, minute) 
+//1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
+var acts = [
+new Act("Salvador Sobral",  null, "", 1, 1, 20, 0),
+new Act("Selma Uamusse", null, "",    1, 1, 20, 0),
+new Act("The Lemon Lovers", null, "", 2, 1, 20, 0),
+new Act("Slow J", null, "",           2, 1, 20, 0),
+new Act("Lince", null, "",            3, 1, 20, 0),
+new Act("Jerónimo", null, "",         3, 1, 20, 0),
 
-var acts = [];
+/* new Act("Selma Uamusse", null, "", 2, 1, 20, 0),
+new Act("Slow J", null, "", 2, 1, 20, 0),
+new Act("Slow J", null, "", 2, 1, 20, 0), */
+
+
+];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "", "lock-screen", "lock-screen", false, false),
@@ -35,7 +49,7 @@ new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo);
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id);', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
-new Screen("Palco 1", "stage1-lscreen", "", "", "", "stages-lswipe", "", true, false),
+new Screen("Palco 1", "stage1-lscreen", "", "setActsList", "", "stages-lswipe", "", true, false),
 new Screen("Palco 2", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Palco 3", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
 ];
@@ -355,27 +369,27 @@ function setActsList(day) {
     setActsListStage(dayActs, 3, "stage3-grid");
 }
 
-function setActsListStage(acts, stage, grid) {
-    stageActs = filterActsInStage(acts, stage);
+function setActsListStage(dayActs, stage, grid) {
+    stageActs = filterActsInStage(dayActs, stage);
     setActs(stageActs, grid);
 }
 
-function setActs(acts, grid) { //TODO
+function setActs(acts, grid) {
     for (var a = 0; a < acts.length; a++) {
-        var el = cloneElementTo("", grid, []);
+        var el = cloneElementTo("act-model", grid, [acts[a].name]);
     }
 }
 
 function filterActsInDay(acts, day) {
     return acts.filter(function(a) {
-        if (day === a.day)
+        if (day == a.day)
             return true;
     });
 }
 
 function filterActsInStage(acts, stage) {
     return acts.filter(function(a) {
-        if (stage === a.stage)
+        if (stage == a.stage)
             return true;
     });
 }
@@ -790,6 +804,7 @@ function Act(name, img, description, stage, day, hour, minute) {
     this.name = name;
     this.img = img;
     this.description = description;
+    this.stage = stage;
     this.day = day;
     this.time = [hour, minute];
 }
