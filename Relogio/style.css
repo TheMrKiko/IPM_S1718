@@ -577,7 +577,15 @@ body {
 }
 
 .act {
+    height: 45%;
+    width: 100%;
+    align-items: center;
     display: flex;
+    border: solid;
+    border-width: 1.5pt;
+    margin: 1pt;
+    border-radius: 5pt;
+    background-color: #5035358f;
 }
 
 .act-name {
