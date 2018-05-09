@@ -28,7 +28,7 @@
 
 		<div class="screen" id="app-screen">
 			<div class="grid" id="appgrid">
-				<div class="cell inactive" id="app1">
+				<div class="cell button" id="app1" onclick="loadScreen('days-lscreen');">
 					<div class="cell-content">
 						<i class="fa fa-music fa-3x"></i>
 					</div>
@@ -179,6 +179,47 @@
 		</div>
 	</div>
 
+	<!-- APP LINEUP -->
+
+	<div class="solo screen" id="days-lscreen">
+		<div class="grid" id="days-grid">
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 1);">
+				<div class="cell-content">
+					<img src="assets\shops\store.svg">
+				</div>
+				<div class="cell-content text">dia 1</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 2);">
+				<div class="cell-content">
+					<img src="assets\food\sandwich.svg">
+				</div>
+				<div class="cell-content text">dia 2</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 3);">
+				<div class="cell-content">
+					<img src="assets\food\sandwich.svg">
+				</div>
+				<div class="cell-content text">dia 3</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="swipe solo" id="stages-lswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "stages-lswipe")' ondrop='drop(event, "stages-lswipe")'>
+		<div class="screen" id="stage1-lscreen">
+			<div class="grid scrollable" id="stage1-grid"></div>
+		</div>
+		<div class="screen" id="stage2-lscreen">
+			<div class="grid scrollable" id="stage2-grid"></div>
+		</div>
+		<div class="screen" id="stage3-lscreen">
+			<div class="grid scrollable" id="stage3-grid"></div>
+		</div>
+	</div>
+
+
+
 	<!-- MODELOS -->
 	<div hidden id="models">
 		<div class="table-model">
@@ -260,6 +301,9 @@
 		</div>
 		<div class="message-model">
 			<div class="message notification text attr-m" attrm="innerHTML"></div>
+		</div>
+		<div class="act-model">
+			
 		</div>
 	</div>
 </body>

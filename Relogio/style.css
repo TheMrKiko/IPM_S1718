@@ -561,6 +561,21 @@ body {
     background-color: brown;
 }
 
+/******************************* LINEUP *******************************/
+
+.day img {
+	width: 75%;
+}
+
+.day {
+    height: 75%;
+    width: 33%;
+}
+
+#days-grid {
+	align-items: center;
+}
+
 /***************************** ANIMATIONS *****************************/
 
 @keyframes aproximar {
