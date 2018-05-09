@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
+﻿var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -18,12 +18,12 @@ new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]
 //new Act(name, img, description, stage, day, hour, minute) 
 //1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
 var acts = [
-new Act("Salvador Sobral", "", "oi",1, 1, 20, 0),
-new Act("Selma Uamusse", "", "",    1, 1, 20, 0),
-new Act("The Lemon Lovers", "", "", 2, 1, 20, 0),
-new Act("Slow J", "", "",           2, 1, 20, 0),
-new Act("Lince", "", "",            3, 1, 20, 0),
-new Act("Jerónimo", "", "",         3, 1, 20, 0), 
+new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "oi", 1, 1, 21, 0),
+new Act("Selma Uamusse", "", "",    1, 1, 19, 0),
+new Act("The Lemon Lovers", "", "", 2, 1, 22, 0),
+new Act("Slow J", "", "",           2, 1, 23, 0),
+new Act("Lince", "", "",            3, 1, 18, 0),
+new Act("Jerónimo", "", "",         3, 1, 16, 0), 
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
@@ -43,9 +43,9 @@ new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo);
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id);', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
 new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
-new Screen("Palco 1", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
-new Screen("Palco 2", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
-new Screen("Palco 3", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
+new Screen("Lopes Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
+new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
+new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, false),
 ];
 var currentSolo;
@@ -399,8 +399,8 @@ function findActWithName(name) {
 
 function showActInfo(actName) {
     var act = findActWithName(actName);
-    var screen = document.getElementById("act-details-lscreen");
-    setAttributes(screen, [act.img, act.name, act.description]);
+    var screen = document.getElementsByClassName("act-details")[0];
+    setAttributes(screen, [act.name, act.img, act.description]);
 }
 
 

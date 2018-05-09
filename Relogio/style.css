@@ -588,9 +588,31 @@ body {
     background-color: #5035358f;
 }
 
+.act-details {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .act-name {
     flex: 1 1 auto;
     font-size: 12pt;
+}
+
+.act-pic {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 80pt;
+}
+
+.act-description {
+
+}
+
+.act-pic img {
+    width: 100vw;
 }
 
 /***************************** ANIMATIONS *****************************/
