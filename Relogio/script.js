@@ -372,8 +372,9 @@ function setConfirmOrderList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
+    var store =  bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     setProducts(prodsObjs, "confirm-grid", false, true, true);
-    addMessageToSolo("confirm-oscreen", "A minha pila é gira e gigante e tem caução de 300€.com");
+    addMessageToSolo("confirm-oscreen", "Loja: "+ store +"<br>Itens: " + bill.billcount + "<br>Total: " + bill.billprice + "€");
 }
 
 
