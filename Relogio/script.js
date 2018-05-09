@@ -31,7 +31,7 @@ new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, 
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
-new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
+new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
