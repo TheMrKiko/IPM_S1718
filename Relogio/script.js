@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
+﻿var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -328,8 +328,7 @@ function updateTimeFooter() {
 
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
-	console.log("LOJA " + bill.store);
-	var store =  bill.store == undefined ? chooseStoreToPickUp() : bill.store;
+	var store =  bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     bill = undefined;
     loadScreen("app-screen");
@@ -339,30 +338,21 @@ function confirmOrder() {
     }
 }
 
-function confirmCancelOrder() {
-    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
 function chooseStoreToPickUp() {
 	var possibleStores = {};
 	console.log(bill.billitems);
 	for (var i = 0; i < bill.billitems.length; i++) {
-		console.log(i);
-		console.log(bill.billitems[i].name);
 		for (var j = 0; j < findProductWithName(bill.billitems[i].name).stores.length; j++) {
-			console.log(findProductWithName(bill.billitems[i].name).stores[j]);
 			if (!possibleStores.hasOwnProperty(findProductWithName(bill.billitems[i].name).stores[j])) {
-				console.log("nova loja " + findProductWithName(bill.billitems[i].name).stores[j]);
 				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] = 1;
 			} else {
-				console.log("já lá estava " + findProductWithName(bill.billitems[i].name).stores[j]);
 				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] ++;
 			}
 		}
 	}
-	console.log(possibleStores);
 	var maxStore;
 	var max = 0;
 	for (var store in possibleStores) {
-		console.log("ENTREI for each");
 		if (possibleStores.hasOwnProperty(store)) {
 			if (possibleStores[store] > max) {
 				max = possibleStores[store];
@@ -370,12 +360,11 @@ function chooseStoreToPickUp() {
 			}
 		}
 	}
-	console.log(maxStore);
 	return maxStore;
 }
 
 function confirmCancelOrder(productS) {
-    stopActPopup('loadScreen("choose-oscreen"); resetBill();', 'Tem a certeza?');
+    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
 }
 
 function setConfirmOrderList() {
