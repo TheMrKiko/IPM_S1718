@@ -40,8 +40,6 @@ var prevScreenArgs;
 var homePressed = false;
 /*var currentSwipe;*/
 
-var pickupTime = [PUhour = 0 , PUminute = 0];
-
 /************************************ CLOCK ************************************/
 function loadClocks() {
     var clocks = document.getElementsByClassName("clock");
@@ -176,7 +174,7 @@ function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
         var elItem = findBillItemWithProduct(prodsObjs[p].name);
-        if (undefined === elItem) {
+        if ((undefined !== elItem && 0 === elItem.count) || undefined === elItem) {
             prodsObjs[p].togglerActive = false;
         }
         if (forceopenclose || (prodsObjs[p].togglerActive && forceopenclose == undefined)) {
@@ -188,6 +186,7 @@ function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
+    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
