@@ -15,7 +15,7 @@ new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["Donuts do Dan
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["Donuts do Dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["Donuts do Dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["Donuts do Dani", "Portugália"]),
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
-//new Act(name, img, description, stage, day, hour, minute) 
+//new Act(name, img, description, stage, day, hour, minute)
 //1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
 var acts = [
 new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "descrição aqui", 1, 1, 21, 0),
@@ -23,7 +23,7 @@ new Act("Selma Uamusse", "", "",    1, 1, 19, 0),
 new Act("The Lemon Lovers", "", "", 2, 1, 22, 0),
 new Act("Slow J", "", "",           2, 1, 23, 0),
 new Act("Lince", "", "",            3, 1, 18, 0),
-new Act("Jerónimo", "", "",         3, 1, 16, 0), 
+new Act("Jerónimo", "", "",         3, 1, 16, 0),
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
@@ -350,10 +350,10 @@ function updateTimeFooter() {
 
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
-	var store = bill.store;
+	var store = bill.newstore;
     loadScreen("app-screen");
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
-    //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""], "assets/apple.png", "Encomenda pronta na ", store);
+
     bill = undefined;
     var timeThings = document.getElementsByClassName("timething-quant");
     timeThings[0].innerHTML = "00";
@@ -393,10 +393,10 @@ function setConfirmOrderList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    bill.store = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
+    bill.newstore = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     setProducts(prodsObjs, "confirm-grid", false, true, true);
     editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "keep");
-    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.store +"<br>Hora: " + getFormatedPickupTime());
+    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.newstore +"<br>Hora: " + getFormatedPickupTime());
 }
 
 // -------------------------- LINEUP
@@ -681,9 +681,10 @@ function addPopup(screenID, args) {
     popup = cloneElementTo("popup-model", screenID, args);
 }
 
-function addNotificationPopup(timeout, args) {
+function addNotificationPopup(timeout, args, img, message, value) {
     setTimeout(function() {
         addPopup(currentScreen, args);
+		cloneElementToBegin("table-model", "notification-bar", [img, message + value + "."]);
     }, timeout);
 }
 
@@ -884,6 +885,7 @@ function Store(name, svg) {
 
 function Bill(store) {
     this.store = store;
+	this.newstore = "";
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;
