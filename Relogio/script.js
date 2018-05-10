@@ -240,7 +240,10 @@ function deltaProdQuant(prodName, increment) {
 }
 
 function updateProdFooter() {
-    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "✔ " + bill.billcount);
+    function checkempycart() {
+        if (!bill.billcount) return false;
+    }
+    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "✔ " + bill.billcount, checkempycart);
 }
 
 function updateProdQuant(element, prodName) {
@@ -331,7 +334,7 @@ function updateTimeFooter() {
 }
 
 function confirmOrder() {
-    var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
+    var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
 	var store = bill.store;
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     bill = undefined;
@@ -344,7 +347,6 @@ function confirmOrder() {
 
 function chooseStoreToPickUp() {
 	var possibleStores = {};
-	console.log(bill.billitems);
 	for (var i = 0; i < bill.billitems.length; i++) {
 		for (var j = 0; j < findProductWithName(bill.billitems[i].name).stores.length; j++) {
 			if (!possibleStores.hasOwnProperty(findProductWithName(bill.billitems[i].name).stores[j])) {
@@ -420,6 +422,7 @@ function setAttributes(element, args) {
             } else if (atributReq[a] === "innerHTML") {
                 atributEls[i].innerHTML = args[i * atributReq.length + a];
             } else if (atributReq[a] === "class") {
+                atributEls[i].classList.remove(atributReq[a] == "info" ? "button" : "info");
                 atributEls[i].classList.add(args[i * atributReq.length + a]);
             } else {
                 atributEls[i].setAttribute(atributReq[a], args[i * atributReq.length + a]);//VAI MARAR
@@ -574,30 +577,30 @@ function addHeader(screenID, args) {
     updateClock(el.getElementsByClassName("clock")[0]);
 }
 
-function editFooter(soloID, b1, b2, b3) {
+function editFooter(soloID, b1, b2, b3, gofunc) {
     var screenList = findSoloWithID(soloID).screens;
     for (var s = 0; s < screenList.length; s++) {
         var footer = document.getElementById(screenList[s]).getElementsByClassName("footer")[0];
         screenFootArgs = findScreenWithID(screenList[s]).footarg;
-        args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
+        args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]], gofunc ? gofunc() : undefined);
         setAttributes(footer, args);
     }
 }
 
-function addFooter(screenID, num, args) {
-    args = convertFooterArgs(args);
+function addFooter(screenID, num, args, gofunc) {
+    args = convertFooterArgs(args, gofunc);
     cloneElementTo("footer-model-" + num, screenID, args);
 }
 
-function convertFooterArgs(args) {
+function convertFooterArgs(args, gofunc) {
     function isempty(clickstr) {
-        if (clickstr != "") return "button";
+        if (clickstr != "" && gofunc != false) return "button";
         return "info";
     }
     if (args.length > 4) {
-        return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
+        return [args[0], args[1], "button", args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
     }
-    return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3])];
+    return [args[0], args[1], "button", args[2], args[3], isempty(args[3])];
 }
 
 
@@ -835,7 +838,6 @@ function Bill(store) {
                 this.billcount--;
             }
             if (!prodItemObj.count) {
-                findProductWithName(productName).togglerActive = false;
                 this.billitems.splice(this.billitems.indexOf(prodItemObj), 1);
             }
             return prodItemObj.count;
