@@ -28,7 +28,7 @@
 
 		<div class="screen" id="app-screen">
 			<div class="grid" id="appgrid">
-				<div class="cell inactive" id="app1">
+				<div class="cell button" id="app1" onclick="loadScreen('days-lscreen');">
 					<div class="cell-content">
 						<i class="fa fa-music fa-3x"></i>
 					</div>
@@ -149,37 +149,64 @@
 				<div class="timething-quant" id="minutes-thing-quant">05</div>
 				<div class="timething-minus" id="minutes-thing-minus" onclick="changeTime('minutes-thing-quant', -5)">-</div>
 			</div>
-			<!-- <div class="timewheel scrollable" id="hours-scroll">
-				<div class="hour">00</div>
-				<div class="hour">01</div>
-				<div class="hour">02</div>
-				<div class="hour">03</div>
-				<div class="hour">04</div>
-				<div class="hour"></div>
-			</div>
-			<div class="timewheel scrollable" id="minutes-scroll">
-				<div class="minute">00</div>
-				<div class="minute">05</div>
-				<div class="minute">10</div>
-				<div class="minute">15</div>
-				<div class="minute">20</div>
-				<div class="minute">25</div>
-				<div class="minute">30</div>
-				<div class="minute">35</div>
-				<div class="minute">40</div>
-				<div class="minute">45</div>
-				<div class="minute">50</div>
-				<div class="minute">55</div>
-			</div> -->
 		</div>
 		<div class="text">
 			<div>Horas</div>
 			<div>Minutos</div>
 		</div>
 	</div>
-
-	<div class="solo screen" id="confirm-oscreen">
+  
+  <div class="solo screen" id="confirm-oscreen">
 		<div class="grid scrollable" id="confirm-grid"></div>
+	</div>
+
+	<!-- APP LINEUP -->
+
+	<div class="solo screen" id="days-lscreen">
+		<div class="grid" id="days-grid">
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 1);">
+				<div class="cell-content">
+					<img src="assets\shops\store.svg">
+				</div>
+				<div class="cell-content text">dia 1</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 2);">
+				<div class="cell-content">
+					<img src="assets\food\sandwich.svg">
+				</div>
+				<div class="cell-content text">dia 2</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 3);">
+				<div class="cell-content">
+					<img src="assets\food\sandwich.svg">
+				</div>
+				<div class="cell-content text">dia 3</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="swipe solo" id="stages-lswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "stages-lswipe")' ondrop='drop(event, "stages-lswipe")'>
+		<div class="screen" id="stage1-lscreen">
+			<div class="grid scrollable" id="stage1-grid"></div>
+		</div>
+		<div class="screen" id="stage2-lscreen">
+			<div class="grid scrollable" id="stage2-grid"></div>
+		</div>
+		<div class="screen" id="stage3-lscreen">
+			<div class="grid scrollable" id="stage3-grid"></div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="act-details-lscreen">
+		<div class="act-details scrollable">
+			<div class="text notification act-name attr-m" attrm="innerHTML"></div>
+			<div class="act-pic">
+				<img class="attr-m" attrm="src">
+			</div>
+			<div class="text notification act-description attr-m" attrm="innerHTML"></div>
+		</div>
 	</div>
 
 	<!-- MODELOS -->
@@ -263,6 +290,11 @@
 		</div>
 		<div class="message-model">
 			<div class="message notification text attr-m" attrm="innerHTML"></div>
+		</div>
+		<div class="act-model">
+			<div class="act">
+				<div class="text act-name attr-m" attrm="innerHTML"></div>
+			</div>
 		</div>
 	</div>
 </body>

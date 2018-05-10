@@ -514,6 +514,55 @@ body {
     background-color: brown;
 }
 
+/******************************* LINEUP *******************************/
+
+.day img {
+	width: 75%;
+}
+
+.day {
+    height: 75%;
+    width: 33%;
+}
+
+#days-grid {
+	align-items: center;
+}
+
+.act {
+    height: 45%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    border: solid;
+    border-width: 1.5pt;
+    margin: 1pt;
+    border-radius: 5pt;
+    background-color: #5035358f;
+}
+
+.act-details {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.act-name {
+    flex: 1 1 auto;
+    font-size: 12pt;
+}
+
+.act-pic {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 80pt;
+}
+
+.act-pic img {
+    width: 100vw;
+  
 /******************* CHOOSE HOURS *************************/
 
 .time-scrolls {
