@@ -1,4 +1,4 @@
-var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
+﻿var notifications = [new Notification("à tua procura.", "assets/people/sam-burriss.jpg"), new Notification("acenou-te.", "assets/people/parker-whitson.jpg"), new Notification("à tua procura.", "assets/people/bill-jones-jr.jpg")];
 var notifN = 0;
 
 var people = [new Person("Daniel", "assets/people/joe-gardner.jpg"), new Person("João", "assets/people/erik-lucatero.jpg"), new Person("Francisco", "assets/people/bill-jones-jr.jpg"), new Person("David", "assets/people/parker-whitson.jpg"), new Person("Luís", "assets/people/sam-burriss.jpg"), new Person("Rodrigo", "assets/people/hunter-johnson.jpg"), new Person("Maria", "assets/people/noah-buscher.jpg"), new Person("Marta", "assets/people/hian-oliveira.jpg")];
@@ -30,8 +30,8 @@ new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.
 new Screen("Snacks", "snacks-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Doces", "sweets-oscreen", "", "", "", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
 new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("pickup-oscreen")', "", 'loadScreen("pickup-oscreen")'),
-new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), "stopActPopup('loadScreen(screens[1].id);', 'Confirma a encomenda?')", "✔ 0", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
-new Screen("Confirmar", "pickup-oscreen", "", "", "", "", "", true, true, "X", "stopActPopup('goBack()', 'Tem a certeza?')", "Confirmar", "stopActPopup('loadScreen(screens[1].id)', 'Confirma a encomenda?')"),
+new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
+new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "0.00€", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 ];
 var currentSolo;
 var currentScreen;
@@ -39,8 +39,6 @@ var intervalVar;
 var prevScreenArgs;
 var homePressed = false;
 /*var currentSwipe;*/
-
-var pickupTime = [PUhour = 0 , PUminute = 0];
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -168,18 +166,18 @@ function arrowEnd() {
 }
 
 // -------------------------- ORDER
-function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
+function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
     for (var p = 0; p < prodsObjs.length; p++) {
         var el = cloneElementTo("item-model", grid, [prodsObjs[p].svg, prodsObjs[p].name, "€" + Number(prodsObjs[p].price).toFixed(2), "0", "0"]);
         var eli = el.getElementsByClassName("item-info")[0];
-        eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "');");
+        eli.setAttribute("onclick", "toggleQuantityEditor(event, '" + prodsObjs[p].name + "', " + locktoggle + ");");
         el.getElementsByClassName("item-plus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', 1, " + delvsshrink + ");");
         el.getElementsByClassName("item-minus")[0].setAttribute("onclick", "toggleQuantity(event, '" + prodsObjs[p].name + "', -1, " + delvsshrink + ");");
         var elItem = findBillItemWithProduct(prodsObjs[p].name);
         if ((undefined !== elItem && 0 === elItem.count) || undefined === elItem) {
             prodsObjs[p].togglerActive = false;
         }
-        if (prodsObjs[p].togglerActive || forceopen) {
+        if (forceopenclose || (prodsObjs[p].togglerActive && forceopenclose == undefined)) {
             el.getElementsByClassName("item-quant-bubble")[0].style.display = "none";
             el.getElementsByClassName("item-quant-editor")[0].style.display = "flex";
         } else {
@@ -193,12 +191,12 @@ function setProducts(prodsObjs, grid, forceopen, delvsshrink) {
 
 function setProductsListType(prodsObjs, type, grid) {
     prodsObjs = filterProductsWithType(prodsObjs, type);
-    setProducts(prodsObjs, grid);
+    setProducts(prodsObjs, grid, undefined, false, false);
 }
 
-function toggleQuantityEditor(ev, prodName) {
+function toggleQuantityEditor(ev, prodName, locktoggle) {
     var elItem = ev.currentTarget.parentElement;
-    updateQuantityEditor(elItem, prodName);
+    if (!locktoggle) updateQuantityEditor(elItem, prodName);
 }
 
 function updateQuantityEditor(elItem, prodName) {
@@ -241,7 +239,10 @@ function deltaProdQuant(prodName, increment) {
 }
 
 function updateProdFooter() {
-    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "✔ " + bill.billcount);
+    function checkempycart() {
+        if (!bill.billcount) return false;
+    }
+    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "✔ " + bill.billcount, checkempycart);
 }
 
 function updateProdQuant(element, prodName) {
@@ -264,7 +265,8 @@ function setProductsList(storeName) {
     }
     setProductsListType(prodsObjs, 1, "prod-drinks-grid");
     setProductsListType(prodsObjs, 2, "prod-snacks-grid");
-	setProductsListType(prodsObjs, 3, "prod-sweets-grid");
+    setProductsListType(prodsObjs, 3, "prod-sweets-grid");
+    updateProdFooter();
 }
 
 function emptyGrids(solo) {
@@ -287,7 +289,7 @@ function setCartList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    setProducts(prodsObjs, "cart-grid", true, true);
+    setProducts(prodsObjs, "cart-grid", true, true, false);
     emptyCartCheck();
     updateProdFooter();
 }
@@ -320,25 +322,65 @@ function changeTime(segment, increment) {
     updateTimeFooter();
 }
 
-function updateTimeFooter() {
+function getFormatedPickupTime() {
     var time = new Date();
-    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0; 
-    editFooter("pickup-oscreen", "keep", timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60), "✔ " + bill.billcount);   
+    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0;
+    return timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60);
+}
+
+function updateTimeFooter() {
+    editFooter("pickup-oscreen", "keep", getFormatedPickupTime(), "✔ " + bill.billcount);
 }
 
 function confirmOrder() {
-    var pickuptime = bill.pickuptime[0] * 1000 * 60 + bill.pickuptime[1] * 1000;
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + bill.store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
-    bill = undefined;
+    var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
+	var store = bill.store;
     loadScreen("app-screen");
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
+    bill = undefined;
     var timeThings = document.getElementsByClassName("timething-quant");
-    for (var i = 0; i < timeThings.length; i++) {
-        timeThings[i].innerHTML = "00";
-    }
+    timeThings[0].innerHTML = "00";
+    timeThings[1].innerHTML = "05";
 }
 
-function confirmCancelOrder() {
-    stopActPopup('loadScreen("choose-oscreen");', 'Tem a certeza?');
+function chooseStoreToPickUp() {
+	var possibleStores = {};
+	for (var i = 0; i < bill.billitems.length; i++) {
+		for (var j = 0; j < findProductWithName(bill.billitems[i].name).stores.length; j++) {
+			if (!possibleStores.hasOwnProperty(findProductWithName(bill.billitems[i].name).stores[j])) {
+				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] = 1;
+			} else {
+				possibleStores[findProductWithName(bill.billitems[i].name).stores[j]] ++;
+			}
+		}
+	}
+	var maxStore;
+	var max = 0;
+	for (var store in possibleStores) {
+		if (possibleStores.hasOwnProperty(store)) {
+			if (possibleStores[store] > max) {
+				max = possibleStores[store];
+				maxStore = store;
+			}
+		}
+	}
+	return maxStore;
+}
+
+function confirmCancelOrder(productS) {
+    stopActPopup('loadScreen("choose-oscreen"); bill = undefined;', 'Irá cancelar a sua encomenda. Tem a certeza?');
+}
+
+function setConfirmOrderList() {
+    var prodsObjs = [];
+    for (var o = 0; o < bill.billitems.length; o++) {
+        prodsObjs.push(findProductWithName(bill.billitems[o].name));
+    }
+    bill.store = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
+    setProducts(prodsObjs, "confirm-grid", false, true, true);
+    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "keep");
+    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.store +"<br>Hora: " + getFormatedPickupTime());
 }
 
 
@@ -380,6 +422,7 @@ function setAttributes(element, args) {
             } else if (atributReq[a] === "innerHTML") {
                 atributEls[i].innerHTML = args[i * atributReq.length + a];
             } else if (atributReq[a] === "class") {
+                atributEls[i].classList.remove(atributReq[a] == "info" ? "button" : "info");
                 atributEls[i].classList.add(args[i * atributReq.length + a]);
             } else {
                 atributEls[i].setAttribute(atributReq[a], args[i * atributReq.length + a]);//VAI MARAR
@@ -534,30 +577,30 @@ function addHeader(screenID, args) {
     updateClock(el.getElementsByClassName("clock")[0]);
 }
 
-function editFooter(soloID, b1, b2, b3) {
+function editFooter(soloID, b1, b2, b3, gofunc) {
     var screenList = findSoloWithID(soloID).screens;
     for (var s = 0; s < screenList.length; s++) {
         var footer = document.getElementById(screenList[s]).getElementsByClassName("footer")[0];
         screenFootArgs = findScreenWithID(screenList[s]).footarg;
-        args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]]);
+        args = convertFooterArgs([b1, screenFootArgs[1], b2, screenFootArgs[3], b3, screenFootArgs[5]], gofunc ? gofunc() : undefined);
         setAttributes(footer, args);
     }
 }
 
-function addFooter(screenID, num, args) {
-    args = convertFooterArgs(args);
+function addFooter(screenID, num, args, gofunc) {
+    args = convertFooterArgs(args, gofunc);
     cloneElementTo("footer-model-" + num, screenID, args);
 }
 
-function convertFooterArgs(args) {
+function convertFooterArgs(args, gofunc) {
     function isempty(clickstr) {
-        if (clickstr != "") return "button";
+        if (clickstr != "" && gofunc != false) return "button";
         return "info";
     }
     if (args.length > 4) {
-        return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
+        return [args[0], args[1], "button", args[2], args[3], isempty(args[3]), args[4], args[5], isempty(args[5])];
     }
-    return [args[0], args[1], isempty(args[1]), args[2], args[3], isempty(args[3])];
+    return [args[0], args[1], "button", args[2], args[3], isempty(args[3])];
 }
 
 
@@ -770,7 +813,7 @@ function Bill(store) {
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;
-    this.pickuptime = [0, 0];
+    this.pickuptime = [0, 5];
     this.addItem = function(productName) {
         var prodItemObj = findBillItemWithProduct(productName);
         if (prodItemObj != undefined) {
