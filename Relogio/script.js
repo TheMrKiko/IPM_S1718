@@ -18,7 +18,7 @@ new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]
 //new Act(name, img, description, stage, day, hour, minute) 
 //1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
 var acts = [
-new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "oi", 1, 1, 21, 0),
+new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "descrição aqui", 1, 1, 21, 0),
 new Act("Selma Uamusse", "", "",    1, 1, 19, 0),
 new Act("The Lemon Lovers", "", "", 2, 1, 22, 0),
 new Act("Slow J", "", "",           2, 1, 23, 0),
