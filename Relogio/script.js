@@ -336,9 +336,10 @@ function updateTimeFooter() {
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
 	var store = bill.store;
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
-    bill = undefined;
     loadScreen("app-screen");
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
+    bill = undefined;
     var timeThings = document.getElementsByClassName("timething-quant");
     for (var i = 0; i < timeThings.length; i++) {
         timeThings[i].innerHTML = "00";
@@ -380,6 +381,7 @@ function setConfirmOrderList() {
     }
     bill.store = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     setProducts(prodsObjs, "confirm-grid", false, true, true);
+    editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "keep");
     addMessageToSolo("confirm-oscreen", "Loja: "+ bill.store +"<br>Hora: " + getFormatedPickupTime());
 }
 
@@ -813,7 +815,7 @@ function Bill(store) {
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;
-    this.pickuptime = [0, 0];
+    this.pickuptime = [0, 5];
     this.addItem = function(productName) {
         var prodItemObj = findBillItemWithProduct(productName);
         if (prodItemObj != undefined) {
