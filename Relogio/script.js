@@ -202,7 +202,6 @@ function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
-    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
