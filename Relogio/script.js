@@ -340,9 +340,8 @@ function confirmOrder() {
     //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
     bill = undefined;
     var timeThings = document.getElementsByClassName("timething-quant");
-    for (var i = 0; i < timeThings.length; i++) {
-        timeThings[i].innerHTML = "00";
-    }
+    timeThings[0].innerHTML = "00";
+    timeThings[1].innerHTML = "05";
 }
 
 function chooseStoreToPickUp() {
