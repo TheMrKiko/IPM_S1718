@@ -15,15 +15,15 @@ new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["Donuts do Dan
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["Donuts do Dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["Donuts do Dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["Donuts do Dani", "Portugália"]),
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
-//new Act(name, img, description, stage, day, hour, minute) 
+//new Act(name, img, description, stage, day, hour, minute)
 //1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
 var acts = [
-new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "descrição aqui", 1, 1, 21, 0),
-new Act("Selma Uamusse", "", "",    1, 1, 19, 0),
-new Act("The Lemon Lovers", "", "", 2, 1, 22, 0),
-new Act("Slow J", "", "",           2, 1, 23, 0),
-new Act("Lince", "", "",            3, 1, 18, 0),
-new Act("Jerónimo", "", "",         3, 1, 16, 0), 
+new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "o francisco gosta dele", 1, 1, 21, 0),
+new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "não conheço",    1, 1, 19, 0),
+new Act("The Lemon Lovers", "assets/artists/assets/artists/.jpg.jpg", "o rocha disse q gostava disto", 2, 1, 22, 0),
+new Act("Slow J", "assets/artists/slowj.jpg", "este é bom",           2, 1, 23, 0),
+new Act("Lince", "assets/artists/lince.jpg", "nunca ouvi",            3, 1, 18, 0),
+new Act("Jerónimo", "assets/artists/jeronimo.jpg", "jeronimo stilton",         3, 1, 16, 0),
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
