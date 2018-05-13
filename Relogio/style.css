@@ -565,9 +565,10 @@ body {
 }
 
 .day-number {
-  font-family: Lobster;
   font-size: 250%;
   color: #8DBCD0;
+  font-weight: bold;
+  margin-bottom: -95%;
 }
 
 .month-color {
