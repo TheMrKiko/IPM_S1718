@@ -563,7 +563,17 @@ body {
 .act-pic img {
     width: 100vw;
 }
-  
+
+.day-number {
+  font-family: Lobster;
+  font-size: 250%;
+  color: #8DBCD0;
+}
+
+.month-color {
+  color: #91DBAF;
+}
+
 /******************* CHOOSE HOURS *************************/
 
 .time-scrolls {

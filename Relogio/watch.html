@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 	<script type="text/javascript" src="script.js"></script>
 </head>
 
@@ -20,7 +21,7 @@
 
 
 	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo")' ondrop='drop(event, "main-solo")'>
-    
+
 		<div class="screen" id="main-screen">
 			<div class="clock bigClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
@@ -155,7 +156,7 @@
 			<div>Minutos</div>
 		</div>
 	</div>
-  
+
   <div class="solo screen" id="confirm-oscreen">
 		<div class="grid scrollable" id="confirm-grid"></div>
 	</div>
@@ -166,23 +167,29 @@
 		<div class="grid" id="days-grid">
 			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 1);">
 				<div class="cell-content">
-					<img src="assets\shops\store.svg">
+					<div class="day-number">9</div>
 				</div>
-				<div class="cell-content text">dia 1</div>
+				<div class="cell-content text">
+					<div class="month-color">Agosto</div>
+				</div>
 			</div>
 
 			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 2);">
 				<div class="cell-content">
-					<img src="assets\food\sandwich.svg">
+					<div class="day-number">10</div>
 				</div>
-				<div class="cell-content text">dia 2</div>
+				<div class="cell-content text">
+					<div class="month-color">Agosto</div>
+				</div>
 			</div>
 
 			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 3);">
 				<div class="cell-content">
-					<img src="assets\food\sandwich.svg">
+					<div class="day-number">11</div>
 				</div>
-				<div class="cell-content text">dia 3</div>
+				<div class="cell-content text">
+					<div class="month-color">Agosto</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -259,7 +266,7 @@
 					<div class="popup-button button attr-m" attrm="innerHTML onclick style"></div>
 					<div class="popup-button button attr-m" attrm="innerHTML onclick style"></div>
 				</div>
-			</div>			
+			</div>
 		</div>
 		<div class="item-model">
 			<div class="item">
