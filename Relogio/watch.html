@@ -196,19 +196,19 @@
 
 	<div class="swipe solo" id="stages-lswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "stages-lswipe")' ondrop='drop(event, "stages-lswipe")'>
 		<div class="screen" id="stage1-lscreen">
-			<div class="grid scrollable" id="stage1-grid"></div>
+			<div class="grid stage-grid scrollable" id="stage1-grid"></div>
 		</div>
 		<div class="screen" id="stage2-lscreen">
-			<div class="grid scrollable" id="stage2-grid"></div>
+			<div class="grid stage-grid scrollable" id="stage2-grid"></div>
 		</div>
 		<div class="screen" id="stage3-lscreen">
-			<div class="grid scrollable" id="stage3-grid"></div>
+			<div class="grid stage-grid scrollable" id="stage3-grid"></div>
 		</div>
 	</div>
 
 	<div class="solo screen" id="act-details-lscreen">
 		<div class="act-details scrollable">
-			<div class="text notification act-name attr-m" attrm="innerHTML"></div>
+			<div class="text notification act-title attr-m" attrm="innerHTML"></div>
 			<div class="act-pic">
 				<img class="attr-m" attrm="src">
 			</div>
@@ -300,6 +300,7 @@
 		</div>
 		<div class="act-model">
 			<div class="act">
+				<div class="text act-hour attr-m" attrm="innerHTML"></div>
 				<div class="text act-name attr-m" attrm="innerHTML"></div>
 			</div>
 		</div>
