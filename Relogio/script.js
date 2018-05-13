@@ -46,7 +46,7 @@ new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
 new Screen("Lopes Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
-new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Fim", "", "Notificar", ""),
+new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", ""),
 ];
 var currentSolo;
 var currentScreen;

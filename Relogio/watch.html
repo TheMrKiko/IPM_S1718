@@ -13,15 +13,15 @@
 </head>
 
 <body onload="loadClocks(); loadScreen('lock-screen');">
-
+	
 	<div class="solo screen" id="lock-screen">
 		<div class="clock bigClock"></div>
 		<i class="material-icons button" onclick="loadScreen('main-screen')">fingerprint</i>
 	</div>
-
-
+	
+	
 	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo")' ondrop='drop(event, "main-solo")'>
-
+		<div class="swipe-arrow">></div>
 		<div class="screen" id="main-screen">
 			<div class="clock bigClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
@@ -162,7 +162,6 @@
 	</div>
 
 	<!-- APP LINEUP -->
-
 	<div class="solo screen" id="days-lscreen">
 		<div class="grid" id="days-grid">
 			<div class="cell button day" onclick="loadScreen('stage1-lscreen', 1);">
@@ -212,7 +211,7 @@
 			<div class="act-pic">
 				<img class="attr-m" attrm="src">
 			</div>
-			<div class="text notification act-description attr-m" attrm="innerHTML"></div>
+			<div class="subtext description attr-m" attrm="innerHTML"></div>
 		</div>
 	</div>
 
