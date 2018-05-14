@@ -449,7 +449,20 @@ function showActInfo(actName) {
 
 function remindAct() {
     var act = document.getElementsByClassName("act-title")[0].innerText;
-    addNotificationPopup(15 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    var actObj = findActWithName(act);
+    var mess = "\"dentro de ";
+    if (eval(document.getElementById("l-hours-thing-quant").innerHTML) > 0) {
+        mess += eval(document.getElementById("l-hours-thing-quant").innerHTML) + "h ";
+        if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
+            mess += "e ";
+        }
+    }
+    if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
+        mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + "min\"";
+    }
+    addNotificationPopup(1 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin(\"table-model\", \"notification-bar\", [\"" + actObj.img + "\"," + mess + "]);", ""]);
+    document.getElementById("l-hours-thing-quant").innerHTML = "00";
+    document.getElementById("l-minutes-thing-quant").innerHTML = "05";
     addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
 }
 
