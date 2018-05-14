@@ -16,7 +16,7 @@ new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), n
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
 //new Act(name, img, description, stage, day, hour, minute) 
-//1 - Lopes Graça, 2 - Zeca Afonso, 3 - Giacometti
+//1 - Lopes-Graça, 2 - Zeca Afonso, 3 - Giacometti
 var acts = [
 new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "", 1, "09", 19, 0),
 new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "Um músico jazz free-style é acorrentado à fama e à política, passando ao mainstream, comparado com os 'grandes' nomes do momento como Piruka e D.A.M.A. É o seu grande regresso aos palcos e ao mundo da música de jeito, agora a cantar algo mais que a 'Amar Pelos Dois', depois da operação ao coração que fez parar o país.", 1, "09", 21, 0),
@@ -24,6 +24,18 @@ new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "", 2, "09", 22
 new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, "09", 23, 0),
 new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0), 
 new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, "09", 18, 0),
+new Act("Mazgani", "", "", 1, "10", 2, 2), 
+new Act("S. Pedro", "", "", 1, "10", 2, 2), 
+new Act("Sara Tavares", "", "", 2, "10", 2, 2), 
+new Act("Mirror People", "", "", 2, "10", 2, 2), 
+new Act("10 000 Russos", "", "", 3, "10", 2, 2), 
+new Act("Linda Martini", "", "", 3, "12", 2, 2), 
+new Act("Meta", "", "", 3, "10", 2, 2), 
+new Act("Luís Severo", "", "", 1, "12", 2, 2), 
+new Act("Moonshiners", "", "", 1, "12", 2, 2), 
+new Act("Dead Combo", "", "", 2, "12", 2, 2), 
+new Act("Lena d’Água e Primeira Dama", "", "", 3, "12", 2, 2), 
+new Act("Monday", "", "", 3, "12", 2, 2), 
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
@@ -43,7 +55,7 @@ new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo);
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
 new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "0.00€", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
-new Screen("Lopes Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
+new Screen("Lopes-Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", 'loadScreen("notify-lscreen");'),

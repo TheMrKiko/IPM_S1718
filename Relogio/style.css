@@ -555,6 +555,8 @@ body {
 }
 
 .act {
+    flex: 0 0 auto;
+    max-height: fit-content;
     min-height: 25%;
     font-size: 8%;
     display: flex;
