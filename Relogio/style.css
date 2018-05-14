@@ -130,14 +130,22 @@ body {
     filter: drop-shadow(2px 1px 2px #d41eea);
 }
 
-.swipe-arrow {
-    font-size: 15%;
-    height:  100%;
-    z-index: 2;
+.swipe-indicator {
+    /* background-color: rgba(100, 148, 237, 0.479); */
+    width:  100%;
+    top: 0;
+    z-index: 1;
     display:  flex;
     align-items:  center;
-    width: 50%;
+    height: 1pt;
     position: absolute;
+}
+
+#swipe-indicator-move {
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-color: crimson;
 }
 
 /***************************** HEADER *****************************/

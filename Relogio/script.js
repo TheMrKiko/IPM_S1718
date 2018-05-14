@@ -625,6 +625,7 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
     } else if (currentScreenObj != undefined){
         nextSoloObj.prevSolo = currentScreenObj.solo;
     }
+    if (findSoloWithID(currentSolo)) findSoloWithID(currentSolo).translate = document.getElementById("swipe-indicator-move").style.transform ? document.getElementById("swipe-indicator-move").style.transform : findSoloWithID(currentSolo).translate;
     /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
         nextScreenObj.prevScreen = currentScreen;
     }*/
@@ -648,6 +649,14 @@ function loadSolo(screenID, soloID, args) {
         currentScreen = screenID;
         showSolo(soloID);
         var SsInS = findSoloWithID(soloID).screens;
+        var ind = document.getElementById("swipe-indicator-move");
+        if (SsInS.length > 1) {
+            ind.style.display = "flex";
+            ind.style.width = 100/SsInS.length + "%";
+            ind.style.transform = findSoloWithID(soloID).translate;
+        } else {
+            ind.style.display = "none";
+        }
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).drawScreen();
         }
@@ -839,10 +848,12 @@ function dragging(ev, solo) {
 
     var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = screenN * document.getElementById(currentScreen).clientWidth;
+    var ind = document.getElementById("swipe-indicator-move");
 
     if ((screenN != 0 && screenN != soloObj.screens.length - 1) || (screenN == 0 && diff < 0) || (screenN == soloObj.screens.length - 1 && diff > 0)) {
         diff -= offset;
         var string = "translateX(" + diff + "px)";
+        ind.style.transform = "translateX(" + -diff/soloObj.screens.length + "px)";
         soloEl.style.transform = string;
     }
 }
@@ -996,6 +1007,7 @@ function Solo(id, el) {
     };
     this.prevSolo;
     this.currentScreen;
+    this.translate = "translateX(0px)";
 }
 
 function Person(name, img) {
