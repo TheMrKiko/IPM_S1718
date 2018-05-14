@@ -590,6 +590,7 @@ body {
 .act-title {
     flex: 1 0 auto;
     display: flex;
+    font-size: 10%;
 }
 
 .act-pic {
@@ -604,14 +605,41 @@ body {
 }
 
 .day-number {
-  font-size: 250%;
-  color: #8DBCD0;
-  font-weight: bold;
-  margin-bottom: -95%;
+    font-size: 250%;
+    color: #8DBCD0;
+    font-weight: bold;
+    margin-bottom: -95%;
 }
 
 .month-color {
-  color: #91DBAF;
+    color: #91DBAF;
+}
+
+.act-details-date-hour {
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: row;
+    width: 90vw;
+}
+
+.act-details-date-hour div {
+    flex: 1 1 auto;
+    font-weight: bold;
+}
+
+.act-details-date-dia {
+    font-size: 120%;
+    text-align: left;
+}
+
+.act-details-date {
+    font-size: 140%;
+    text-align: left;
+}
+
+.act-details-hour {
+    font-size: 270%;
+    text-align: right;
 }
 
 /******************* CHOOSE HOURS *************************/

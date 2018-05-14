@@ -18,12 +18,12 @@ new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]
 //new Act(name, img, description, stage, day, hour, minute) 
 //1 - Lopes Graça, 2 - Zeca Afonso, 3 - Giacometti
 var acts = [
-new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "",    1, 1, 19, 0),
-new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "Um músico jazz free-style é acorrentado à fama e à política, passando ao mainstream, comparado com os 'grandes' nomes do momento como Piruka e D.A.M.A. É o seu grande regresso aos palcos e ao mundo da música de jeito, agora a cantar algo mais que a 'Amar Pelos Dois', depois da operação ao coração que fez parar o país.", 1, 1, 21, 0),
-new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "", 2, 1, 22, 0),
-new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, 1, 23, 0),
-new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, 1, 16, 0), 
-new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, 1, 18, 0),
+new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "", 1, "09", 19, 0),
+new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "Um músico jazz free-style é acorrentado à fama e à política, passando ao mainstream, comparado com os 'grandes' nomes do momento como Piruka e D.A.M.A. É o seu grande regresso aos palcos e ao mundo da música de jeito, agora a cantar algo mais que a 'Amar Pelos Dois', depois da operação ao coração que fez parar o país.", 1, "09", 21, 0),
+new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "", 2, "09", 22, 0),
+new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, "09", 23, 0),
+new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0), 
+new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, "09", 18, 0),
 ];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
@@ -444,7 +444,7 @@ function findActWithName(name) {
 function showActInfo(actName) {
     var act = findActWithName(actName);
     var screen = document.getElementsByClassName("act-details")[0];
-    setAttributes(screen, [act.name, act.img, act.description]);
+    setAttributes(screen, [act.name, act.day, timeToString(act.time[0], 24) + ":" + timeToString(act.time[1], 60), act.img, act.description]);
 }
 
 
