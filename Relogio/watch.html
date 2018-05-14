@@ -21,7 +21,6 @@
 	
 	
 	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo")' ondrop='drop(event, "main-solo")'>
-		<div class="swipe-arrow">></div>
 		<div class="screen" id="main-screen">
 			<div class="clock bigClock"></div>
 			<div class="grid scrollable" id="notification-bar"></div>
@@ -139,16 +138,16 @@
 	<div class="solo screen" id="pickup-oscreen">
 		<div class="text" id="daqui-a">daqui a:</div>
 		<div class="time-scrolls">
-			<div class="timething" id="hours-thing">
-				<div class="timething-plus" id="hours-thing-plus" onclick="changeTime('hours-thing-quant', 1)">+</div>
-				<div class="timething-quant" id="hours-thing-quant">00</div>
-				<div class="timething-minus" id="hours-thing-minus" onclick="changeTime('hours-thing-quant', -1)">-</div>
+			<div class="timething" id="o-hours-thing">
+				<div class="timething-plus" id="o-hours-thing-plus" onclick="changeTime('o-hours-thing-quant', 1)">+</div>
+				<div class="timething-quant-hours" id="o-hours-thing-quant">00</div>
+				<div class="timething-minus" id="o-hours-thing-minus" onclick="changeTime('o-hours-thing-quant', -1)">-</div>
 			</div>
 			<div class="timething-colom">:</div>
-			<div class="timething" id="minutes-thing">
-				<div class="timething-plus" id="minutes-thing-plus" onclick="changeTime('minutes-thing-quant', 5)">+</div>
-				<div class="timething-quant" id="minutes-thing-quant">05</div>
-				<div class="timething-minus" id="minutes-thing-minus" onclick="changeTime('minutes-thing-quant', -5)">-</div>
+			<div class="timething" id="o-minutes-thing">
+				<div class="timething-plus" id="o-minutes-thing-plus" onclick="changeTime('o-minutes-thing-quant', 5)">+</div>
+				<div class="timething-quant-minutes" id="o-minutes-thing-quant">05</div>
+				<div class="timething-minus" id="o-minutes-thing-minus" onclick="changeTime('o-minutes-thing-quant', -5)">-</div>
 			</div>
 		</div>
 		<div class="text">
@@ -219,6 +218,27 @@
 				<img class="attr-m" attrm="src">
 			</div>
 			<div class="subtext description attr-m" attrm="innerHTML"></div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="notify-lscreen">
+		<div class="text" id="avanco">tempo antes:</div>
+		<div class="time-scrolls">
+			<div class="timething" id="l-hours-thing">
+				<div class="timething-plus" id="l-hours-thing-plus" onclick="changeReminderTime('l-hours-thing-quant', 1)">+</div>
+				<div class="timething-quant-hours" id="l-hours-thing-quant">00</div>
+				<div class="timething-minus" id="l-hours-thing-minus" onclick="changeReminderTime('l-hours-thing-quant', -1)">-</div>
+			</div>
+			<div class="timething-colom">:</div>
+			<div class="timething" id="l-minutes-thing">
+				<div class="timething-plus" id="l-minutes-thing-plus" onclick="changeReminderTime('l-minutes-thing-quant', 5)">+</div>
+				<div class="timething-quant-minutes" id="l-minutes-thing-quant">05</div>
+				<div class="timething-minus" id="l-minutes-thing-minus" onclick="changeReminderTime('l-minutes-thing-quant', -5)">-</div>
+			</div>
+		</div>
+		<div class="text">
+			<div>Horas</div>
+			<div>Minutos</div>
 		</div>
 	</div>
 

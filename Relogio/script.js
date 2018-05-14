@@ -46,14 +46,14 @@ new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
 new Screen("Lopes Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
-new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", ""),
+new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", 'loadScreen("notify-lscreen");'),
+new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "Cancelar", "goBack();", "Agendar", "remindAct();"),
 ];
 var currentSolo;
 var currentScreen;
 var intervalVar;
 var prevScreenArgs;
 var homePressed = false;
-/*var currentSwipe;*/
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -317,22 +317,23 @@ function emptyCartCheck() {
 }
 
 function changeTime(segment, increment) {
-    if (segment == "hours-thing-quant") {
+    var segmentEl = document.getElementById(segment);
+    if (segmentEl.classList.contains("timething-quant-hours")) {
         if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 5) {
             bill.pickuptime[0] += increment;
-            document.getElementById(segment).innerHTML = "";
-            if (bill.pickuptime[0] < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += bill.pickuptime[0];
+            segmentEl.innerHTML = "";
+            if (bill.pickuptime[0] < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += bill.pickuptime[0];
         } else return true;
-    } else if (segment == "minutes-thing-quant") {
+    } else if (segmentEl.classList.contains("timething-quant-minutes")) {
         if (bill.pickuptime[1] + increment >= 0 && bill.pickuptime[1] + increment < 60) {
             bill.pickuptime[1] += increment;
-            document.getElementById(segment).innerHTML = "";
-            if (bill.pickuptime[1] < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += bill.pickuptime[1];
-        } else if (bill.pickuptime[1] + increment == 60 && !changeTime("hours-thing-quant", 1)) {
+            segmentEl.innerHTML = "";
+            if (bill.pickuptime[1] < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += bill.pickuptime[1];
+        } else if (bill.pickuptime[1] + increment == 60 && !changeTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0], 1)) {
             bill.pickuptime[1] = 0;
-            document.getElementById(segment).innerHTML = "00";
+            segmentEl.innerHTML = "00";
         }
     }
     updateTimeFooter();
@@ -355,9 +356,8 @@ function confirmOrder() {
     addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
     //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
     bill = undefined;
-    var timeThings = document.getElementsByClassName("timething-quant");
-    timeThings[0].innerHTML = "00";
-    timeThings[1].innerHTML = "05";
+    document.getElementById("o-hours-thing-quant").innerHTML = "00";
+    document.getElementById("o-minutes-thing-quant").innerHTML = "05";
 }
 
 function chooseStoreToPickUp() {
@@ -445,6 +445,32 @@ function showActInfo(actName) {
     var act = findActWithName(actName);
     var screen = document.getElementsByClassName("act-details")[0];
     setAttributes(screen, [act.name, act.day, timeToString(act.time[0], 24) + ":" + timeToString(act.time[1], 60), act.img, act.description]);
+}
+
+function remindAct() {
+    var act = document.getElementsByClassName("act-title")[0].innerText;
+    addNotificationPopup(15 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
+}
+
+function changeReminderTime(segment, increment) {
+    var segmentEl = document.getElementById(segment);
+    var val = eval(segmentEl.innerHTML) + increment;
+    if (segmentEl.classList.contains("timething-quant-hours")) {
+        if (val >= 0 && val <= 5) {
+            segmentEl.innerHTML = "";
+            if (val < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += val;
+        } else return true;
+    } else if (segmentEl.classList.contains("timething-quant-minutes")) {
+        if (val >= 0 && val < 60) {
+            segmentEl.innerHTML = "";
+            if (val < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += val;
+        } else if (val == 60 && !changeReminderTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0].id, 1)) {
+            segmentEl.innerHTML = "00";
+        }
+    }
 }
 
 

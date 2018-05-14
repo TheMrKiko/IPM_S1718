@@ -39,7 +39,7 @@ body {
 
 .swipe {
     height: 100%;
-    width: max-content;
+    /* width: max-content; */
     margin: 0;
     padding: 0;
     flex-flow: row;
@@ -435,14 +435,14 @@ body {
     filter: saturate(60%);
 }
 
-#pickup-oscreen .text {
+#pickup-oscreen .text, #notify-lscreen .text {
     flex: 1 1 auto;
     font-size: 9%;
     display: flex;
     flex-flow: row;
 }
 
-#pickup-oscreen .text div {
+#pickup-oscreen .text div, #notify-lscreen .text div {
     flex: 1 1 50%;
 }
 
@@ -689,7 +689,7 @@ body {
     margin: 0 12pt;
 }
 
-#daqui-a {
+#daqui-a, #avanco {
     padding: 0 10pt;
 }
 
