@@ -871,32 +871,45 @@ function drop(ev, solo) {
     var soloObj = findSoloWithID(solo);
     var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = - screenN * document.getElementById(currentScreen).clientWidth;
+    var screenCardinal = soloObj.screens.length;
 
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN + 1]);
         soloObj.currentScreen = currentScreen;
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+ 
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
         soloObj.currentScreen = currentScreen;
+
+        console.log(-(1 - now - then)/screenCardinal);
+        nice("swipe-indicator-move", (now - then)/screenCardinal, 0, -1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
+        console.log(-(now - then)/screenCardinal);
+        console.log(-width/screenCardinal);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, -1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+  
     } else if (now - then > 0 && 0 != screenN) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", (now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+
     }
 }
 
 /*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
 function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, interval) {
-    elem = document.getElementById(elemId);
+    var elem = document.getElementById(elemId);
     count = 0;
     var id = setInterval(function () {
-        if (pos == target) {
+        if (Math.abs(pos - target) < 0.001) {
             clearInterval(id);
         } else {
             pos += step;
-            rpos = pos + offset;
+            var rpos = pos + offset;
             elem.style[atrb] = strBefore + rpos + strAfter;
         }
         count += 0.1;
