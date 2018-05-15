@@ -59,13 +59,14 @@ new Screen("Lopes-Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", 'loadScreen("notify-lscreen");'),
-new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "Cancelar", "goBack();", "Agendar", "remindAct();"),
+new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "X", "goBack();", "20:00", "remindAct();", "✔", "remindAct();"),
 ];
 var currentSolo;
 var currentScreen;
 var intervalVar;
 var prevScreenArgs;
 var homePressed = false;
+var popup;
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -462,7 +463,7 @@ function showActInfo(actName) {
 function remindAct() {
     var act = document.getElementsByClassName("act-title")[0].innerText;
     var actObj = findActWithName(act);
-    var mess = "\"dentro de ";
+    var mess = "dentro de ";
     if (eval(document.getElementById("l-hours-thing-quant").innerHTML) > 0) {
         mess += eval(document.getElementById("l-hours-thing-quant").innerHTML) + "h ";
         if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
@@ -470,12 +471,12 @@ function remindAct() {
         }
     }
     if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
-        mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + "min\"";
+        mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + " mins";
     }
-    addNotificationPopup(1 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin(\"table-model\", \"notification-bar\", [\"" + actObj.img + "\"," + mess + "]);", ""]);
+    addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
+    addNotificationPopup(1 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin('table-model', 'notification-bar', ['" + actObj.img + "','" + mess + ".']);", ""]);
     document.getElementById("l-hours-thing-quant").innerHTML = "00";
     document.getElementById("l-minutes-thing-quant").innerHTML = "05";
-    addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
 }
 
 function changeReminderTime(segment, increment) {
@@ -738,6 +739,7 @@ function stopActPopup(action, message) {
 }
 
 function addPopup(screenID, args) {
+    removePopup();
     popup = cloneElementTo("popup-model", screenID, args);
 }
 
@@ -748,7 +750,8 @@ function addNotificationPopup(timeout, args) {
 }
 
 function removePopup() {
-    popup.parentElement.removeChild(popup);
+    if (popup != undefined) popup.parentElement.removeChild(popup);
+    popup = undefined;
 }
 
 function addMessageToSolo(soloID, message) {
