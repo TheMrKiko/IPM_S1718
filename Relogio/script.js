@@ -233,7 +233,6 @@ function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
         }
         updateProdQuant(el, prodsObjs[p].name);
     }
-    updateProdFooter();
 }
 
 function setProductsListType(prodsObjs, type, grid) {
@@ -382,10 +381,9 @@ function updateTimeFooter() {
 
 function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
-	var store = bill.store;
+	var store = bill.newstore;
     loadScreen("app-screen");
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + store + "', '" + "Loja" + "'); removePopup();", "", "Ok", "removePopup();", ""]);
-    //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + store + "', '" + "Loja" + "'); removePopup();", "", "Ok", "removePopup();", ""], "assets/apple.png", "Encomenda pronta na ", store);
     bill = undefined;
     document.getElementById("o-hours-thing-quant").innerHTML = "00";
     document.getElementById("o-minutes-thing-quant").innerHTML = "05";
@@ -424,10 +422,58 @@ function setConfirmOrderList() {
     for (var o = 0; o < bill.billitems.length; o++) {
         prodsObjs.push(findProductWithName(bill.billitems[o].name));
     }
-    bill.store = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
+    bill.newstore = bill.store == "all" ? chooseStoreToPickUp() : bill.store;
     setProducts(prodsObjs, "confirm-grid", false, true, true);
     editFooter(currentSolo, "keep", "€" + Number(bill.billprice).toFixed(2), "keep");
-    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.store +"<br>Hora: " + getFormatedPickupTime());
+    addMessageToSolo("confirm-oscreen", "Loja: "+ bill.newstore +"<br>Hora: " + getFormatedPickupTime());
+}
+
+// -------------------------- LINEUP
+
+function setActsList(day) {
+    addMessageToSolo("stages-lswipe", "Dia " + day);
+    var dayActs = filterActsInDay(acts, day);
+    setActsListStage(dayActs, 1, "stage1-grid");
+    setActsListStage(dayActs, 2, "stage2-grid");
+    setActsListStage(dayActs, 3, "stage3-grid");
+}
+
+function setActsListStage(dayActs, stage, grid) {
+    stageActs = filterActsInStage(dayActs, stage);
+    setActs(stageActs, grid);
+}
+
+function setActs(acts, grid) {
+    for (var a = 0; a < acts.length; a++) {
+        var el = cloneElementTo("act-model", grid, [acts[a].name]);
+        el.setAttribute("onclick", "loadScreen('act-details-lscreen', '" + acts[a].name + "');");
+    }
+}
+
+function filterActsInDay(acts, day) {
+    return acts.filter(function(a) {
+        if (day == a.day)
+            return true;
+    });
+}
+
+function filterActsInStage(acts, stage) {
+    return acts.filter(function(a) {
+        if (stage == a.stage)
+            return true;
+    });
+}
+
+function findActWithName(name) {
+    return acts.find(function(act) {
+        return act.name == name;
+    });
+}
+
+function showActInfo(actName) {
+    var act = findActWithName(actName);
+    var screen = document.getElementsByClassName("act-details")[0];
+    setAttributes(screen, [act.name, act.img, act.description]);
 }
 
 // -------------------------- LINEUP
@@ -517,6 +563,7 @@ function changeReminderTime(segment, increment) {
         }
     }
 }
+
 
 
 
@@ -765,9 +812,10 @@ function addPopup(screenID, args) {
     popup = cloneElementTo("popup-model", screenID, args);
 }
 
-function addNotificationPopup(timeout, args) {
+function addNotificationPopup(timeout, args, img, message, value) {
     setTimeout(function() {
         addPopup(currentScreen, args);
+		cloneElementToBegin("table-model", "notification-bar", [img, message + value + "."]);
     }, timeout);
 }
 
@@ -989,6 +1037,7 @@ function Store(name, svg) {
 
 function Bill(store) {
     this.store = store;
+	this.newstore = "";
     this.billitems = [];
     this.billcount = 0;
     this.billprice = 0;

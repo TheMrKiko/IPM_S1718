@@ -1,5 +1,11 @@
 body {
     color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 80vh;
+	overflow: hidden;
 }
 
 .device {
@@ -118,4 +124,3 @@ button {
 .homeButton i {
     padding: 0% 0;
 }
-
