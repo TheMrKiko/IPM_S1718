@@ -445,77 +445,9 @@ function setActsListStage(dayActs, stage, grid) {
 
 function setActs(acts, grid) {
     for (var a = 0; a < acts.length; a++) {
-        var el = cloneElementTo("act-model", grid, [acts[a].name]);
-        el.setAttribute("onclick", "loadScreen('act-details-lscreen', '" + acts[a].name + "');");
-    }
-}
-
-function filterActsInDay(acts, day) {
-    return acts.filter(function(a) {
-        if (day == a.day)
-            return true;
-    });
-}
-
-function filterActsInStage(acts, stage) {
-    return acts.filter(function(a) {
-        if (stage == a.stage)
-            return true;
-    });
-}
-
-function findActWithName(name) {
-    return acts.find(function(act) {
-        return act.name == name;
-    });
-}
-
-function showActInfo(actName) {
-    var act = findActWithName(actName);
-    var screen = document.getElementsByClassName("act-details")[0];
-    setAttributes(screen, [act.name, act.img, act.description]);
-}
-
-// -------------------------- LINEUP
-
-function setActsList(day) {
-    addMessageToSolo("stages-lswipe", "Dia " + day);
-    var dayActs = filterActsInDay(acts, day);
-    setActsListStage(dayActs, 1, "stage1-grid");
-    setActsListStage(dayActs, 2, "stage2-grid");
-    setActsListStage(dayActs, 3, "stage3-grid");
-}
-
-function setActsListStage(dayActs, stage, grid) {
-    stageActs = filterActsInStage(dayActs, stage);
-    setActs(stageActs, grid);
-}
-
-function setActs(acts, grid) {
-    for (var a = 0; a < acts.length; a++) {
         var el = cloneElementTo("act-model", grid, [timeToString(acts[a].time[0], 24) + ":" + timeToString(acts[a].time[1], 60), acts[a].name]);
         el.setAttribute("onclick", "loadScreen('act-details-lscreen', '" + acts[a].name + "');");
     }
-}
-
-function filterActsInDay(acts, day) {
-    return acts.filter(function(a) {
-        if (day == a.day)
-            return true;
-    });
-}
-
-function filterActsInStage(acts, stage) {
-    return acts.filter(function(a) {
-        if (stage == a.stage)
-            return true;
-    });
-}
-
-function findActWithName(name) {
-    return acts.find(function(act) {
-        return act.name == name;
-    });
 }
 
 function showActInfo(actName) {
@@ -563,9 +495,6 @@ function changeReminderTime(segment, increment) {
         }
     }
 }
-
-
-
 
 /************************************ CLONE ************************************/
 function cloneElement(classModel) {
@@ -662,6 +591,26 @@ function findBillItemWithProduct(prodName) {
         return item.name == prodName;
     }
     return bill.billitems.find(findProductItem);
+}
+
+function findActWithName(name) {
+    return acts.find(function(act) {
+        return act.name == name;
+    });
+}
+
+function filterActsInDay(acts, day) {
+    return acts.filter(function(a) {
+        if (day == a.day)
+            return true;
+    });
+}
+
+function filterActsInStage(acts, stage) {
+    return acts.filter(function(a) {
+        if (stage == a.stage)
+            return true;
+    });
 }
 
 function filterAllProductsWithType(typeName) {
