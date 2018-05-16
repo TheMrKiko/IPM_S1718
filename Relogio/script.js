@@ -166,6 +166,7 @@ function aproxPerson(personName) {
         if (person.distance < 0) {
             person.distance = 0;
             clearInterval(inte);
+            return ;
         } else if (currScreen != currentScreen) {
             clearInterval(inte);
             return ;
@@ -187,7 +188,7 @@ function arrowAnimation() {
     }
 
     intervalVar = setInterval(rotateArrow, 2000);
-    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
+    document.getElementById("arrowDirection").style.animationDelay = eval(-scountleft) + "s";
 }
 
 function arrowEnd() {
@@ -903,7 +904,7 @@ function drop(ev, solo) {
 /*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
 function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, interval) {
     var elem = document.getElementById(elemId);
-    count = 0;
+    this["scount" + atrb] = 0;
     var id = setInterval(function () {
         if (Math.abs(pos - target) < 0.001) {
             clearInterval(id);
@@ -912,7 +913,7 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
             var rpos = pos + offset;
             elem.style[atrb] = strBefore + rpos + strAfter;
         }
-        count += 0.1;
+        this["scount" + atrb] += 0.1;
     }, interval);
 }
 /* ------------------------------------------------------ */

@@ -417,7 +417,7 @@ body {
     transition-duration: 0.8s;
     transition-property: transform;
     animation: aproximar;
-    animation-duration: 25s;
+    animation-duration: 20s;
     animation-timing-function: ease-in;
     animation-fill-mode: forwards;
 }
