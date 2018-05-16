@@ -880,25 +880,21 @@ function drop(ev, solo) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN + 1]);
         soloObj.currentScreen = currentScreen;
-        nice("swipe-indicator-move", -(now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
  
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
         soloObj.currentScreen = currentScreen;
-
-        console.log(-(1 - now - then)/screenCardinal);
-        nice("swipe-indicator-move", (now - then)/screenCardinal, 0, -1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, -width/screenCardinal, -1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
 
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
-        console.log(-(now - then)/screenCardinal);
-        console.log(-width/screenCardinal);
-        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, -1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, -1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
   
     } else if (now - then > 0 && 0 != screenN) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
-        nice("swipe-indicator-move", (now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, 0, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
 
     }
 }
