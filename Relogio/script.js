@@ -691,6 +691,8 @@ function loadSolo(screenID, soloID, args) {
         var width = document.getElementById(screenID).clientWidth;
         if (screenID == "main-screen" && homePressed) {
             nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
+            nice("swipe-indicator-move", 0, -width/2, -1/2, width/2, "transform", "translateX(", "px)", 5);
+
         }
         currentScreen = screenID;
     }
