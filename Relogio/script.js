@@ -622,21 +622,13 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
     if (currentScreenObj != undefined) {
         var prevSoloObj = findSoloWithID(findSoloWithID(currentScreenObj.solo).prevSolo);
     }
-    //if (savePrev) {
     if (currentScreenObj != undefined && prevSoloObj != undefined) {
-        if (nextSoloObj.prevSolo == undefined)
+        if (nextSoloObj.prevSolo == undefined) {
             nextSoloObj.prevSolo = (prevSoloObj.id == nextSoloObj.id ? prevSoloObj.prevSolo : currentScreenObj.solo);
+        }
     } else if (currentScreenObj != undefined){
         nextSoloObj.prevSolo = currentScreenObj.solo;
     }
-    if (findSoloWithID(currentSolo)) findSoloWithID(currentSolo).translate = document.getElementById("swipe-indicator-move").style.transform ? document.getElementById("swipe-indicator-move").style.transform : findSoloWithID(currentSolo).translate;
-    /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
-        nextScreenObj.prevScreen = currentScreen;
-    }*/
-    //console.log(screenID);
-    //console.log("new: " + screenID);
-    //console.log("prev: " + nextScreenObj.prevScreen);
-    //console.log("---");
     moveScreen(screenID, args);
 }
 
@@ -652,12 +644,14 @@ function loadSolo(screenID, soloID, args) {
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
-        var SsInS = findSoloWithID(soloID).screens;
+        var soloObj = findSoloWithID(soloID);
+        var SsInS = soloObj.screens;
         var ind = document.getElementById("swipe-indicator-move");
         if (SsInS.length > 1) {
             ind.style.display = "flex";
             ind.style.width = 100/SsInS.length + "%";
-            ind.style.transform = findSoloWithID(soloID).translate;
+            ind.style.transform = "translateX(" + ind.clientWidth * SsInS.indexOf(screenID) + "px)";
+            document.getElementById(soloID).style.transform = "translateX(-" + document.getElementById(screenID).clientWidth * SsInS.indexOf(screenID) + "px)";
         } else {
             ind.style.display = "none";
         }
@@ -905,6 +899,7 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
     this["scount" + atrb] = 0;
     var id = setInterval(function () {
         if (Math.abs(pos - target) < 0.001) {
+            pos = target;
             clearInterval(id);
         } else {
             pos += step;
@@ -1022,7 +1017,6 @@ function Solo(id, el) {
     };
     this.prevSolo;
     this.currentScreen;
-    this.translate = "translateX(0px)";
 }
 
 function Person(name, img) {
@@ -1047,7 +1041,6 @@ function Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, head
     this.footarg = footarg;
     this.drawn = false;
     this.init = false;
-    this.prevScreen;
     this.keepArgs;
     this.drawScreen = function () {
         if (!this.drawn) {
