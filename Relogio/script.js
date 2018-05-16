@@ -39,6 +39,8 @@ new Act("Luís Severo", "", "", 1, "12", 21, 0),
 new Act("Dead Combo", "", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0), 
 new Act("Moonshiners", "", "Não confundir com o heavy metal dos Moonspell. Destes ninguém ouviu falar, ainda ;)", 1, "12", 23, 0), 
 ];
+
+var stages = [new Stage("Palco Lopes-Graça", 1), new Stage("Palco Zeca Afonso", 2), new Stage("Palco Giacometti", 3)];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "", "lock-screen", "lock-screen", false, false),
@@ -46,8 +48,8 @@ new Screen("Main", "main-screen", "", "addNotification", "", "main-solo", "lock-
 new Screen("App", "app-screen", "", "", "", "main-solo", "main-screen", "clock", false),
 new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", "", true, false),
 new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Mapa", "map-fscreen", "", "aproxPerson", "", "loca-fswipe", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "", "", "loca-fswipe", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
 new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
@@ -65,7 +67,6 @@ new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "X", "
 ];
 var currentSolo;
 var currentScreen;
-var intervalVar;
 var prevScreenArgs;
 var homePressed = false;
 var popup;
@@ -158,44 +159,39 @@ function shakePic() {
     }, 1500);
 }
 
+function aproxPersonEnd(person, inte, id1, id2) {
+    person.posPin[0] = parseInt(document.getElementById("pinUser").style.left);
+    person.posPin[1] = parseInt(document.getElementById("pinUser").style.top);
+    clearInterval(inte);
+    clearInterval(id1);
+    clearInterval(id2);
+}
+
 function aproxPerson(personName) {
     var person = findPersonWithName(personName);
-    var iniDist = (person.distance / 20) + 1;
-    var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person.name, person.distance + "m");
+    var iniDist = person.origdistance / 21;
+    var id1 = nice("pinUser", person.posPin[0], 20 + 7, -0.25, 0, "left", "", "%", 100);
+    var id2 = nice("pinUser", person.posPin[1], 20 + 17, -0.25, 0, "top", "", "%", 100);
+    addMessageToSolo(currentSolo, "Loja da Mónica");
+    editFooter(currentSolo, "Fim", person.name, person.distance + "m");
     var inte = setInterval(function () {
-        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
+        person.distance = parseInt(person.decimaldistance.toFixed(0));
+        person.decimaldistance -= iniDist;
         if (person.distance < 0) {
             person.distance = 0;
+            person.decimaldistance = 0;
+            person.posPin[20 + 7, 20 + 17];
             clearInterval(inte);
-            return ;
-        } else if (currScreen != currentScreen) {
-            clearInterval(inte);
+        } else if (currentSolo != "loca-fswipe") {
+            aproxPersonEnd(person, inte, id1, id2);
             return ;
         }
-        editFooter(currentScreen, "Fim", person.name, person.distance + "m");
+        editFooter(currentSolo, "Fim", person.name, person.distance + "m");
+        var degree = randomNumberGenerator(0, 360);
+        document.getElementById("arrowDirection").style.transform = "rotate(" + degree + "deg)";
     }, 1000);
 }
-
-function arrowAnimation() {
-    var limit = 8;
-    function rotateArrow() {
-        if (!limit) {
-            clearInterval(intervalVar);
-        }
-        limit--;
-        var degree = randomNumberGenerator(0, 360);
-        var arg = "rotate(" + degree + "deg)";
-        document.getElementById("arrowDirection").style.transform = arg;
-    }
-
-    intervalVar = setInterval(rotateArrow, 2000);
-    document.getElementById("arrowDirection").style.animationDelay = eval(-scountleft) + "s";
-}
-
-function arrowEnd() {
-    clearInterval(intervalVar);
-}
+    //document.getElementById("arrowDirection").style.animationDelay = eval(-scountleft) + "s";
 
 // -------------------------- ORDER
 function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
@@ -908,14 +904,9 @@ function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, inte
         }
         this["scount" + atrb] += 0.1;
     }, interval);
+    return id;
 }
 /* ------------------------------------------------------ */
-
-function pinMotion() {
-    nice("pinUser", 77, 20 + 7, -0.25, 0, "left", "", "%", 100);
-    nice("pinUser", 60, 20 + 17, -0.25, 0, "top", "", "%", 100);
-}
-
 
 /************************************ OBJETOS ************************************/
 function Notification(name, img) {
@@ -935,6 +926,13 @@ function Act(name, img, description, stage, day, hour, minute) {
     this.time = [hour, minute];
 }
 
+function Stage(name, id) {
+    this.name = name;
+    this.id = id;
+    this.distance = this.decimaldistance = this.origdistance = randomNumberGenerator(0, 300);
+    this.posPin = [77, 60];
+}
+
 function Product(name, svg, type, price, store) {
     this.name = name;
     this.svg = svg;
@@ -952,6 +950,8 @@ function Product(name, svg, type, price, store) {
 function Store(name, svg) {
     this.name = name;
     this.svg = svg;
+    this.distance = this.decimaldistance = this.origdistance = randomNumberGenerator(0, 300);
+    this.posPin = [77, 60];
 }
 
 function Bill(store) {
@@ -1023,8 +1023,12 @@ function Person(name, img) {
     this.name = name;
     this.img = img;
     this.distance;
+    this.decimaldistance;
+    this.origdistance;
+    this.posPin = [77, 60];
     this.calcDistance = function (i) {
         this.distance = randomNumberGenerator(i * 50, (i + 1) * 50);
+        this.origdistance = this.decimaldistance = this.distance;
     };
 }
 

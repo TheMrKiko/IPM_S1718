@@ -13,13 +13,14 @@
 </head>
 
 <body onload="loadClocks(); loadScreen('lock-screen');">
-	<div class="swipe-indicator"><div id="swipe-indicator-move"></div></div>
+	<div class="swipe-indicator">
+		<div id="swipe-indicator-move"></div>
+	</div>
 	<div class="solo screen" id="lock-screen">
 		<div class="clock bigClock"></div>
 		<i class="material-icons button" onclick="loadScreen('main-screen')">fingerprint</i>
 	</div>
-	
-	
+
 	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo")' ondrop='drop(event, "main-solo")'>
 		<div class="screen" id="main-screen">
 			<div class="clock bigClock"></div>
@@ -72,26 +73,22 @@
 		</div>
 	</div>
 
-	<div class="solo screen" id="map-fscreen">
-		<div class="map-festival">
-			<div class="map-festival-img"></div>
-			<div class="pin" id="pinUser">
-				<i class="fa fa-circle"></i>
-			</div>
-			<div class="pin" id="pinFriend">
-				<i class="material-icons">person_pin_circle</i>
-			</div>
-			<div class="button_icon button" id="compass_icon">
-				<img src="assets\rsz_1compass.png" onclick="loadScreen('compass-fscreen', 'prevArg');">
+	<div class="solo swipe" id="loca-fswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "loca-fswipe")' ondrop='drop(event, "loca-fswipe")'>
+		<div class="screen" id="map-fscreen">
+			<div class="map-festival">
+				<div class="map-festival-img"></div>
+				<div class="pin" id="pinUser">
+					<i class="fa fa-circle"></i>
+				</div>
+				<div class="pin" id="pinFriend">
+					<i class="material-icons">person_pin_circle</i>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="solo screen" id="compass-fscreen">
-		<div class="compass">
-			<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
-			<div class="button_icon button" id="map_icon">
-				<img src="assets\map_icon.png" onclick="loadScreen('map-fscreen', 'prevArg');">
+		<div class="screen" id="compass-fscreen">
+			<div class="compass">
+				<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
 			</div>
 		</div>
 	</div>
@@ -119,7 +116,8 @@
 		<div class="grid scrollable" id="store-grid"></div>
 	</div>
 
-	<div class="swipe solo" id="products-oswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "products-oswipe")' ondrop='drop(event, "products-oswipe")'>
+	<div class="swipe solo" id="products-oswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "products-oswipe")'
+	    ondrop='drop(event, "products-oswipe")'>
 		<div class="screen" id="drinks-oscreen">
 			<div class="grid scrollable" id="prod-drinks-grid"></div>
 		</div>
@@ -156,7 +154,7 @@
 		</div>
 	</div>
 
-  <div class="solo screen" id="confirm-oscreen">
+	<div class="solo screen" id="confirm-oscreen">
 		<div class="grid scrollable" id="confirm-grid"></div>
 	</div>
 
