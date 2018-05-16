@@ -39,6 +39,7 @@ body {
 
 .swipe {
     height: 100%;
+    /* width: max-content; */
     margin: 0;
     padding: 0;
     flex-flow: row;
@@ -59,6 +60,16 @@ body {
 .text {
     color: var(--bs-color);
     font-weight: bold;
+}
+
+.subtext {
+    color: var(--bs-bcolor);
+}
+
+.description {
+    font-size: 8%;
+    text-align: justify;
+    margin: 1px;
 }
 
 .popup {
@@ -119,6 +130,24 @@ body {
     filter: drop-shadow(2px 1px 2px #d41eea);
 }
 
+.swipe-indicator {
+    /* background-color: rgba(100, 148, 237, 0.479); */
+    width:  100%;
+    top: 0;
+    z-index: 1;
+    display:  flex;
+    align-items:  center;
+    height: 1pt;
+    position: absolute;
+}
+
+#swipe-indicator-move {
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-color: crimson;
+}
+
 /***************************** HEADER *****************************/
 
 .clock, .header {
@@ -126,7 +155,7 @@ body {
 }
 
 .header {
-    background-color: var(--header-bg-color);
+    /* background-color: var(--header-bg-color); */
     color: /*var(--bs-bcolor);*/ white;
     width: 100%;
     height: 10%;
@@ -388,7 +417,7 @@ body {
     transition-duration: 0.8s;
     transition-property: transform;
     animation: aproximar;
-    animation-duration: 25s;
+    animation-duration: 20s;
     animation-timing-function: ease-in;
     animation-fill-mode: forwards;
 }
@@ -414,14 +443,14 @@ body {
     filter: saturate(60%);
 }
 
-#pickup-oscreen .text {
+#pickup-oscreen .text, #notify-lscreen .text {
     flex: 1 1 auto;
     font-size: 9%;
     display: flex;
     flex-flow: row;
 }
 
-#pickup-oscreen .text div {
+#pickup-oscreen .text div, #notify-lscreen .text div {
     flex: 1 1 50%;
 }
 
@@ -445,8 +474,8 @@ body {
     flex: 0 0 auto;
     position: relative;
     align-items: center;
-    border-radius: 40%;
-    border: 2px solid #5A95AE;
+    border-radius: 40pt;
+    border: 2px solid var(--bs-bcolor);
     background: #f3fbff;
 }
 
@@ -529,41 +558,101 @@ body {
 	align-items: center;
 }
 
+.stage-grid {
+    flex-flow: column;
+}
+
 .act {
-    height: 45%;
-    width: 100%;
-    align-items: center;
+    flex: 0 0 auto;
+    max-height: fit-content;
+    min-height: 25%;
+    font-size: 8%;
     display: flex;
-    border: solid;
-    border-width: 1.5pt;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    border: solid 1.5pt;
     margin: 1pt;
     border-radius: 5pt;
     background-color: #5035358f;
 }
 
+.act-hour {
+    opacity: 0.9;
+    display: flex;
+    flex: 0 1 auto;
+}
+
+.act-name {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+}
+
 .act-details {
     display: flex;
+    flex: 1 1 auto;
     flex-flow: column;
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.act-name {
-    flex: 1 1 auto;
-    font-size: 12pt;
+.act-title {
+    flex: 1 0 auto;
+    display: flex;
+    font-size: 10%;
 }
 
 .act-pic {
-    display: flex;
-    flex-flow: column;
-    margin-bottom: 80pt;
+    height: auto;
+    flex: 1 0 auto;
+    width: 100%;
 }
 
 .act-pic img {
-    width: 100vw;
+    width: 100%;
+    display: block
 }
-  
+
+.day-number {
+    font-size: 250%;
+    color: #8DBCD0;
+    font-weight: bold;
+    margin-bottom: -95%;
+}
+
+.month-color {
+    color: #91DBAF;
+}
+
+.act-details-date-hour {
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: row;
+    width: 90vw;
+}
+
+.act-details-date-hour div {
+    flex: 1 1 auto;
+    font-weight: bold;
+}
+
+.act-details-date-dia {
+    font-size: 120%;
+    text-align: left;
+}
+
+.act-details-date {
+    font-size: 140%;
+    text-align: left;
+}
+
+.act-details-hour {
+    font-size: 270%;
+    text-align: right;
+}
+
 /******************* CHOOSE HOURS *************************/
 
 .time-scrolls {
@@ -611,7 +700,7 @@ body {
     margin: 0 12pt;
 }
 
-#daqui-a {
+#daqui-a, #avanco {
     padding: 0 10pt;
 }
 

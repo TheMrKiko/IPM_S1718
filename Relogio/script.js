@@ -16,15 +16,30 @@ new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), n
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
 //new Act(name, img, description, stage, day, hour, minute)
-//1-Lopes Graca, 2-zeca afonso, 3-GIACOMETTI
 var acts = [
-new Act("Salvador Sobral", "assets/artists/quartoquarto.jpg", "descrição aqui", 1, 1, 21, 0),
-new Act("Selma Uamusse", "", "",    1, 1, 19, 0),
-new Act("The Lemon Lovers", "", "", 2, 1, 22, 0),
-new Act("Slow J", "", "",           2, 1, 23, 0),
-new Act("Lince", "", "",            3, 1, 18, 0),
-new Act("Jerónimo", "", "",         3, 1, 16, 0),
+new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0),
+new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, "09", 18, 0),
+new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "Ninguém conheçe, mas é de Moçambique. Branko team?", 1, "09", 19, 0),
+new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "Um músico jazz free-style é acorrentado à fama e à política, passando ao mainstream, comparado com os 'grandes' nomes do momento como Piruka e D.A.M.A. É o seu grande regresso aos palcos e ao mundo da música de jeito, agora a cantar algo mais que a 'Amar Pelos Dois', depois da operação ao coração que fez parar o país.", 1, "09", 21, 0),
+new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "Boas críticas e boa música, mas deviam mudar de nome. Não parece nada os sons que tocam. Suaves...", 2, "09", 22, 0),
+new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, "09", 23, 0),
+
+new Act("10 000 Russos", "assets/artists/10000russos.jpg", "Não são 10 000, não são russos.", 3, "10", 18, 0),
+new Act("Meta", "assets/artists/meta.jpg", "É uma moça com sons crus e é da MPAGDP, por isso deve ser bom.", 3, "10", 19, 0),
+new Act("Mazgani", "assets/artists/mazgani.jpg", "Esteve em tour. Parece deep. Tem nome do mar.", 1, "10", 20, 0),
+new Act("S. Pedro", "assets/artists/spedro.jpg", "Não é um santo a sério, mas a sua última compilação é dos céus. Sim, porque aquilo quase nem é albúm. O rapaz disse que só pegou em canções soltas random que tinha feitas e editou. Mas boy aquilo são canções tão bonitas que ele adotar esse esquema tbh. Será que vai fazer random.org na setlist, ou vai tocar algo novo? Ele promete.", 1, "10", 21, 0),
+new Act("Mirror People", "assets/artists/mirrorpeople.jpg", "Mais outros portugueses que acharam boa ideia meter nomes em ingês. Serão bolas de disco?", 2, "10", 22, 0),
+new Act("Sara Tavares", "assets/artists/saratavares.jpg", "Sempre confundida com a Raquel Tavares, está é a mais escura mas também a com voz bonita. Foi ao Festival Eurovisão da Canção ainda há uns dias com o Branko. Acham que dá par?", 2, "10", 23, 0),
+
+new Act("Lena d’Água e Primeira Dama", "assets/artists/lenadagua.jpg", "A diva pop portuguesa que triunfou nos anos '80 está de regresso. Com as suas participações nas últimas edições do Festival RTP da Canção e na série original de Nuno Markl '1986', a autora do albúm revolucionário 'Perto de Ti' (tudo obras de arte a ver/ouvir) não mostra sinais de reforma. Desta vez aliado de um dos BFF's do Filipe Sambado, Lena e Primeira Dama, que na realidade é um moço (mas isso agora já não interessa nada), vão aliar forças e fazer o que só Deus sabe. Talvez tocar a música com os Ciclo Preparatório, isso era bom!", 3, "12", 19, 0),
+new Act("Linda Martini", "assets/artists/lindamartini.jpg", "O nome é de um quadro italiano, quem diria! Provavelmente a única banda que só tem uma rapariga e não é a vocalista nem é a que fala mais. Lançaram albúm novo e estão em todo o lado e é mexido, é atribulado. Talvez não seja o seu tipo de balada, mas as letras ficam na cabeça.", 3, "12", 20, 0),
+new Act("Luís Severo", "assets/artists/luissevero.jpg", "", 1, "12", 21, 0),
+new Act("Moonshiners", "assets/artists/moonshiners.jpg", "Não confundir com o heavy metal dos Moonspell. Destes ninguém ouviu falar, ainda ;)", 1, "12", 23, 0),
+new Act("Monday", "assets/artists/monday.jpg", "A irmã mais produtiva das Golden Slumber (a outra é da Vaarwell), aquela que tem dado de falar mais. A rapariga atua no domingo porque não à festival no dia seguinte. Ela canta, ela toca e ela é amiga do Samuel Úria. Queremos número miga!", 3, "12", 18, 0),
+new Act("Dead Combo", "assets/artists/deadcombo.jpg", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0),
 ];
+
+var stages = [new Stage("Palco Lopes-Graça", 1), new Stage("Palco Zeca Afonso", 2), new Stage("Palco Giacometti", 3)];
 var swipes = [];
 // Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, header, footer, ...footarg)
 var screens = [new Screen("Lock", "lock-screen", "", "", "", "lock-screen", "lock-screen", false, false),
@@ -32,8 +47,8 @@ new Screen("Main", "main-screen", "", "addNotification", "", "main-solo", "lock-
 new Screen("App", "app-screen", "", "", "", "main-solo", "main-screen", "clock", false),
 new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", "", true, false),
 new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "pinMotion();", "aproxPerson", "", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "arrowAnimation(); aproxPerson", "arrowEnd();", "", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Mapa", "map-fscreen", "", "aproxThing", "document.getElementById('pinUser').style.display = 'none';", "loca-fswipe", "", true, true, "Fim", 'goBack();', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "", "", "loca-fswipe", "", true, true, "Fim", 'goBack();', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
 new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
@@ -43,17 +58,17 @@ new Screen("Mochila", "cart-oscreen", "", "setCartList", "emptyGrids(this.solo);
 new Screen("Levantar", "pickup-oscreen", "", "updateTimeFooter", "", "", "", true, true, "X", "confirmCancelOrder()", getTime(), 'loadScreen("confirm-oscreen")', "✔ 0", 'loadScreen("confirm-oscreen")'),
 new Screen("Confirmar", "confirm-oscreen", "", "setConfirmOrderList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "", "", true, true, "X", "confirmCancelOrder()", "0.00€", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')", "Pagar", "stopActPopup('confirmOrder();', 'Confirma a encomenda?')"),
 new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
-new Screen("Lopes Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
+new Screen("Lopes-Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
-new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, false),
+new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", 'loadScreen("notify-lscreen");'),
+new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "X", "goBack();", "20:00", "remindAct();", "✔", "remindAct();"),
 ];
 var currentSolo;
 var currentScreen;
-var intervalVar;
 var prevScreenArgs;
 var homePressed = false;
-/*var currentSwipe;*/
+var popup;
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -143,42 +158,58 @@ function shakePic() {
     }, 1500);
 }
 
-function aproxPerson(personName) {
-    var person = findPersonWithName(personName);
-    var iniDist = (person.distance / 20) + 1;
-    var currScreen = currentScreen;
-    editFooter(currentScreen, "Fim", person.name, person.distance + "m");
-    var inte = setInterval(function () {
-        person.distance = parseInt(eval(person.distance - iniDist).toFixed(0));
-        if (person.distance < 0) {
-            person.distance = 0;
+function aproxThing(thingmix) {
+    var thingname = thingmix.split(",")[0];
+    var thingtype = thingmix.split(",")[1];
+    var thing;
+    var arrow = document.getElementById("arrowDirection");
+    switch (thingtype) {
+        case undefined:
+            arrow.style.fontSize = "60%";
+            thing = findPersonWithName(thingname);
+            break;
+        case "Loja":
+            arrow.style.fontSize = "50%";
+            thing = findStoreWithName(thingname);
+            break;
+        case "Palco":
+            arrow.style.fontSize = "50%";
+            thing = findStageWithID(thingname);
+            break;
+        default:
+            break;
+        }
+        var iniDist = thing.origdistance / 20;
+        var id1 = nice("pinUser", thing.posPin[0], 20 + 7, -0.25, 0, "left", "", "%", 100);
+        var id2 = nice("pinUser", thing.posPin[1], 20 + 17, -0.25, 0, "top", "", "%", 100);
+        document.getElementById("pinUser").style.display = "block";
+        document.getElementById("pinUser").style.left = thing.posPin[0];
+        document.getElementById("pinUser").style.top = thing.posPin[1];
+        if (thingtype) addMessageToSolo(currentSolo, thing.name);
+        editFooter(currentSolo, "Fim", !thingtype ? thing.name : thingtype, thing.distance + "m");
+        arrow.style.animationDelay = (((20*thing.distance)/thing.origdistance)-20).toFixed(0) + "s";
+        var inte = setInterval(function () {
+        thing.distance = parseInt(thing.decimaldistance.toFixed(0));
+        thing.decimaldistance -= iniDist;
+        if (thing.distance < 0) {
+            thing.distance = 0;
+            thing.decimaldistance = 0;
+            thing.posPin[20 + 7, 20 + 17];
+            removeMessageFromSolo("loca-fswipe");
             clearInterval(inte);
-        } else if (currScreen != currentScreen) {
+        } else if (currentSolo != "loca-fswipe") {
+            thing.posPin[0] = parseInt(document.getElementById("pinUser").style.left);
+            thing.posPin[1] = parseInt(document.getElementById("pinUser").style.top);
+            removeMessageFromSolo("loca-fswipe");
             clearInterval(inte);
+            clearInterval(id1);
+            clearInterval(id2);
             return ;
         }
-        editFooter(currentScreen, "Fim", person.name, person.distance + "m");
-    }, 1000);
-}
-
-function arrowAnimation() {
-    var limit = 8;
-    function rotateArrow() {
-        if (!limit) {
-            clearInterval(intervalVar);
-        }
-        limit--;
+        editFooter(currentSolo, "Fim", !thingtype ? thing.name : thingtype, thing.distance + "m");
         var degree = randomNumberGenerator(0, 360);
-        var arg = "rotate(" + degree + "deg)";
-        document.getElementById("arrowDirection").style.transform = arg;
-    }
-
-    intervalVar = setInterval(rotateArrow, 2000);
-    document.getElementById("arrowDirection").style.animationDelay = eval(-count) + "s";
-}
-
-function arrowEnd() {
-    clearInterval(intervalVar);
+        arrow.style.transform = "rotate(" + degree + "deg)";
+    }, 1000);
 }
 
 // -------------------------- ORDER
@@ -316,22 +347,23 @@ function emptyCartCheck() {
 }
 
 function changeTime(segment, increment) {
-    if (segment == "hours-thing-quant") {
+    var segmentEl = document.getElementById(segment);
+    if (segmentEl.classList.contains("timething-quant-hours")) {
         if (bill.pickuptime[0] + increment >= 0 && bill.pickuptime[0] + increment <= 5) {
             bill.pickuptime[0] += increment;
-            document.getElementById(segment).innerHTML = "";
-            if (bill.pickuptime[0] < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += bill.pickuptime[0];
+            segmentEl.innerHTML = "";
+            if (bill.pickuptime[0] < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += bill.pickuptime[0];
         } else return true;
-    } else if (segment == "minutes-thing-quant") {
+    } else if (segmentEl.classList.contains("timething-quant-minutes")) {
         if (bill.pickuptime[1] + increment >= 0 && bill.pickuptime[1] + increment < 60) {
             bill.pickuptime[1] += increment;
-            document.getElementById(segment).innerHTML = "";
-            if (bill.pickuptime[1] < 10) document.getElementById(segment).innerHTML = "0";
-            document.getElementById(segment).innerHTML += bill.pickuptime[1];
-        } else if (bill.pickuptime[1] + increment == 60 && !changeTime("hours-thing-quant", 1)) {
+            segmentEl.innerHTML = "";
+            if (bill.pickuptime[1] < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += bill.pickuptime[1];
+        } else if (bill.pickuptime[1] + increment == 60 && !changeTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0], 1)) {
             bill.pickuptime[1] = 0;
-            document.getElementById(segment).innerHTML = "00";
+            segmentEl.innerHTML = "00";
         }
     }
     updateTimeFooter();
@@ -351,12 +383,10 @@ function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
 	var store = bill.newstore;
     loadScreen("app-screen");
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""], "assets/apple.png", "Encomenda pronta na ", store);
-
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + store + "', '" + "Loja" + "'); removePopup();", "", "Ok", "removePopup();", ""], "assets/apple.png", "Encomenda pronta na ", store);
     bill = undefined;
-    var timeThings = document.getElementsByClassName("timething-quant");
-    timeThings[0].innerHTML = "00";
-    timeThings[1].innerHTML = "05";
+    document.getElementById("o-hours-thing-quant").innerHTML = "00";
+    document.getElementById("o-minutes-thing-quant").innerHTML = "05";
 }
 
 function chooseStoreToPickUp() {
@@ -446,6 +476,95 @@ function showActInfo(actName) {
     setAttributes(screen, [act.name, act.img, act.description]);
 }
 
+// -------------------------- LINEUP
+
+function setActsList(day) {
+    addMessageToSolo("stages-lswipe", "Dia " + day);
+    var dayActs = filterActsInDay(acts, day);
+    setActsListStage(dayActs, 1, "stage1-grid");
+    setActsListStage(dayActs, 2, "stage2-grid");
+    setActsListStage(dayActs, 3, "stage3-grid");
+}
+
+function setActsListStage(dayActs, stage, grid) {
+    stageActs = filterActsInStage(dayActs, stage);
+    setActs(stageActs, grid);
+}
+
+function setActs(acts, grid) {
+    for (var a = 0; a < acts.length; a++) {
+        var el = cloneElementTo("act-model", grid, [timeToString(acts[a].time[0], 24) + ":" + timeToString(acts[a].time[1], 60), acts[a].name]);
+        el.setAttribute("onclick", "loadScreen('act-details-lscreen', '" + acts[a].name + "');");
+    }
+}
+
+function filterActsInDay(acts, day) {
+    return acts.filter(function(a) {
+        if (day == a.day)
+            return true;
+    });
+}
+
+function filterActsInStage(acts, stage) {
+    return acts.filter(function(a) {
+        if (stage == a.stage)
+            return true;
+    });
+}
+
+function findActWithName(name) {
+    return acts.find(function(act) {
+        return act.name == name;
+    });
+}
+
+function showActInfo(actName) {
+    var act = findActWithName(actName);
+    var screen = document.getElementsByClassName("act-details")[0];
+    setAttributes(screen, [act.name, act.day, timeToString(act.time[0], 24) + ":" + timeToString(act.time[1], 60), act.img, act.description]);
+    document.getElementById("act-details-lscreen").getElementsByClassName("footer-button")[0].setAttribute("onclick", "loadScreen('map-fscreen', '" + act.stage + "', '" + "Palco" + "');");
+}
+
+function remindAct() {
+    var act = document.getElementsByClassName("act-title")[0].innerText;
+    var actObj = findActWithName(act);
+    var mess = "dentro de ";
+    if (eval(document.getElementById("l-hours-thing-quant").innerHTML) > 0) {
+        mess += eval(document.getElementById("l-hours-thing-quant").innerHTML) + "h ";
+        if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
+            mess += "e ";
+        }
+    }
+    if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
+        mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + " mins";
+    }
+    addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
+    addNotificationPopup(15 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin('table-model', 'notification-bar', ['" + actObj.img + "','" + mess + ".']);", ""]);
+    document.getElementById("l-hours-thing-quant").innerHTML = "00";
+    document.getElementById("l-minutes-thing-quant").innerHTML = "05";
+}
+
+function changeReminderTime(segment, increment) {
+    var segmentEl = document.getElementById(segment);
+    var val = eval(segmentEl.innerHTML) + increment;
+    if (segmentEl.classList.contains("timething-quant-hours")) {
+        if (val >= 0 && val <= 5) {
+            segmentEl.innerHTML = "";
+            if (val < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += val;
+        } else return true;
+    } else if (segmentEl.classList.contains("timething-quant-minutes")) {
+        if (val >= 0 && val < 60) {
+            segmentEl.innerHTML = "";
+            if (val < 10) segmentEl.innerHTML = "0";
+            segmentEl.innerHTML += val;
+        } else if (val == 60 && !changeReminderTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0].id, 1)) {
+            segmentEl.innerHTML = "00";
+        }
+    }
+}
+
+
 
 
 /************************************ CLONE ************************************/
@@ -531,6 +650,13 @@ function findProductWithName(prodName) {
     return products.find(findProduct);
 }
 
+function findStageWithID(stageID) {
+    function findStage(stage) {
+        return stage.id == stageID;
+    }
+    return stages.find(findStage);
+}
+
 function findBillItemWithProduct(prodName) {
     function findProductItem(item) {
         return item.name == prodName;
@@ -566,20 +692,13 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
     if (currentScreenObj != undefined) {
         var prevSoloObj = findSoloWithID(findSoloWithID(currentScreenObj.solo).prevSolo);
     }
-    //if (savePrev) {
     if (currentScreenObj != undefined && prevSoloObj != undefined) {
-        if (nextSoloObj.prevSolo == undefined)
+        if (nextSoloObj.prevSolo == undefined) {
             nextSoloObj.prevSolo = (prevSoloObj.id == nextSoloObj.id ? prevSoloObj.prevSolo : currentScreenObj.solo);
+        }
     } else if (currentScreenObj != undefined){
         nextSoloObj.prevSolo = currentScreenObj.solo;
     }
-    /*} else if (nextScreenObj.prevScreen == undefined) { //isto funciona desde que não se passe ecrans à frente!
-        nextScreenObj.prevScreen = currentScreen;
-    }*/
-    //console.log(screenID);
-    //console.log("new: " + screenID);
-    //console.log("prev: " + nextScreenObj.prevScreen);
-    //console.log("---");
     moveScreen(screenID, args);
 }
 
@@ -595,7 +714,17 @@ function loadSolo(screenID, soloID, args) {
         currentSolo = soloID;
         currentScreen = screenID;
         showSolo(soloID);
-        var SsInS = findSoloWithID(soloID).screens;
+        var soloObj = findSoloWithID(soloID);
+        var SsInS = soloObj.screens;
+        var ind = document.getElementById("swipe-indicator-move");
+        if (SsInS.length > 1) {
+            ind.style.display = "flex";
+            ind.style.width = 100/SsInS.length + "%";
+            ind.style.transform = "translateX(" + ind.clientWidth * SsInS.indexOf(screenID) + "px)";
+            document.getElementById(soloID).style.transform = "translateX(-" + document.getElementById(screenID).clientWidth * SsInS.indexOf(screenID) + "px)";
+        } else {
+            ind.style.display = "none";
+        }
         for (var s = 0; s < SsInS.length; s++) {
             findScreenWithID(SsInS[s]).drawScreen();
         }
@@ -609,6 +738,8 @@ function loadSolo(screenID, soloID, args) {
         var width = document.getElementById(screenID).clientWidth;
         if (screenID == "main-screen" && homePressed) {
             nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
+            nice("swipe-indicator-move", 0, -width/2, -1/2, width/2, "transform", "translateX(", "px)", 5);
+
         }
         currentScreen = screenID;
     }
@@ -677,6 +808,7 @@ function stopActPopup(action, message) {
 }
 
 function addPopup(screenID, args) {
+    removePopup();
     popup = cloneElementTo("popup-model", screenID, args);
 }
 
@@ -688,7 +820,8 @@ function addNotificationPopup(timeout, args, img, message, value) {
 }
 
 function removePopup() {
-    popup.parentElement.removeChild(popup);
+    if (popup != undefined) popup.parentElement.removeChild(popup);
+    popup = undefined;
 }
 
 function addMessageToSolo(soloID, message) {
@@ -780,18 +913,24 @@ function startDrag(ev) {
 function dragging(ev, solo) {
     ev.stopPropagation();
     ev.preventDefault();
-    /*var then = ev.dataTransfer.getData("Text");*/
+    var width = document.getElementById(currentScreen).clientWidth;
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
-    var now = ev.clientX;
+    now = ev.clientX;
     var diff = now - then;
 
     var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = screenN * document.getElementById(currentScreen).clientWidth;
-
+    var ind = document.getElementById("swipe-indicator-move");
     if ((screenN != 0 && screenN != soloObj.screens.length - 1) || (screenN == 0 && diff < 0) || (screenN == soloObj.screens.length - 1 && diff > 0)) {
+        if (now < 3 || now > width - 3) {
+            var simulDrop = document.createEvent("DragEvent");
+            simulDrop.initEvent("drop", false, true);
+            document.getElementById(solo).dispatchEvent(simulDrop);
+        }
         diff -= offset;
         var string = "translateX(" + diff + "px)";
+        ind.style.transform = "translateX(" + -diff/soloObj.screens.length + "px)";
         soloEl.style.transform = string;
     }
 }
@@ -799,51 +938,56 @@ function dragging(ev, solo) {
 function drop(ev, solo) {
     ev.preventDefault();
     var width = document.getElementById(currentScreen).clientWidth;
-    var now = ev.clientX;
-    var then = ev.dataTransfer.getData("Text");
+    //var now = ev.clientX; console.log(now);
+    //var now = ev.dataTransfer.getData("Text");
 
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
     var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = - screenN * document.getElementById(currentScreen).clientWidth;
+    var screenCardinal = soloObj.screens.length;
 
     if (then - now >= 40 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, -width, -1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN + 1]);
         soloObj.currentScreen = currentScreen;
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
+
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
         soloObj.currentScreen = currentScreen;
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, -width/screenCardinal, -1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
+
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, -1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
+
     } else if (now - then > 0 && 0 != screenN) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
-    }
+        nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
+
+    } else console.log("poissss");
 }
 
 /*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
 function nice(elemId, pos, target, step, offset, atrb, strBefore, strAfter, interval) {
-    elem = document.getElementById(elemId);
-    count = 0;
+    var elem = document.getElementById(elemId);
+    this["scount" + atrb] = 0;
     var id = setInterval(function () {
-        if (pos == target) {
+        if (Math.abs(pos - target) < 0.001) {
+            pos = target;
             clearInterval(id);
         } else {
             pos += step;
-            rpos = pos + offset;
+            var rpos = pos + offset;
             elem.style[atrb] = strBefore + rpos + strAfter;
         }
-        count += 0.1;
+        this["scount" + atrb] += 0.1;
     }, interval);
+    return id;
 }
 /* ------------------------------------------------------ */
-
-function pinMotion() {
-    nice("pinUser", 77, 20 + 7, -0.25, 0, "left", "", "%", 100);
-    nice("pinUser", 60, 20 + 17, -0.25, 0, "top", "", "%", 100);
-}
-
 
 /************************************ OBJETOS ************************************/
 function Notification(name, img) {
@@ -863,6 +1007,13 @@ function Act(name, img, description, stage, day, hour, minute) {
     this.time = [hour, minute];
 }
 
+function Stage(name, id) {
+    this.name = name;
+    this.id = id;
+    this.distance = this.decimaldistance = this.origdistance = randomNumberGenerator(0, 300);
+    this.posPin = [77, 60];
+}
+
 function Product(name, svg, type, price, store) {
     this.name = name;
     this.svg = svg;
@@ -880,6 +1031,8 @@ function Product(name, svg, type, price, store) {
 function Store(name, svg) {
     this.name = name;
     this.svg = svg;
+    this.distance = this.decimaldistance = this.origdistance = randomNumberGenerator(0, 300);
+    this.posPin = [77, 60];
 }
 
 function Bill(store) {
@@ -952,8 +1105,12 @@ function Person(name, img) {
     this.name = name;
     this.img = img;
     this.distance;
+    this.decimaldistance;
+    this.origdistance;
+    this.posPin = [77, 60];
     this.calcDistance = function (i) {
         this.distance = randomNumberGenerator(i * 50, (i + 1) * 50);
+        this.origdistance = this.decimaldistance = this.distance;
     };
 }
 
@@ -970,7 +1127,6 @@ function Screen(name, id, initFunc, constFuncN, exitFunc, solo, homeButton, head
     this.footarg = footarg;
     this.drawn = false;
     this.init = false;
-    this.prevScreen;
     this.keepArgs;
     this.drawScreen = function () {
         if (!this.drawn) {
