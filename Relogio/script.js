@@ -16,7 +16,6 @@ new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), n
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
 //new Act(name, img, description, stage, day, hour, minute) 
-//1 - Lopes-Graça, 2 - Zeca Afonso, 3 - Giacometti
 var acts = [
 new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0), 
 new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, "09", 18, 0),
@@ -26,18 +25,18 @@ new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "Boas críticas
 new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, "09", 23, 0),
 
 new Act("10 000 Russos", "", "Não são 10 000, não são russos.", 3, "10", 18, 0), 
-new Act("Linda Martini", "", "O nome é de um quadro italiano, quem diria! Provavelmente a única banda que só tem uma rapariga e não é a vocalista nem é a que fala mais. Lançaram albúm novo e estão em todo o lado e é mexido, é atribulado. Talvez não seja o seu tipo de balada, mas as letras ficam na cabeça.", 3, "12", 19, 0), 
+new Act("Meta", "", "É uma moça com sons crus e é da MPAGDP, por isso deve ser bom.", 3, "10", 19, 0), 
 new Act("Mazgani", "", "Esteve em tour. Parece deep. Tem nome do mar.", 1, "10", 20, 0), 
 new Act("S. Pedro", "", "Não é um santo a sério, mas a sua última compilação é dos céus. Sim, porque aquilo quase nem é albúm. O rapaz disse que só pegou em canções soltas random que tinha feitas e editou. Mas boy aquilo são canções tão bonitas que ele adotar esse esquema tbh. Será que vai fazer random.org na setlist, ou vai tocar algo novo? Ele promete.", 1, "10", 21, 0), 
 new Act("Mirror People", "", "Mais outros portugueses que acharam boa ideia meter nomes em ingês. Serão bolas de disco?", 2, "10", 22, 0), 
 new Act("Sara Tavares", "", "Sempre confundida com a Raquel Tavares, está é a mais escura mas também a com voz bonita. Foi ao Festival Eurovisão da Canção ainda há uns dias com o Branko. Acham que dá par?", 2, "10", 23, 0), 
 
-new Act("Meta", "", "É uma moça com sons crus e é da MPAGDP, por isso deve ser bom.", 3, "10", 18, 0), 
 new Act("Lena d’Água e Primeira Dama", "", "A diva pop portuguesa que triunfou nos anos '80 está de regresso. Com as suas participações nas últimas edições do Festival RTP da Canção e na série original de Nuno Markl '1986', a autora do albúm revolucionário 'Perto de Ti' (tudo obras de arte a ver/ouvir) não mostra sinais de reforma. Desta vez aliado de um dos BFF's do Filipe Sambado, Lena e Primeira Dama, que na realidade é um moço (mas isso agora já não interessa nada), vão aliar forças e fazer o que só Deus sabe. Talvez tocar a música com os Ciclo Preparatório, isso era bom!", 3, "12", 19, 0), 
-new Act("Monday", "", "A irmã mais produtiva das Golden Slumber (a outra é da Vaarwell), aquela que tem dado de falar mais. A rapariga atua no domingo porque não à festival no dia seguinte. Ela canta, ela toca e ela é amiga do Samuel Úria. Queremos número miga!", 3, "12", 20, 0), 
+new Act("Linda Martini", "", "O nome é de um quadro italiano, quem diria! Provavelmente a única banda que só tem uma rapariga e não é a vocalista nem é a que fala mais. Lançaram albúm novo e estão em todo o lado e é mexido, é atribulado. Talvez não seja o seu tipo de balada, mas as letras ficam na cabeça.", 3, "12", 20, 0), 
 new Act("Luís Severo", "", "", 1, "12", 21, 0), 
-new Act("Dead Combo", "", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0), 
 new Act("Moonshiners", "", "Não confundir com o heavy metal dos Moonspell. Destes ninguém ouviu falar, ainda ;)", 1, "12", 23, 0), 
+new Act("Monday", "", "A irmã mais produtiva das Golden Slumber (a outra é da Vaarwell), aquela que tem dado de falar mais. A rapariga atua no domingo porque não à festival no dia seguinte. Ela canta, ela toca e ela é amiga do Samuel Úria. Queremos número miga!", 3, "12", 18, 0), 
+new Act("Dead Combo", "", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0), 
 ];
 
 var stages = [new Stage("Palco Lopes-Graça", 1), new Stage("Palco Zeca Afonso", 2), new Stage("Palco Giacometti", 3)];
@@ -48,7 +47,7 @@ new Screen("Main", "main-screen", "", "addNotification", "", "main-solo", "lock-
 new Screen("App", "app-screen", "", "", "", "main-solo", "main-screen", "clock", false),
 new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", "", true, false),
 new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "", "aproxPerson", "", "loca-fswipe", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
+new Screen("Mapa", "map-fscreen", "", "aproxThing", "document.getElementById('pinUser').style.display = 'none';", "loca-fswipe", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Bússola", "compass-fscreen", "", "", "", "loca-fswipe", "", true, true, "Fim", 'loadScreen("friend-detail-fscreen")', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
@@ -159,39 +158,59 @@ function shakePic() {
     }, 1500);
 }
 
-function aproxPersonEnd(person, inte, id1, id2) {
-    person.posPin[0] = parseInt(document.getElementById("pinUser").style.left);
-    person.posPin[1] = parseInt(document.getElementById("pinUser").style.top);
-    clearInterval(inte);
-    clearInterval(id1);
-    clearInterval(id2);
-}
-
-function aproxPerson(personName) {
-    var person = findPersonWithName(personName);
-    var iniDist = person.origdistance / 21;
-    var id1 = nice("pinUser", person.posPin[0], 20 + 7, -0.25, 0, "left", "", "%", 100);
-    var id2 = nice("pinUser", person.posPin[1], 20 + 17, -0.25, 0, "top", "", "%", 100);
-    addMessageToSolo(currentSolo, "Loja da Mónica");
-    editFooter(currentSolo, "Fim", person.name, person.distance + "m");
-    var inte = setInterval(function () {
-        person.distance = parseInt(person.decimaldistance.toFixed(0));
-        person.decimaldistance -= iniDist;
-        if (person.distance < 0) {
-            person.distance = 0;
-            person.decimaldistance = 0;
-            person.posPin[20 + 7, 20 + 17];
+function aproxThing(thingmix) {
+    var thingname = thingmix.split(",")[0];
+    var thingtype = thingmix.split(",")[1];
+    var thing;
+    var arrow = document.getElementById("arrowDirection");
+    switch (thingtype) {
+        case undefined:
+            arrow.style.fontSize = "60%";
+            thing = findPersonWithName(thingname);
+            break;
+        case "Loja":
+            arrow.style.fontSize = "50%";
+            thing = findStoreWithName(thingname);
+            break;
+        case "Palco":
+            arrow.style.fontSize = "50%";
+            thing = findStageWithID(thingname);
+            break;
+        default:
+            break;
+        }
+        var iniDist = thing.origdistance / 20;
+        var id1 = nice("pinUser", thing.posPin[0], 20 + 7, -0.25, 0, "left", "", "%", 100);
+        var id2 = nice("pinUser", thing.posPin[1], 20 + 17, -0.25, 0, "top", "", "%", 100);
+        document.getElementById("pinUser").style.display = "block";
+        document.getElementById("pinUser").style.left = thing.posPin[0];
+        document.getElementById("pinUser").style.top = thing.posPin[1];
+        if (thingtype) addMessageToSolo(currentSolo, thing.name);
+        editFooter(currentSolo, "Fim", !thingtype ? thing.name : thingtype, thing.distance + "m");
+        arrow.style.animationDelay = (((20*thing.distance)/thing.origdistance)-20).toFixed(0) + "s";
+        var inte = setInterval(function () {
+        thing.distance = parseInt(thing.decimaldistance.toFixed(0));
+        thing.decimaldistance -= iniDist;
+        if (thing.distance < 0) {
+            thing.distance = 0;
+            thing.decimaldistance = 0;
+            thing.posPin[20 + 7, 20 + 17];
+            removeMessageFromSolo("loca-fswipe");
             clearInterval(inte);
         } else if (currentSolo != "loca-fswipe") {
-            aproxPersonEnd(person, inte, id1, id2);
+            thing.posPin[0] = parseInt(document.getElementById("pinUser").style.left);
+            thing.posPin[1] = parseInt(document.getElementById("pinUser").style.top);
+            removeMessageFromSolo("loca-fswipe");
+            clearInterval(inte);
+            clearInterval(id1);
+            clearInterval(id2);
             return ;
         }
-        editFooter(currentSolo, "Fim", person.name, person.distance + "m");
+        editFooter(currentSolo, "Fim", !thingtype ? thing.name : thingtype, thing.distance + "m");
         var degree = randomNumberGenerator(0, 360);
-        document.getElementById("arrowDirection").style.transform = "rotate(" + degree + "deg)";
+        arrow.style.transform = "rotate(" + degree + "deg)";
     }, 1000);
 }
-    //document.getElementById("arrowDirection").style.animationDelay = eval(-scountleft) + "s";
 
 // -------------------------- ORDER
 function setProducts(prodsObjs, grid, forceopenclose, delvsshrink, locktoggle) {
@@ -365,7 +384,7 @@ function confirmOrder() {
     var pickuptime = bill.pickuptime[0] * 1000 * 60 + (bill.pickuptime[1] + 5) * 1000;
 	var store = bill.store;
     loadScreen("app-screen");
-    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "", "", "display: none", "Ok", "removePopup();", ""]);
+    addNotificationPopup(pickuptime, ["A sua encomenda está pronta na barraca " + store + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + store + "', '" + "Loja" + "'); removePopup();", "", "Ok", "removePopup();", ""]);
     //cloneElementToBegin("table-model", "notification-bar", ["assets/food/sandwich.svg", "A sua encomenda está pronta na barraca " + store + "!"]);
     bill = undefined;
     document.getElementById("o-hours-thing-quant").innerHTML = "00";
@@ -457,6 +476,7 @@ function showActInfo(actName) {
     var act = findActWithName(actName);
     var screen = document.getElementsByClassName("act-details")[0];
     setAttributes(screen, [act.name, act.day, timeToString(act.time[0], 24) + ":" + timeToString(act.time[1], 60), act.img, act.description]);
+    document.getElementById("act-details-lscreen").getElementsByClassName("footer-button")[0].setAttribute("onclick", "loadScreen('map-fscreen', '" + act.stage + "', '" + "Palco" + "');");
 }
 
 function remindAct() {
@@ -581,6 +601,13 @@ function findProductWithName(prodName) {
         return prod.name == prodName;
     }
     return products.find(findProduct);
+}
+
+function findStageWithID(stageID) {
+    function findStage(stage) {
+        return stage.id == stageID;
+    }
+    return stages.find(findStage);
 }
 
 function findBillItemWithProduct(prodName) {
