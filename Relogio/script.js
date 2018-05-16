@@ -15,28 +15,28 @@ new Product("Bolachas", "assets/candy/bolachinhas.svg", 3, 2.60, ["Donuts do Dan
 new Product("Donuts", "assets/candy/donut2.svg", 3, 2.60, ["Donuts do Dani"]), new Product("Donuts", "assets/candy/donut3.svg", 3, 2.80, ["Donuts do Dani"]), new Product("Gelado", "assets/candy/icecream.svg", 3, 3.10, "all"), new Product("Vanilla & Chocolate", "assets/candy/icecream_2.svg", 3, 3.80, ["Donuts do Dani"]), new Product("Sorvete", "assets/candy/icecream_3.svg", 3, 1.30, "all"), new Product("Copo de Gelado", "assets/candy/icecream_4.svg", 3, 3.20, ["Donuts do Dani", "Portugália"]),
 new Product("Lollipop", "assets/candy/lollipop.svg", 3, 0.80, ["Donuts do Dani"]), new Product("Fruta", "assets/candy/melancia.svg", 3, 1.70, "all"), new Product("Panqueca", "assets/candy/pancake.svg", 3, 4.30, ["Donuts do Dani", "Portugália", "Carills"])
 ];
-//new Act(name, img, description, stage, day, hour, minute) 
+//new Act(name, img, description, stage, day, hour, minute)
 var acts = [
-new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0), 
+new Act("Jerónimo!", "assets/artists/jeronimo.jpg", "Porque 'o Bons Sons não se faz sem o pessoal de Leiria', disse o próprio diretor do festival, temos a banda experimentação dos três irmãos Jerónimo. Tendo ainda só um single, vão buscar experiência às suas barbas hipsters, ao serviço à mesa e aturamento dos bêbados no café do Hostel Altas, e ainda às bandas onde estão integrados: Few Fingers, Les Crazy Coconuts e Nice Weather For Ducks. Tbh não sabemos como têm tempo.", 3, "09", 16, 0),
 new Act("Lince", "assets/artists/lince.jpg", "A única alterna que não quis ser promovida pela Antena 3, indo à Rádio Comercial, talvez numa jogada para tentar atrair as massas e chegar a outro público. Não resultou, esse público não gosta disso. Mas até é giro, faz lembrar a Surma.", 3, "09", 18, 0),
 new Act("Selma Uamusse", "assets/artists/selmauamusse.jpg", "Ninguém conheçe, mas é de Moçambique. Branko team?", 1, "09", 19, 0),
 new Act("Salvador Sobral", "assets/artists/salvadorsobral.jpg", "Um músico jazz free-style é acorrentado à fama e à política, passando ao mainstream, comparado com os 'grandes' nomes do momento como Piruka e D.A.M.A. É o seu grande regresso aos palcos e ao mundo da música de jeito, agora a cantar algo mais que a 'Amar Pelos Dois', depois da operação ao coração que fez parar o país.", 1, "09", 21, 0),
 new Act("The Lemon Lovers", "assets/artists/thelemonlovers.jpg", "Boas críticas e boa música, mas deviam mudar de nome. Não parece nada os sons que tocam. Suaves...", 2, "09", 22, 0),
 new Act("Slow J", "assets/artists/slowj.jpg", "O mítico rapaz mulato que revolucionou o rap português, adicionando mais vocabulário às músicas do que só o típico yeah. O moço de Setúbal tão aclamado no Super Bock Super Rock que conseguiu no momento confirmação para a edição seguinte. Provavelmente o único rapper que tanto os azeiteiros como os hipsters conseguem gostar, unidor de fronteiras e quebrador de barreiras, talvez pela sua mulatês. O ídolo de todos nós!", 2, "09", 23, 0),
 
-new Act("10 000 Russos", "", "Não são 10 000, não são russos.", 3, "10", 18, 0), 
-new Act("Meta", "", "É uma moça com sons crus e é da MPAGDP, por isso deve ser bom.", 3, "10", 19, 0), 
-new Act("Mazgani", "", "Esteve em tour. Parece deep. Tem nome do mar.", 1, "10", 20, 0), 
-new Act("S. Pedro", "", "Não é um santo a sério, mas a sua última compilação é dos céus. Sim, porque aquilo quase nem é albúm. O rapaz disse que só pegou em canções soltas random que tinha feitas e editou. Mas boy aquilo são canções tão bonitas que ele adotar esse esquema tbh. Será que vai fazer random.org na setlist, ou vai tocar algo novo? Ele promete.", 1, "10", 21, 0), 
-new Act("Mirror People", "", "Mais outros portugueses que acharam boa ideia meter nomes em ingês. Serão bolas de disco?", 2, "10", 22, 0), 
-new Act("Sara Tavares", "", "Sempre confundida com a Raquel Tavares, está é a mais escura mas também a com voz bonita. Foi ao Festival Eurovisão da Canção ainda há uns dias com o Branko. Acham que dá par?", 2, "10", 23, 0), 
+new Act("10 000 Russos", "assets/artists/10000russos.jpg", "Não são 10 000, não são russos.", 3, "10", 18, 0),
+new Act("Meta", "assets/artists/meta.jpg", "É uma moça com sons crus e é da MPAGDP, por isso deve ser bom.", 3, "10", 19, 0),
+new Act("Mazgani", "assets/artists/mazgani.jpg", "Esteve em tour. Parece deep. Tem nome do mar.", 1, "10", 20, 0),
+new Act("S. Pedro", "assets/artists/spedro.jpg", "Não é um santo a sério, mas a sua última compilação é dos céus. Sim, porque aquilo quase nem é albúm. O rapaz disse que só pegou em canções soltas random que tinha feitas e editou. Mas boy aquilo são canções tão bonitas que ele adotar esse esquema tbh. Será que vai fazer random.org na setlist, ou vai tocar algo novo? Ele promete.", 1, "10", 21, 0),
+new Act("Mirror People", "assets/artists/mirrorpeople.jpg", "Mais outros portugueses que acharam boa ideia meter nomes em ingês. Serão bolas de disco?", 2, "10", 22, 0),
+new Act("Sara Tavares", "assets/artists/saratavares.jpg", "Sempre confundida com a Raquel Tavares, está é a mais escura mas também a com voz bonita. Foi ao Festival Eurovisão da Canção ainda há uns dias com o Branko. Acham que dá par?", 2, "10", 23, 0),
 
-new Act("Lena d’Água e Primeira Dama", "", "A diva pop portuguesa que triunfou nos anos '80 está de regresso. Com as suas participações nas últimas edições do Festival RTP da Canção e na série original de Nuno Markl '1986', a autora do albúm revolucionário 'Perto de Ti' (tudo obras de arte a ver/ouvir) não mostra sinais de reforma. Desta vez aliado de um dos BFF's do Filipe Sambado, Lena e Primeira Dama, que na realidade é um moço (mas isso agora já não interessa nada), vão aliar forças e fazer o que só Deus sabe. Talvez tocar a música com os Ciclo Preparatório, isso era bom!", 3, "12", 19, 0), 
-new Act("Linda Martini", "", "O nome é de um quadro italiano, quem diria! Provavelmente a única banda que só tem uma rapariga e não é a vocalista nem é a que fala mais. Lançaram albúm novo e estão em todo o lado e é mexido, é atribulado. Talvez não seja o seu tipo de balada, mas as letras ficam na cabeça.", 3, "12", 20, 0), 
-new Act("Luís Severo", "", "", 1, "12", 21, 0), 
-new Act("Moonshiners", "", "Não confundir com o heavy metal dos Moonspell. Destes ninguém ouviu falar, ainda ;)", 1, "12", 23, 0), 
-new Act("Monday", "", "A irmã mais produtiva das Golden Slumber (a outra é da Vaarwell), aquela que tem dado de falar mais. A rapariga atua no domingo porque não à festival no dia seguinte. Ela canta, ela toca e ela é amiga do Samuel Úria. Queremos número miga!", 3, "12", 18, 0), 
-new Act("Dead Combo", "", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0), 
+new Act("Lena d’Água e Primeira Dama", "assets/artists/lenadagua.jpg", "A diva pop portuguesa que triunfou nos anos '80 está de regresso. Com as suas participações nas últimas edições do Festival RTP da Canção e na série original de Nuno Markl '1986', a autora do albúm revolucionário 'Perto de Ti' (tudo obras de arte a ver/ouvir) não mostra sinais de reforma. Desta vez aliado de um dos BFF's do Filipe Sambado, Lena e Primeira Dama, que na realidade é um moço (mas isso agora já não interessa nada), vão aliar forças e fazer o que só Deus sabe. Talvez tocar a música com os Ciclo Preparatório, isso era bom!", 3, "12", 19, 0),
+new Act("Linda Martini", "assets/artists/lindamartini.jpg", "O nome é de um quadro italiano, quem diria! Provavelmente a única banda que só tem uma rapariga e não é a vocalista nem é a que fala mais. Lançaram albúm novo e estão em todo o lado e é mexido, é atribulado. Talvez não seja o seu tipo de balada, mas as letras ficam na cabeça.", 3, "12", 20, 0),
+new Act("Luís Severo", "assets/artists/luissevero.jpg", "", 1, "12", 21, 0),
+new Act("Moonshiners", "assets/artists/moonshiners.jpg", "Não confundir com o heavy metal dos Moonspell. Destes ninguém ouviu falar, ainda ;)", 1, "12", 23, 0),
+new Act("Monday", "assets/artists/monday.jpg", "A irmã mais produtiva das Golden Slumber (a outra é da Vaarwell), aquela que tem dado de falar mais. A rapariga atua no domingo porque não à festival no dia seguinte. Ela canta, ela toca e ela é amiga do Samuel Úria. Queremos número miga!", 3, "12", 18, 0),
+new Act("Dead Combo", "assets/artists/deadcombo.jpg", "Aquela banda com a música calma e a capa do albúm engraçado e uma pistola acho eu. Nem parecem portugueses mas são cá da terra. Talvez por estarem mortos, nem sei.", 2, "12", 22, 0),
 ];
 
 var stages = [new Stage("Palco Lopes-Graça", 1), new Stage("Palco Zeca Afonso", 2), new Stage("Palco Giacometti", 3)];
@@ -902,7 +902,7 @@ function drop(ev, solo) {
         loadScreen(soloObj.screens[screenN + 1]);
         soloObj.currentScreen = currentScreen;
         nice("swipe-indicator-move", -(now - then)/screenCardinal, width/screenCardinal, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
- 
+
     } else if (now - then >= 40 && 0 != screenN) {
         nice(solo, now - then, width, 1, offset, "transform", "translateX(", "px)", 5);
         loadScreen(soloObj.screens[screenN - 1]);
@@ -912,7 +912,7 @@ function drop(ev, solo) {
     } else if (then - now > 0 && soloObj.screens.length - 1 != screenN) {
         nice(solo, now - then, 0, 1, offset, "transform", "translateX(", "px)", 5);
         nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, -1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
-  
+
     } else if (now - then > 0 && 0 != screenN) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
         nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
