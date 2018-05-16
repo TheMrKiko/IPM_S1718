@@ -493,7 +493,7 @@ function remindAct() {
         mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + " mins";
     }
     addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
-    addNotificationPopup(1 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin('table-model', 'notification-bar', ['" + actObj.img + "','" + mess + ".']);", ""]);
+    addNotificationPopup(15 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin('table-model', 'notification-bar', ['" + actObj.img + "','" + mess + ".']);", ""]);
     document.getElementById("l-hours-thing-quant").innerHTML = "00";
     document.getElementById("l-minutes-thing-quant").innerHTML = "05";
 }
@@ -863,17 +863,21 @@ function startDrag(ev) {
 function dragging(ev, solo) {
     ev.stopPropagation();
     ev.preventDefault();
-    /*var then = ev.dataTransfer.getData("Text");*/
+    var width = document.getElementById(currentScreen).clientWidth;
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
-    var now = ev.clientX;
+    now = ev.clientX;
     var diff = now - then;
 
     var screenN = soloObj.screens.indexOf(currentScreen);
     var offset = screenN * document.getElementById(currentScreen).clientWidth;
     var ind = document.getElementById("swipe-indicator-move");
-
     if ((screenN != 0 && screenN != soloObj.screens.length - 1) || (screenN == 0 && diff < 0) || (screenN == soloObj.screens.length - 1 && diff > 0)) {
+        if (now < 3 || now > width - 3) {
+            var simulDrop = document.createEvent("DragEvent");
+            simulDrop.initEvent("drop", false, true);
+            document.getElementById(solo).dispatchEvent(simulDrop);
+        }
         diff -= offset;
         var string = "translateX(" + diff + "px)";
         ind.style.transform = "translateX(" + -diff/soloObj.screens.length + "px)";
@@ -884,8 +888,8 @@ function dragging(ev, solo) {
 function drop(ev, solo) {
     ev.preventDefault();
     var width = document.getElementById(currentScreen).clientWidth;
-    var now = ev.clientX;
-    var then = ev.dataTransfer.getData("Text");
+    //var now = ev.clientX; console.log(now);
+    //var now = ev.dataTransfer.getData("Text");
 
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
@@ -913,7 +917,7 @@ function drop(ev, solo) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
         nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
 
-    }
+    } else console.log("poissss");
 }
 
 /*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
