@@ -578,6 +578,7 @@ body {
 }
 
 .act-hour {
+    opacity: 0.9;
     display: flex;
     flex: 0 1 auto;
 }
