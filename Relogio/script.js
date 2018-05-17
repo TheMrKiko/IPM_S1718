@@ -655,7 +655,7 @@ function loadScreen(screenID, ...args) { //loadScreen -> moveScreen -> loadSolo 
 }
 
 function loadSolo(screenID, soloID, args) {
-    //clear and build
+    //clear and build 
     if (currentSolo != soloID) {
         if (currentSolo != undefined) {
             var SOsInS = findSoloWithID(currentSolo).screens;
@@ -691,9 +691,9 @@ function loadSolo(screenID, soloID, args) {
         if (screenID == "main-screen" && homePressed) {
             nice(soloID, 0, width, 1, -width, "transform", "translateX(", "px)", 5);
             nice("swipe-indicator-move", 0, -width/2, -1/2, width/2, "transform", "translateX(", "px)", 5);
-
         }
         currentScreen = screenID;
+        findSoloWithID(soloID).currentScreen = screenID
     }
 }
 
