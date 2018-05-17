@@ -191,7 +191,7 @@ function aproxThing(thingmix) {
         var inte = setInterval(function () {
         thing.distance = parseInt(thing.decimaldistance.toFixed(0));
         thing.decimaldistance -= iniDist;
-        if (thing.distance < 0) {
+        if (thing.distance < 0.05) {
             thing.distance = 0;
             thing.decimaldistance = 0;
             thing.posPin[20 + 7, 20 + 17];
