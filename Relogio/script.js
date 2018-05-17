@@ -47,8 +47,8 @@ new Screen("Main", "main-screen", "", "addNotification", "", "main-solo", "lock-
 new Screen("App", "app-screen", "", "", "", "main-solo", "main-screen", "clock", false),
 new Screen("Amigos", "friend-fscreen", "distancePeople(); setPeopleList();", "reSetDistance", "", "", "", true, false),
 new Screen("Contacto", "friend-detail-fscreen", "", "showPersonInfo", "", "", "", true, true, "Mapa", 'loadScreen("map-fscreen", "prevArg")', "Acenar", 'shakePic()'),
-new Screen("Mapa", "map-fscreen", "", "aproxThing", "document.getElementById('pinUser').style.display = 'none';", "loca-fswipe", "", true, true, "Fim", 'goBack();', "", "", "", ""),
-new Screen("Bússola", "compass-fscreen", "", "", "", "loca-fswipe", "", true, true, "Fim", 'goBack();', "", "", "", ""),
+new Screen("Mapa", "map-fscreen", "", "aproxThing", "document.getElementById('pinUser').style.display = 'none';", "loca-fswipe", "", true, true, "X", 'goBack();', "", "", "", ""),
+new Screen("Bússola", "compass-fscreen", "", "", "", "loca-fswipe", "", true, true, "X", 'goBack();', "", "", "", ""),
 new Screen("Escolher por", "choose-oscreen", "", "", "", "", "", true, false),
 new Screen("Barracas", "store-oscreen", "setStoresList();", "", "", "", "", true, false),
 new Screen("Bebidas", "drinks-oscreen", "", "setProductsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "products-oswipe", "", true, true, "X", "confirmCancelOrder()", "", 'loadScreen("cart-oscreen")', "✔ 0", 'loadScreen("cart-oscreen")'),
@@ -470,8 +470,11 @@ function remindAct() {
     if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) > 0) {
         mess += eval(document.getElementById("l-minutes-thing-quant").innerHTML) + " mins";
     }
+    if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) == 0 && eval(document.getElementById("l-hours-thing-quant").innerHTML) == 0) {
+        mess = "agora";
+    }
     addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
-    addNotificationPopup(15 * 1000, [act + " vai atuar em breve", "", "", "", "", "display: none", "Ok", "removePopup(); cloneElementToBegin('table-model', 'notification-bar', ['" + actObj.img + "','" + mess + ".']);", ""]);
+    addNotificationPopup(10 * 1000, [act + " vai atuar " + mess + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + actObj.stage + "', '" + "Palco" + "'); removePopup();", "", "Ok", "removePopup();", ""], actObj.img, "", mess);
     document.getElementById("l-hours-thing-quant").innerHTML = "00";
     document.getElementById("l-minutes-thing-quant").innerHTML = "05";
 }
@@ -705,7 +708,6 @@ function showSolo(soloID) {
 function moveScreen(screenID, args) {
     var screenObj = findScreenWithID(screenID);
     if (screenObj == undefined) return;
-    //screenObj.initScreen();
     loadSolo(screenID, screenObj.solo, args);
 }
 
@@ -887,9 +889,6 @@ function dragging(ev, solo) {
 function drop(ev, solo) {
     ev.preventDefault();
     var width = document.getElementById(currentScreen).clientWidth;
-    //var now = ev.clientX; console.log(now);
-    //var now = ev.dataTransfer.getData("Text");
-
     var soloEl = document.getElementById(solo);
     var soloObj = findSoloWithID(solo);
     var screenN = soloObj.screens.indexOf(currentScreen);
@@ -916,7 +915,7 @@ function drop(ev, solo) {
         nice(solo, now - then, 0, -1, offset, "transform", "translateX(", "px)", 5);
         nice("swipe-indicator-move", -(now - then)/screenCardinal, 0, 1/screenCardinal, -offset/screenCardinal, "transform", "translateX(", "px)", 5);
 
-    } else console.log("poissss");
+    }
 }
 
 /*FUNÇÃO FAVORITA DO DANIEL - NAO MEXER SEM AUTORIZAÇÃO <3*/
