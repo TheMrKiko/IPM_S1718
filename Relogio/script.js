@@ -61,8 +61,8 @@ new Screen("Dias", "days-lscreen", "", "", "", "", "", true, false),
 new Screen("Lopes-Graça", "stage1-lscreen", "", "setActsList", "emptyGrids(this.solo); removeMessageFromSolo(this.solo);", "stages-lswipe", "", true, false),
 new Screen("Zeca Afonso", "stage2-lscreen", "", "", "", "stages-lswipe", "", true, false),
 new Screen("Giacometti", "stage3-lscreen", "", "", "", "stages-lswipe", "", true, false),
-new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Notificar", 'loadScreen("notify-lscreen");'),
-new Screen("Notificar", "notify-lscreen", "", "", "", "", "", true, true, "X", "goBack();", "20:00", "remindAct();", "✔", "remindAct();"),
+new Screen("Artista", "act-details-lscreen", "", "showActInfo", "", "", "", true, true, "Mapa", "", "Avisar", 'loadScreen("notify-lscreen");'),
+new Screen("Avisar", "notify-lscreen", "", "", "", "", "", true, true, "X", "goBack();", "20:00", "remindAct();", "✔", "remindAct();"),
 ];
 var currentSolo;
 var currentScreen;
@@ -473,7 +473,7 @@ function remindAct() {
     if (eval(document.getElementById("l-minutes-thing-quant").innerHTML) == 0 && eval(document.getElementById("l-hours-thing-quant").innerHTML) == 0) {
         mess = "agora";
     }
-    addPopup(currentScreen, ["Notificação agendada!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
+    addPopup(currentScreen, ["Aviso agendado!", "", "", "", "", "display: none", "Ok", "removePopup(); goBack();", ""]);
     addNotificationPopup(10 * 1000, [act + " vai atuar " + mess + "!", "", "", "Mapa", "loadScreen('map-fscreen', '" + actObj.stage + "', '" + "Palco" + "'); removePopup();", "", "Ok", "removePopup();", ""], actObj.img, "", mess);
     document.getElementById("l-hours-thing-quant").innerHTML = "00";
     document.getElementById("l-minutes-thing-quant").innerHTML = "05";
