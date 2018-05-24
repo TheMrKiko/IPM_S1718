@@ -106,6 +106,29 @@ function addNotification() {
     cloneElementToBegin("table-model", "notification-bar", [notifications[cur].img, notifications[cur].name]);
 }
 
+function toggleFlashlight() {
+    var flashlight = document.getElementById("app4");
+    var icon = flashlight.getElementsByTagName("i")[0];
+    var solo = document.getElementById("main-solo");
+    var screen = document.getElementById("app-screen");
+    var clock = screen.getElementsByClassName("header")[0].getElementsByClassName("clock")[0];
+    if (flashlight.classList.contains("on")) {
+        flashlight.classList.remove("on");
+        icon.style.opacity = 0.5;
+        solo.style.backgroundColor = "black";
+        screen.style.backgroundColor = "black";
+        solo.style.color = "white";
+        clock.style.color = "white";
+    } else {
+        flashlight.classList.add("on");
+        icon.style.opacity = 1;
+        solo.style.backgroundColor = "white";
+        screen.style.backgroundColor = "white";
+        solo.style.color = "black";
+        clock.style.color = "black";
+    }
+}
+
 // ------------------- FRIENDS
 function setPeopleList() {
     for (var i = 0; i < people.length; i++) {

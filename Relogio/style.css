@@ -299,6 +299,10 @@ body {
     background-color: rgba(204, 204, 204, 0.651);
 }
 
+#app4 i {
+    opacity: 0.5;
+}
+
 .fa {
     flex: 1;
 }
