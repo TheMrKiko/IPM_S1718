@@ -55,23 +55,23 @@ var links = [
 	},
 	{
 		"id": "pf2b",
-		"url": "protFuncional2-beta.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pf2b/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "pf2c",
-		"url": "protFuncional2-completo.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pf2c/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "pfb",
-		"url": "protFinal-beta.html.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pfb/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "pfc",
-		"url": "protFinal-completo.html",
-		"exists": "false"
+		"url": "http://web.tecnico.ulisboa.pt/ist186416/IPM/pfc/index.html",
+		"exists": "true"
 	},
 	{
 		"id": "tc1",
