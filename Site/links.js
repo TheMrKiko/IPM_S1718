@@ -75,8 +75,8 @@ var links = [
 	},
 	{
 		"id": "tc1",
-		"url": "tarefas-criterios1.html",
-		"exists": "false"
+		"url": "../Entregas/4 - Avaliacao com os Utilizadores/Tarefas e Criterios de usabilidade.pdf",
+		"exists": "true"
 	},
 	{
 		"id": "tc2",
