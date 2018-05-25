@@ -384,7 +384,7 @@ function changeTime(segment, increment) {
             segmentEl.innerHTML = "";
             if (bill.pickuptime[1] < 10) segmentEl.innerHTML = "0";
             segmentEl.innerHTML += bill.pickuptime[1];
-        } else if (bill.pickuptime[1] + increment == 60 && !changeTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0], 1)) {
+        } else if (bill.pickuptime[1] + increment == 60 && !changeTime(segmentEl.parentElement.parentElement.getElementsByClassName("timething-quant-hours")[0].id, 1)) {
             bill.pickuptime[1] = 0;
             segmentEl.innerHTML = "00";
         }
@@ -393,9 +393,13 @@ function changeTime(segment, increment) {
 }
 
 function getFormatedPickupTime() {
+    return getFormatedTime(bill.pickuptime[1], bill.pickuptime[0]);
+}
+
+function getFormatedTime(hours, minuts) {
     var time = new Date();
-    var overflow = time.getMinutes() + bill.pickuptime[1] >= 60 ? 1 : 0;
-    return timeToString(time.getHours() + bill.pickuptime[0] + overflow, 24) + ":" + timeToString(time.getMinutes() + bill.pickuptime[1], 60);
+    var overflow = time.getMinutes() + hours >= 60 ? 1 : 0;
+    return timeToString(time.getHours() + minuts + overflow, 24) + ":" + timeToString(time.getMinutes() + hours, 60);
 }
 
 function updateTimeFooter() {
@@ -520,6 +524,8 @@ function changeReminderTime(segment, increment) {
             segmentEl.innerHTML = "00";
         }
     }
+    var time = [document.getElementById("l-hours-thing-quant").innerHTML, document.getElementById("l-minutes-thing-quant").innerHTML]
+    editFooter("notify-lscreen", "keep", getFormatedTime(eval(time[1]), eval(time[0])), "keep");
 }
 
 /************************************ CLONE ************************************/
