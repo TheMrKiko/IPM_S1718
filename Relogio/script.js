@@ -69,6 +69,7 @@ var currentScreen;
 var prevScreenArgs;
 var homePressed = false;
 var popup;
+var permitdrop = true;
 
 /************************************ CLOCK ************************************/
 function loadClocks() {
@@ -888,6 +889,7 @@ function startDrag(ev) {
     ev.dataTransfer.setDragImage(ghost, 0, 0);
     ev.dataTransfer.setData("Text", ev.clientX);
     then = ev.clientX;
+    permitdrop = true;
 }
 
 function dragging(ev, solo) {
@@ -916,6 +918,8 @@ function dragging(ev, solo) {
 }
 
 function drop(ev, solo) {
+    if (!permitdrop) return ;
+    permitdrop = false;
     ev.preventDefault();
     var width = document.getElementById(currentScreen).clientWidth;
     var soloEl = document.getElementById(solo);
