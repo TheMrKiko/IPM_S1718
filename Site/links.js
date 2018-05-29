@@ -81,12 +81,13 @@ var links = [
 	{
 		"id": "tc2",
 		"url": "tarefas-criterios2.html",
-		"exists": "false"
+		"exists": "false",
+		"notdelivered": "true"
 	},
 	{
 		"id": "rt1",
-		"url": "relatorioTestes1.html",
-		"exists": "false"
+		"url": "../Entregas/4 - Avaliacao com os Utilizadores/Relatorio da avaliacao com utilizadores.pdf",
+		"exists": "true"
 	},
 	{
 		"id": "rt2",
