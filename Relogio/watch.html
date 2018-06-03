@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>iRave</title>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+	<script type="text/javascript" src="script.js"></script>
+</head>
+
+<body onload="loadClocks(); loadScreen('lock-screen');">
+	<div class="swipe-indicator">
+		<div id="swipe-indicator-move"></div>
+	</div>
+	<div class="solo screen" id="lock-screen">
+		<div class="clock bigClock"></div>
+		<i class="material-icons button" onclick="loadScreen('main-screen')">fingerprint</i>
+	</div>
+
+	<div class="swipe solo" id="main-solo" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "main-solo")' ondrop='drop(event, "main-solo")'>
+		<div class="screen" id="main-screen">
+			<div class="clock bigClock"></div>
+			<div class="grid scrollable" id="notification-bar"></div>
+		</div>
+
+		<div class="screen" id="app-screen">
+			<div class="grid" id="appgrid">
+				<div class="cell button" id="app1" onclick="loadScreen('days-lscreen');">
+					<div class="cell-content">
+						<i class="fa fa-music fa-3x"></i>
+					</div>
+					<div class="cell-content text">Cartaz</div>
+				</div>
+				<div class="cell button" id="app2" onclick="loadScreen('friend-fscreen');">
+					<div class="cell-content">
+						<i class="material-icons">group</i>
+					</div>
+					<div class="cell-content text">Amigos</div>
+				</div>
+				<div class="cell button" id="app3" onclick="loadScreen('choose-oscreen');">
+					<div class="cell-content">
+						<i class="material-icons">restaurant</i>
+					</div>
+					<div class="cell-content text">.Encomendar</div>
+				</div>
+				<div class="cell button" id="app4" onclick="toggleFlashlight();">
+					<div class="cell-content">
+						<i class="material-icons">highlight</i>
+					</div>
+					<div class="cell-content text">Lanterna</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- APP FRIENDS -->
+	<div class="solo screen" id="friend-fscreen">
+		<div class="grid scrollable" id="gridFriends"></div>
+	</div>
+
+	<div class="solo screen" id="friend-detail-fscreen">
+		<div class="friendDetail">
+			<img class="avatar attr-m" attrm="src" src="assets/people/bill-jones-jr.jpg" id="friendToFindPic">
+			<div class="friendDetail-row">
+				<div class="text friendDetailText attr-m" attrm="innerHTML"></div>
+				<div class="text friendDetailText attr-m" attrm="innerHTML"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="solo swipe" id="loca-fswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "loca-fswipe")' ondrop='drop(event, "loca-fswipe")'>
+		<div class="screen" id="map-fscreen">
+			<div class="map-festival">
+				<div class="map-festival-img"></div>
+				<div class="pin" id="pinUser">
+					<i class="fa fa-circle"></i>
+				</div>
+				<div class="pin" id="pinFriend">
+					<i class="material-icons">person_pin_circle</i>
+				</div>
+			</div>
+		</div>
+
+		<div class="screen" id="compass-fscreen">
+			<div class="compass">
+				<i class="fa fa-chevron-circle-up" id="arrowDirection"></i>
+			</div>
+		</div>
+	</div>
+
+	<!-- APP ORDER -->
+	<div class="solo screen" id="choose-oscreen">
+		<div class="grid" id="storeprod-grid">
+			<div class="cell button storeprod" onclick="loadScreen('store-oscreen');">
+				<div class="cell-content">
+					<img src="assets\shops\store.svg">
+				</div>
+				<div class="cell-content text">Barraca</div>
+			</div>
+
+			<div class="cell button storeprod" onclick="loadScreen('drinks-oscreen', 'all');">
+				<div class="cell-content">
+					<img src="assets\food\sandwich.svg">
+				</div>
+				<div class="cell-content text">Produto</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="store-oscreen">
+		<div class="grid scrollable" id="store-grid"></div>
+	</div>
+
+	<div class="swipe solo" id="products-oswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "products-oswipe")'
+	    ondrop='drop(event, "products-oswipe")'>
+		<div class="screen" id="drinks-oscreen">
+			<div class="grid scrollable" id="prod-drinks-grid"></div>
+		</div>
+		<div class="screen" id="snacks-oscreen">
+			<div class="grid scrollable" id="prod-snacks-grid"></div>
+		</div>
+		<div class="screen" id="sweets-oscreen">
+			<div class="grid scrollable" id="prod-sweets-grid"></div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="cart-oscreen">
+		<div class="grid scrollable" id="cart-grid"></div>
+	</div>
+
+	<div class="solo screen" id="pickup-oscreen">
+		<div class="text" id="daqui-a">daqui a:</div>
+		<div class="time-scrolls">
+			<div class="timething" id="o-hours-thing">
+				<div class="timething-plus button" id="o-hours-thing-plus" onclick="changeTime('o-hours-thing-quant', 1)">+</div>
+				<div class="timething-quant-hours" id="o-hours-thing-quant">00</div>
+				<div class="timething-minus button" id="o-hours-thing-minus" onclick="changeTime('o-hours-thing-quant', -1)">-</div>
+			</div>
+			<div class="timething-colom">:</div>
+			<div class="timething" id="o-minutes-thing">
+				<div class="timething-plus button" id="o-minutes-thing-plus" onclick="changeTime('o-minutes-thing-quant', 5)">+</div>
+				<div class="timething-quant-minutes" id="o-minutes-thing-quant">05</div>
+				<div class="timething-minus button" id="o-minutes-thing-minus" onclick="changeTime('o-minutes-thing-quant', -5)">-</div>
+			</div>
+		</div>
+		<div class="text">
+			<div>Horas</div>
+			<div>Minutos</div>
+		</div>
+	</div>
+  
+  <div class="solo screen" id="confirm-oscreen">
+		<div class="grid scrollable" id="confirm-grid"></div>
+	</div>
+
+	<!-- APP LINEUP -->
+	<div class="solo screen" id="days-lscreen">
+		<div class="grid" id="days-grid">
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', '09');">
+				<div class="cell-content">
+					<div class="day-number">09</div>
+				</div>
+				<div class="cell-content">
+					<div class="month-color">agosto</div>
+				</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', '10');">
+				<div class="cell-content">
+					<div class="day-number">10</div>
+				</div>
+				<div class="cell-content">
+					<div class="month-color">agosto</div>
+				</div>
+			</div>
+
+			<div class="cell button day" onclick="loadScreen('stage1-lscreen', '11');">
+				<div class="cell-content">
+					<div class="day-number">11</div>
+				</div>
+				<div class="cell-content">
+					<div class="month-color">agosto</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="swipe solo" id="stages-lswipe" draggable="true" ondragstart="startDrag(event)" ondragover='dragging(event, "stages-lswipe")' ondrop='drop(event, "stages-lswipe")'>
+		<div class="screen" id="stage1-lscreen">
+			<div class="grid stage-grid scrollable" id="stage1-grid"></div>
+		</div>
+		<div class="screen" id="stage2-lscreen">
+			<div class="grid stage-grid scrollable" id="stage2-grid"></div>
+		</div>
+		<div class="screen" id="stage3-lscreen">
+			<div class="grid stage-grid scrollable" id="stage3-grid"></div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="act-details-lscreen">
+		<div class="act-details scrollable">
+			<div class="text notification act-title attr-m" attrm="innerHTML"></div>
+			<div class="subtext notification act-details-date-hour">
+				<div>
+					<div class="act-details-date-dia">dia</div>
+					<div class="act-details-date attr-m" attrm="innerHTML"></div>
+				</div>
+				<div class="act-details-hour attr-m" attrm="innerHTML"></div>
+			</div>
+			<div class="act-pic">
+				<img class="attr-m" attrm="src">
+			</div>
+			<div class="subtext description attr-m" attrm="innerHTML"></div>
+		</div>
+	</div>
+
+	<div class="solo screen" id="notify-lscreen">
+		<div class="text" id="avanco">tempo antes:</div>
+		<div class="time-scrolls">
+			<div class="timething" id="l-hours-thing">
+				<div class="timething-plus button" id="l-hours-thing-plus" onclick="changeReminderTime('l-hours-thing-quant', 1)">+</div>
+				<div class="timething-quant-hours" id="l-hours-thing-quant">00</div>
+				<div class="timething-minus button" id="l-hours-thing-minus" onclick="changeReminderTime('l-hours-thing-quant', -1)">-</div>
+			</div>
+			<div class="timething-colom">:</div>
+			<div class="timething" id="l-minutes-thing">
+				<div class="timething-plus button" id="l-minutes-thing-plus" onclick="changeReminderTime('l-minutes-thing-quant', 5)">+</div>
+				<div class="timething-quant-minutes" id="l-minutes-thing-quant">05</div>
+				<div class="timething-minus button" id="l-minutes-thing-minus" onclick="changeReminderTime('l-minutes-thing-quant', -5)">-</div>
+			</div>
+		</div>
+		<div class="text">
+			<div>Horas</div>
+			<div>Minutos</div>
+		</div>
+	</div>
+
+	<!-- MODELOS -->
+	<div hidden id="models">
+		<div class="table-model">
+			<table class="notification">
+				<tr>
+					<td class="notif-icon">
+						<img class="notif-avatar avatar attr-m" attrm="src">
+					</td>
+					<td class="notif-text text attr-m" attrm="innerHTML"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="person-model">
+			<div class="cell button" onclick="loadScreen('friend-detail-fscreen');">
+				<div class="cell-content">
+					<img class="avatar attr-m" attrm="src">
+				</div>
+				<div class="cell-content text attr-m" attrm="innerHTML"></div>
+				<div class="cell-content text attr-m" attrm="innerHTML"></div>
+			</div>
+		</div>
+		<div class="header-model">
+			<div class="header">
+				<div class="return-button button attr-m" attrm="style" onclick="goBack();">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<div class="screen-title button attr-m" attrm="innerHTML" onclick="goBack();"></div>
+				<div class="clock smallClock"></div>
+			</div>
+		</div>
+		<div class="footer-model-2">
+			<div class="footer">
+				<div class="footer-button button attr-m" attrm="innerHTML onclick class"></div>
+				<div class="footer-button button attr-m" attrm="innerHTML onclick class"></div>
+			</div>
+		</div>
+		<div class="footer-model-3">
+			<div class="footer">
+				<div class="footer-button button attr-m" attrm="innerHTML onclick class"></div>
+				<div class="footer-button button attr-m" attrm="innerHTML onclick class"></div>
+				<div class="footer-button button attr-m" attrm="innerHTML onclick class"></div>
+			</div>
+		</div>
+		<div class="popup-model">
+			<div class="popup">
+				<div class="popup-text attr-m" attrm="innerHTML onclick style"></div>
+				<div class="popup-buttons">
+					<div class="popup-button button attr-m" attrm="innerHTML onclick style"></div>
+					<div class="popup-button button attr-m" attrm="innerHTML onclick style"></div>
+				</div>
+			</div>
+		</div>
+		<div class="item-model">
+			<div class="item">
+				<div class="item-info button">
+					<div class="item-icon">
+						<img class="attr-m" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML"></div>
+					<div class="item-price text attr-m" attrm="innerHTML"></div>
+					<div class="item-quant-bubble attr-m" attrm="innerHTML"></div>
+				</div>
+				<div class="item-quant-editor">
+					<div class="text item-minus button">-</div>
+					<div class="text item-quant attr-m" attrm="innerHTML"></div>
+					<div class="text item-plus button">+</div>
+				</div>
+			</div>
+		</div>
+		<div class="store-model">
+			<div class="item">
+				<div class="item-info button">
+					<div class="item-icon">
+						<img class="attr-m" attrm="src">
+					</div>
+					<div class="item-text text attr-m" attrm="innerHTML"></div>
+				</div>
+			</div>
+		</div>
+		<div class="message-model">
+			<div class="message notification text attr-m" attrm="innerHTML"></div>
+		</div>
+		<div class="act-model">
+			<div class="act button">
+				<div class="text act-hour attr-m" attrm="innerHTML"></div>
+				<div class="text act-name attr-m" attrm="innerHTML"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

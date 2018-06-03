@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>iRave</title>
+	<link rel="icon" href="site/assets/dani.png" type="image/png">
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+	<div class="device">
+		<div class="sideButton" id="leftButton">
+			<button onclick='buttonPress("home");' class="homeButton"><i class="fa fa-home"></i></button>
+		</div>
+		<div class="watch">
+			<div class="content">
+				<iframe id ="frame" src="Relogio/watch.html"></iframe>
+			</div>
+		</div>
+		<div class="sideButton" id="rightButtons">
+			<button class="arrowButton" id="upButton" onclick='buttonPress("up");' onmouseover='startMTEvents("up");'  onmouseout="endMTEvents();">
+				<i class="fa fa-angle-up"></i>
+			</button>
+			<button class="arrowButton" id="downButton" onclick='buttonPress("down");' onmouseover='startMTEvents("down");' onmouseout="endMTEvents();">
+				<i class="fa fa-angle-down"></i>
+			</button>
+		</div><!--ontouchstart='startMTEvents("up");' ontouchend="endMTEvents();"-->
+	</div>
+</body>
+
+</html>
